@@ -519,6 +519,8 @@
 
             padding-top: 18px;
 
+            margin-top: 18px;
+
             display: none;
 
         }
@@ -732,9 +734,7 @@
      HEADER
 ========================= -->
 
-
 <header>
-
 
     <div class="logo">
 
@@ -766,6 +766,10 @@
             Matchmaker
         </a>
 
+        <a href="fight-result.html">
+            Results
+        </a>
+
         <a href="fighter-profile.html">
             Profiles
         </a>
@@ -779,11 +783,9 @@
 </header>
 
 
-
 <!-- =========================
      MAIN
 ========================= -->
-
 
 <main class="container">
 
@@ -800,11 +802,9 @@
     </p>
 
 
-
     <!-- =========================
          NIEUW EVENT
     ========================= -->
-
 
     <div class="card">
 
@@ -857,7 +857,7 @@
                 <input
                     id="eventLocation"
                     type="text"
-                    placeholder="Bijv. Amsterdam Arena"
+                    placeholder="Bijv. Arena"
                 >
 
             </div>
@@ -931,17 +931,14 @@
 
             </div>
 
-
         </div>
 
     </div>
 
 
-
     <!-- =========================
          EVENTS
     ========================= -->
-
 
     <div class="card">
 
@@ -961,9 +958,7 @@
 </main>
 
 
-
 <script>
-
 
 /*
 ==================================================
@@ -971,30 +966,23 @@ DATA
 ==================================================
 */
 
-
 let events =
     JSON.parse(
-        localStorage.getItem(
-            "events"
-        )
+        localStorage.getItem("events")
     ) || [];
 
 
 let fighters =
     JSON.parse(
-        localStorage.getItem(
-            "fighters"
-        )
+        localStorage.getItem("fighters")
     ) || [];
-
 
 
 /*
 ==================================================
-DATA OPSLAAN
+EVENTS OPSLAAN
 ==================================================
 */
-
 
 function saveEvents() {
 
@@ -1006,35 +994,30 @@ function saveEvents() {
 }
 
 
-
 /*
 ==================================================
-FIGHTER OPZOEKEN
+FIGHTER OPHALEN
 ==================================================
 */
-
 
 function getFighter(id) {
 
     return fighters.find(
         fighter =>
-            fighter.id == id
+            String(fighter.id) ===
+            String(id)
     );
 
 }
 
 
-
 /*
 ==================================================
-DATUM FORMATTEREN
+DATUM
 ==================================================
 */
 
-
-function formatDate(
-    date
-) {
+function formatDate(date) {
 
     if (!date) {
 
@@ -1072,27 +1055,19 @@ function formatDate(
 }
 
 
-
 /*
 ==================================================
-EVENT STATUS
+STATUS
 ==================================================
 */
 
-
-function getStatus(
-    date
-) {
-
+function getStatus(date) {
 
     if (!date) {
 
         return {
-
             text: "Geen datum",
-
             className: "past"
-
         };
 
     }
@@ -1100,7 +1075,6 @@ function getStatus(
 
     const today =
         new Date();
-
 
     today.setHours(
         0,
@@ -1121,26 +1095,19 @@ function getStatus(
     ) {
 
         return {
-
             text: "Upcoming",
-
             className: "upcoming"
-
         };
 
     }
 
 
     return {
-
         text: "Past",
-
         className: "past"
-
     };
 
 }
-
 
 
 /*
@@ -1149,53 +1116,41 @@ EVENT MAKEN
 ==================================================
 */
 
-
 function createEvent() {
-
 
     hideMessages();
 
 
     const name =
         document
-            .getElementById(
-                "eventName"
-            )
+            .getElementById("eventName")
             .value
             .trim();
 
 
     const date =
         document
-            .getElementById(
-                "eventDate"
-            )
+            .getElementById("eventDate")
             .value;
 
 
     const location =
         document
-            .getElementById(
-                "eventLocation"
-            )
+            .getElementById("eventLocation")
             .value
             .trim();
 
 
     const city =
         document
-            .getElementById(
-                "eventCity"
-            )
+            .getElementById("eventCity")
             .value
             .trim();
 
 
     const description =
         document
-            .getElementById(
-                "eventDescription"
-            )
+            .getElementById("eventDescription")
             .value
             .trim();
 
@@ -1225,11 +1180,7 @@ function createEvent() {
     const event = {
 
         id:
-            Date.now() +
-            Math.floor(
-                Math.random() *
-                10000
-            ),
+            Date.now(),
 
         name:
             name,
@@ -1255,9 +1206,7 @@ function createEvent() {
     };
 
 
-    events.push(
-        event
-    );
+    events.push(event);
 
 
     saveEvents();
@@ -1270,12 +1219,12 @@ function createEvent() {
 
 
     showSuccess(
-        event.name +
+        "✅ " +
+        name +
         " is aangemaakt!"
     );
 
 }
-
 
 
 /*
@@ -1284,14 +1233,29 @@ EVENTS WEERGEVEN
 ==================================================
 */
 
-
 function displayEvents() {
+
+    /*
+    Opnieuw uit localStorage lezen.
+    */
+
+    events =
+        JSON.parse(
+            localStorage.getItem("events")
+        ) || [];
 
 
     const list =
         document.getElementById(
             "eventList"
         );
+
+
+    if (!list) {
+
+        return;
+
+    }
 
 
     list.innerHTML = "";
@@ -1305,7 +1269,12 @@ function displayEvents() {
 
             <div class="empty">
 
-                Er zijn nog geen events.
+                📅 Nog geen events.
+
+                <br><br>
+
+                Maak hierboven je eerste
+                MMA-event.
 
             </div>
 
@@ -1316,7 +1285,7 @@ function displayEvents() {
     }
 
 
-    const sorted =
+    const sortedEvents =
         [...events].sort(
             (a, b) => {
 
@@ -1335,21 +1304,16 @@ function displayEvents() {
 
 
                 return (
-                    new Date(
-                        a.date
-                    ) -
-                    new Date(
-                        b.date
-                    )
+                    new Date(a.date) -
+                    new Date(b.date)
                 );
 
             }
         );
 
 
-    sorted.forEach(
+    sortedEvents.forEach(
         event => {
-
 
             const status =
                 getStatus(
@@ -1365,20 +1329,16 @@ function displayEvents() {
                     : [];
 
 
-            const eventId =
-                event.id;
-
-
             list.innerHTML += `
 
-                <div class="event-card">
-
+                <div
+                    class="event-card"
+                    id="event-${event.id}"
+                >
 
                     <div class="event-header">
 
-
                         <div>
-
 
                             <div class="event-name">
 
@@ -1398,20 +1358,24 @@ function displayEvents() {
 
                                 ${
                                     event.location
-                                        ? " • 📍 " +
-                                          escapeHtml(
-                                              event.location
-                                          )
-                                        : ""
+                                    ? `
+                                        • 📍
+                                        ${escapeHtml(
+                                            event.location
+                                        )}
+                                      `
+                                    : ""
                                 }
 
                                 ${
                                     event.city
-                                        ? " • " +
-                                          escapeHtml(
-                                              event.city
-                                          )
-                                        : ""
+                                    ? `
+                                        •
+                                        ${escapeHtml(
+                                            event.city
+                                        )}
+                                      `
+                                    : ""
                                 }
 
                                 <br>
@@ -1422,40 +1386,38 @@ function displayEvents() {
 
                             </div>
 
-
                         </div>
 
 
                         <span
-                            class="status
-                            ${status.className}"
+                            class="
+                                status
+                                ${status.className}
+                            "
                         >
 
                             ${status.text}
 
                         </span>
 
-
                     </div>
-
 
 
                     ${
                         event.description
-                            ? `
-                                <div
-                                    class="event-description"
-                                >
+                        ? `
+                            <div
+                                class="event-description"
+                            >
 
-                                    ${escapeHtml(
-                                        event.description
-                                    )}
+                                ${escapeHtml(
+                                    event.description
+                                )}
 
-                                </div>
-                              `
-                            : ""
+                            </div>
+                          `
+                        : ""
                     }
-
 
 
                     <div class="event-actions">
@@ -1465,7 +1427,7 @@ function displayEvents() {
                             class="small-button"
                             onclick="
                                 toggleFights(
-                                    ${eventId}
+                                    ${event.id}
                                 )
                             "
                         >
@@ -1479,7 +1441,7 @@ function displayEvents() {
                             class="small-button"
                             onclick="
                                 editEvent(
-                                    ${eventId}
+                                    ${event.id}
                                 )
                             "
                         >
@@ -1496,7 +1458,7 @@ function displayEvents() {
                             "
                             onclick="
                                 deleteEvent(
-                                    ${eventId}
+                                    ${event.id}
                                 )
                             "
                         >
@@ -1509,9 +1471,8 @@ function displayEvents() {
                     </div>
 
 
-
                     <div
-                        id="fights-${eventId}"
+                        id="fights-${event.id}"
                         class="fights"
                     ></div>
 
@@ -1526,24 +1487,25 @@ function displayEvents() {
 }
 
 
-
 /*
 ==================================================
-FIGHTS TONEN
+FIGHTS OPENEN
 ==================================================
 */
 
-
-function toggleFights(
-    eventId
-) {
-
+function toggleFights(eventId) {
 
     const box =
         document.getElementById(
-            "fights-" +
-            eventId
+            "fights-" + eventId
         );
+
+
+    if (!box) {
+
+        return;
+
+    }
 
 
     if (
@@ -1570,31 +1532,25 @@ function toggleFights(
 }
 
 
-
 /*
 ==================================================
 FIGHTS WEERGEVEN
 ==================================================
 */
 
-
-function displayFights(
-    eventId
-) {
-
+function displayFights(eventId) {
 
     const box =
         document.getElementById(
-            "fights-" +
-            eventId
+            "fights-" + eventId
         );
 
 
     const event =
         events.find(
             e =>
-                e.id ==
-                eventId
+                String(e.id) ===
+                String(eventId)
         );
 
 
@@ -1628,8 +1584,8 @@ function displayFights(
 
                 <br><br>
 
-                Gebruik de Matchmaker
-                om fights toe te voegen.
+                Voeg fights toe via
+                Matchmaker.
 
             </div>
 
@@ -1642,7 +1598,6 @@ function displayFights(
 
     fights.forEach(
         (fight, index) => {
-
 
             const fighterA =
                 getFighter(
@@ -1658,14 +1613,14 @@ function displayFights(
 
             const nameA =
                 fighterA
-                    ? fighterA.name
-                    : "Fighter A";
+                ? fighterA.name
+                : "Onbekend";
 
 
             const nameB =
                 fighterB
-                    ? fighterB.name
-                    : "Fighter B";
+                ? fighterB.name
+                : "Onbekend";
 
 
             let badges = "";
@@ -1717,7 +1672,7 @@ function displayFights(
             }
 
 
-            else if (
+            if (
                 fight.position ===
                 "Co-Main Event"
             ) {
@@ -1735,22 +1690,23 @@ function displayFights(
             }
 
 
-            let resultText = "";
+            let resultHTML = "";
 
 
             if (
                 fight.result
             ) {
 
-                let winner = "Unknown";
+                let winnerText =
+                    "Resultaat";
 
 
                 if (
-                    fight.result
-                        .winner === "A"
+                    fight.result.winner ===
+                    "A"
                 ) {
 
-                    winner =
+                    winnerText =
                         nameA +
                         " wint";
 
@@ -1758,11 +1714,11 @@ function displayFights(
 
 
                 else if (
-                    fight.result
-                        .winner === "B"
+                    fight.result.winner ===
+                    "B"
                 ) {
 
-                    winner =
+                    winnerText =
                         nameB +
                         " wint";
 
@@ -1770,43 +1726,43 @@ function displayFights(
 
 
                 else if (
-                    fight.result
-                        .winner === "DRAW"
+                    fight.result.winner ===
+                    "DRAW"
                 ) {
 
-                    winner =
+                    winnerText =
                         "Draw";
 
                 }
 
 
                 else if (
-                    fight.result
-                        .winner === "NC"
+                    fight.result.winner ===
+                    "NC"
                 ) {
 
-                    winner =
+                    winnerText =
                         "No Contest";
 
                 }
 
 
-                resultText = `
+                resultHTML = `
 
                     <div class="result">
 
                         🏆
                         ${escapeHtml(
-                            winner
+                            winnerText
                         )}
 
                         ${
                             fight.result.method
-                                ? " • " +
-                                  escapeHtml(
-                                      fight.result.method
-                                  )
-                                : ""
+                            ? " • " +
+                              escapeHtml(
+                                  fight.result.method
+                              )
+                            : ""
                         }
 
                     </div>
@@ -1820,9 +1776,7 @@ function displayFights(
 
                 <div class="fight">
 
-
                     <div class="fight-top">
-
 
                         <div class="fight-number">
 
@@ -1836,7 +1790,6 @@ function displayFights(
                             ${badges}
 
                         </div>
-
 
                     </div>
 
@@ -1868,22 +1821,12 @@ function displayFights(
                         •
 
                         ${fight.rounds || 3}
-                        Rounds
-
-                        ${
-                            fight.titleName
-                                ? " • " +
-                                  escapeHtml(
-                                      fight.titleName
-                                  )
-                                : ""
-                        }
+                        rondes
 
                     </div>
 
 
-                    ${resultText}
-
+                    ${resultHTML}
 
                 </div>
 
@@ -1895,24 +1838,19 @@ function displayFights(
 }
 
 
-
 /*
 ==================================================
 EVENT BEWERKEN
 ==================================================
 */
 
-
-function editEvent(
-    eventId
-) {
-
+function editEvent(eventId) {
 
     const event =
         events.find(
             e =>
-                e.id ==
-                eventId
+                String(e.id) ===
+                String(eventId)
         );
 
 
@@ -1923,7 +1861,7 @@ function editEvent(
     }
 
 
-    const newName =
+    const name =
         prompt(
             "Eventnaam:",
             event.name || ""
@@ -1931,7 +1869,7 @@ function editEvent(
 
 
     if (
-        newName === null
+        name === null
     ) {
 
         return;
@@ -1939,7 +1877,20 @@ function editEvent(
     }
 
 
-    const newDate =
+    if (
+        !name.trim()
+    ) {
+
+        alert(
+            "Eventnaam mag niet leeg zijn."
+        );
+
+        return;
+
+    }
+
+
+    const date =
         prompt(
             "Datum (YYYY-MM-DD):",
             event.date || ""
@@ -1947,7 +1898,7 @@ function editEvent(
 
 
     if (
-        newDate === null
+        date === null
     ) {
 
         return;
@@ -1955,7 +1906,7 @@ function editEvent(
     }
 
 
-    const newLocation =
+    const location =
         prompt(
             "Locatie:",
             event.location || ""
@@ -1963,7 +1914,7 @@ function editEvent(
 
 
     if (
-        newLocation === null
+        location === null
     ) {
 
         return;
@@ -1971,7 +1922,7 @@ function editEvent(
     }
 
 
-    const newCity =
+    const city =
         prompt(
             "Stad / Land:",
             event.city || ""
@@ -1979,7 +1930,7 @@ function editEvent(
 
 
     if (
-        newCity === null
+        city === null
     ) {
 
         return;
@@ -1987,7 +1938,7 @@ function editEvent(
     }
 
 
-    const newDescription =
+    const description =
         prompt(
             "Beschrijving:",
             event.description || ""
@@ -1995,21 +1946,8 @@ function editEvent(
 
 
     if (
-        newDescription === null
+        description === null
     ) {
-
-        return;
-
-    }
-
-
-    if (
-        !newName.trim()
-    ) {
-
-        alert(
-            "De eventnaam mag niet leeg zijn."
-        );
 
         return;
 
@@ -2017,23 +1955,23 @@ function editEvent(
 
 
     event.name =
-        newName.trim();
+        name.trim();
 
 
     event.date =
-        newDate.trim();
+        date.trim();
 
 
     event.location =
-        newLocation.trim();
+        location.trim();
 
 
     event.city =
-        newCity.trim();
+        city.trim();
 
 
     event.description =
-        newDescription.trim();
+        description.trim();
 
 
     saveEvents();
@@ -2041,8 +1979,12 @@ function editEvent(
 
     displayEvents();
 
-}
 
+    showSuccess(
+        "✅ Event aangepast!"
+    );
+
+}
 
 
 /*
@@ -2051,17 +1993,13 @@ EVENT VERWIJDEREN
 ==================================================
 */
 
-
-function deleteEvent(
-    eventId
-) {
-
+function deleteEvent(eventId) {
 
     const event =
         events.find(
             e =>
-                e.id ==
-                eventId
+                String(e.id) ===
+                String(eventId)
         );
 
 
@@ -2072,33 +2010,11 @@ function deleteEvent(
     }
 
 
-    const fights =
-        Array.isArray(
-            event.fights
-        )
-            ? event.fights.length
-            : 0;
-
-
-    let message =
-        "Weet je zeker dat je " +
-        event.name +
-        " wilt verwijderen?";
-
-
-    if (fights > 0) {
-
-        message +=
-            "\n\nDit event heeft " +
-            fights +
-            " fight(s). Deze worden ook verwijderd.";
-
-    }
-
-
     const confirmed =
         confirm(
-            message
+            "Weet je zeker dat je '" +
+            event.name +
+            "' wilt verwijderen?"
         );
 
 
@@ -2112,8 +2028,8 @@ function deleteEvent(
     events =
         events.filter(
             e =>
-                e.id !=
-                eventId
+                String(e.id) !==
+                String(eventId)
         );
 
 
@@ -2124,11 +2040,10 @@ function deleteEvent(
 
 
     showSuccess(
-        "Event verwijderd."
+        "🗑️ Event verwijderd."
     );
 
 }
-
 
 
 /*
@@ -2137,9 +2052,7 @@ FORMULIER WISSEN
 ==================================================
 */
 
-
 function clearForm() {
-
 
     document.getElementById(
         "eventName"
@@ -2168,16 +2081,13 @@ function clearForm() {
 }
 
 
-
 /*
 ==================================================
 MESSAGES
 ==================================================
 */
 
-
 function hideMessages() {
-
 
     document.getElementById(
         "success"
@@ -2193,11 +2103,7 @@ function hideMessages() {
 }
 
 
-
-function showSuccess(
-    message
-) {
-
+function showSuccess(message) {
 
     const box =
         document.getElementById(
@@ -2226,11 +2132,7 @@ function showSuccess(
 }
 
 
-
-function showError(
-    message
-) {
-
+function showError(message) {
 
     const box =
         document.getElementById(
@@ -2248,18 +2150,13 @@ function showError(
 }
 
 
-
 /*
 ==================================================
-VEILIGE TEKST
+VEILIGE HTML
 ==================================================
 */
 
-
-function escapeHtml(
-    text
-) {
-
+function escapeHtml(text) {
 
     if (
         text === null ||
@@ -2301,18 +2198,15 @@ function escapeHtml(
 }
 
 
-
 /*
 ==================================================
 START
 ==================================================
 */
 
-
 displayEvents();
 
 </script>
-
 
 </body>
 
