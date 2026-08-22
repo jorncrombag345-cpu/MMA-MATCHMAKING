@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Fight Result - MMA Matchmaker</title>
 
@@ -89,6 +95,12 @@
             border-radius: 6px;
 
             font-size: 15px;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: #e10600;
         }
 
         .fight-preview {
@@ -213,6 +225,94 @@
             text-align: center;
         }
 
+        .error {
+            display: none;
+
+            background: #3a1111;
+
+            border: 1px solid #722020;
+
+            color: #ff8b8b;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin-top: 20px;
+
+            text-align: center;
+        }
+
+        .record-preview {
+            margin-top: 20px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+        }
+
+        .record-box {
+            background: #101010;
+
+            border: 1px solid #333;
+
+            border-radius: 8px;
+
+            padding: 18px;
+
+            text-align: center;
+        }
+
+        .record-box h3 {
+            margin-bottom: 12px;
+        }
+
+        .record-number {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .record-label {
+            color: #777;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .stat-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin-top: 15px;
+        }
+
+        .stat {
+            background: #191919;
+
+            border-radius: 6px;
+
+            padding: 12px;
+
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+
+            font-size: 20px;
+        }
+
+        .stat span {
+            color: #777;
+
+            font-size: 11px;
+        }
+
         @media (max-width: 700px) {
 
             header {
@@ -239,6 +339,14 @@
 
             .winner-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .record-preview {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
         }
@@ -295,7 +403,7 @@
     </h1>
 
     <p class="subtitle">
-        Bepaal zelf de uitslag van een gevecht.
+        Bepaal de officiële uitslag van een gevecht.
     </p>
 
 
@@ -351,8 +459,7 @@
             <div
                 id="fightInfo"
                 class="fight-info"
-            >
-            </div>
+            ></div>
 
         </div>
 
@@ -420,35 +527,35 @@
                         Kies methode
                     </option>
 
-                    <option>
+                    <option value="KO">
                         KO
                     </option>
 
-                    <option>
+                    <option value="TKO">
                         TKO
                     </option>
 
-                    <option>
+                    <option value="Submission">
                         Submission
                     </option>
 
-                    <option>
+                    <option value="Unanimous Decision">
                         Unanimous Decision
                     </option>
 
-                    <option>
+                    <option value="Split Decision">
                         Split Decision
                     </option>
 
-                    <option>
+                    <option value="Majority Decision">
                         Majority Decision
                     </option>
 
-                    <option>
+                    <option value="Technical Decision">
                         Technical Decision
                     </option>
 
-                    <option>
+                    <option value="Disqualification">
                         Disqualification
                     </option>
 
@@ -508,6 +615,13 @@
         </div>
 
 
+        <div
+            id="recordPreview"
+            class="record-preview"
+            style="display:none;"
+        ></div>
+
+
         <button
             class="button"
             onclick="saveResult()"
@@ -521,16 +635,18 @@
         <div
             id="success"
             class="success"
-        >
+        ></div>
 
-            Uitslag opgeslagen! 🔥
 
-        </div>
+        <div
+            id="error"
+            class="error"
+        ></div>
 
     </div>
 
 
-    <!-- OPGESLAGEN RESULTATEN -->
+    <!-- RESULTATEN -->
 
     <div class="card">
 
@@ -547,7 +663,6 @@
 
 
 <script>
-
 
 /*
 ==================================================
@@ -572,6 +687,27 @@ let selectedFight = null;
 
 /*
 ==================================================
+DATA OPNIEUW INLADEN
+==================================================
+*/
+
+function reloadData() {
+
+    fighters =
+        JSON.parse(
+            localStorage.getItem("fighters")
+        ) || [];
+
+    events =
+        JSON.parse(
+            localStorage.getItem("events")
+        ) || [];
+
+}
+
+
+/*
+==================================================
 OPSLAAN
 ==================================================
 */
@@ -581,6 +717,16 @@ function saveEvents() {
     localStorage.setItem(
         "events",
         JSON.stringify(events)
+    );
+
+}
+
+
+function saveFighters() {
+
+    localStorage.setItem(
+        "fighters",
+        JSON.stringify(fighters)
     );
 
 }
@@ -596,7 +742,8 @@ function getFighter(id) {
 
     return fighters.find(
         fighter =>
-            fighter.id == id
+            String(fighter.id) ===
+            String(id)
     );
 
 }
@@ -604,7 +751,112 @@ function getFighter(id) {
 
 /*
 ==================================================
-FIGHT NAAM
+RECORD STRUCTUUR
+==================================================
+*/
+
+function ensureRecord(fighter) {
+
+    if (!fighter.record) {
+
+        fighter.record = {};
+
+    }
+
+
+    fighter.record.wins =
+        Number(
+            fighter.record.wins || 0
+        );
+
+
+    fighter.record.losses =
+        Number(
+            fighter.record.losses || 0
+        );
+
+
+    fighter.record.draws =
+        Number(
+            fighter.record.draws || 0
+        );
+
+
+    fighter.record.noContests =
+        Number(
+            fighter.record.noContests || 0
+        );
+
+
+    fighter.record.ko =
+        Number(
+            fighter.record.ko ||
+            fighter.record.KO ||
+            0
+        );
+
+
+    fighter.record.tko =
+        Number(
+            fighter.record.tko ||
+            fighter.record.TKO ||
+            0
+        );
+
+
+    fighter.record.submissions =
+        Number(
+            fighter.record.submissions ||
+            0
+        );
+
+
+    fighter.record.decisions =
+        Number(
+            fighter.record.decisions ||
+            0
+        );
+
+
+    fighter.record.disqualifications =
+        Number(
+            fighter.record.disqualifications ||
+            0
+        );
+
+}
+
+
+/*
+==================================================
+RANKING STRUCTUUR
+==================================================
+*/
+
+function ensureRanking(fighter) {
+
+    if (
+        fighter.ranking === undefined ||
+        fighter.ranking === null ||
+        fighter.ranking === ""
+    ) {
+
+        fighter.ranking = 1000;
+
+    }
+
+
+    fighter.ranking =
+        Number(
+            fighter.ranking
+        );
+
+}
+
+
+/*
+==================================================
+FIGHT LABEL
 ==================================================
 */
 
@@ -656,6 +908,9 @@ FIGHTS LADEN
 
 function loadFights() {
 
+    reloadData();
+
+
     const select =
         document.getElementById(
             "fightSelect"
@@ -674,12 +929,23 @@ function loadFights() {
     events.forEach(
         event => {
 
+            if (
+                !Array.isArray(
+                    event.fights
+                )
+            ) {
+
+                return;
+
+            }
+
+
             event.fights.forEach(
                 fight => {
 
                     /*
                     Alleen fights zonder
-                    resultaat tonen.
+                    resultaat.
                     */
 
                     if (fight.result) {
@@ -719,7 +985,9 @@ function loadFights() {
     );
 
 
-    if (select.options.length === 1) {
+    if (
+        select.options.length === 1
+    ) {
 
         select.innerHTML = `
 
@@ -742,6 +1010,9 @@ FIGHT TONEN
 
 function showFight() {
 
+    hideMessages();
+
+
     const value =
         document.getElementById(
             "fightSelect"
@@ -760,12 +1031,21 @@ function showFight() {
         );
 
 
+    const recordPreview =
+        document.getElementById(
+            "recordPreview"
+        );
+
+
     if (!value) {
 
         preview.style.display =
             "none";
 
         form.style.display =
+            "none";
+
+        recordPreview.style.display =
             "none";
 
         selectedFight = null;
@@ -780,31 +1060,49 @@ function showFight() {
 
 
     const eventId =
-        Number(parts[0]);
+        parts[0];
 
 
     const fightId =
-        Number(parts[1]);
+        parts[1];
 
 
     const event =
         events.find(
             event =>
-                event.id === eventId
+                String(event.id) ===
+                String(eventId)
         );
 
 
-    if (!event) return;
+    if (!event) {
+
+        showError(
+            "Event niet gevonden."
+        );
+
+        return;
+
+    }
 
 
     const fight =
         event.fights.find(
             fight =>
-                fight.id === fightId
+                String(fight.id) ===
+                String(fightId)
         );
 
 
-    if (!fight) return;
+    if (!fight) {
+
+        showError(
+            "Fight niet gevonden."
+        );
+
+        return;
+
+    }
 
 
     selectedFight = {
@@ -830,20 +1128,27 @@ function showFight() {
         );
 
 
+    if (!fighterA || !fighterB) {
+
+        showError(
+            "Een of beide fighters konden niet worden gevonden."
+        );
+
+        return;
+
+    }
+
+
     document.getElementById(
         "fighterAName"
     ).textContent =
-        fighterA
-            ? fighterA.name
-            : "Onbekend";
+        fighterA.name;
 
 
     document.getElementById(
         "fighterBName"
     ).textContent =
-        fighterB
-            ? fighterB.name
-            : "Onbekend";
+        fighterB.name;
 
 
     document.getElementById(
@@ -852,14 +1157,20 @@ function showFight() {
 
         event.name +
         " • " +
-        fight.weightClass +
+        (
+            fight.weightClass ||
+            "Gewichtsklasse onbekend"
+        ) +
         " • " +
-        fight.rounds +
+        (
+            fight.rounds ||
+            3
+        ) +
         " rondes";
 
 
     /*
-    Ronde-opties aanpassen
+    RONDE OPTIES
     */
 
     const round =
@@ -871,9 +1182,15 @@ function showFight() {
     round.innerHTML = "";
 
 
+    const totalRounds =
+        Number(
+            fight.rounds || 3
+        );
+
+
     for (
         let i = 1;
-        i <= fight.rounds;
+        i <= totalRounds;
         i++
     ) {
 
@@ -889,7 +1206,7 @@ function showFight() {
 
 
     /*
-    Winner dropdown namen aanpassen
+    WINNAAR NAMEN
     */
 
     document.getElementById(
@@ -901,11 +1218,11 @@ function showFight() {
         </option>
 
         <option value="A">
-            ${fighterA.name}
+            ${escapeHtml(fighterA.name)}
         </option>
 
         <option value="B">
-            ${fighterB.name}
+            ${escapeHtml(fighterB.name)}
         </option>
 
         <option value="DRAW">
@@ -926,6 +1243,181 @@ function showFight() {
     form.style.display =
         "block";
 
+
+    updateRecordPreview();
+
+}
+
+
+/*
+==================================================
+RECORD PREVIEW
+==================================================
+*/
+
+function updateRecordPreview() {
+
+    if (!selectedFight) {
+
+        return;
+
+    }
+
+
+    const event =
+        events.find(
+            event =>
+                String(event.id) ===
+                String(selectedFight.eventId)
+        );
+
+
+    if (!event) return;
+
+
+    const fight =
+        event.fights.find(
+            fight =>
+                String(fight.id) ===
+                String(selectedFight.fightId)
+        );
+
+
+    if (!fight) return;
+
+
+    const fighterA =
+        getFighter(
+            fight.fighterA
+        );
+
+
+    const fighterB =
+        getFighter(
+            fight.fighterB
+        );
+
+
+    if (!fighterA || !fighterB) {
+
+        return;
+
+    }
+
+
+    ensureRecord(
+        fighterA
+    );
+
+
+    ensureRecord(
+        fighterB
+    );
+
+
+    const box =
+        document.getElementById(
+            "recordPreview"
+        );
+
+
+    box.innerHTML = `
+
+        <div class="record-box">
+
+            <h3>
+                ${escapeHtml(fighterA.name)}
+            </h3>
+
+            ${recordHTML(fighterA)}
+
+        </div>
+
+
+        <div class="record-box">
+
+            <h3>
+                ${escapeHtml(fighterB.name)}
+            </h3>
+
+            ${recordHTML(fighterB)}
+
+        </div>
+
+    `;
+
+
+    box.style.display =
+        "grid";
+
+}
+
+
+function recordHTML(fighter) {
+
+    const r =
+        fighter.record;
+
+
+    return `
+
+        <div class="stat-grid">
+
+            <div class="stat">
+
+                <strong>
+                    ${r.wins}
+                </strong>
+
+                <span>
+                    WINS
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>
+                    ${r.losses}
+                </strong>
+
+                <span>
+                    LOSSES
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>
+                    ${r.draws}
+                </strong>
+
+                <span>
+                    DRAWS
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>
+                    ${r.noContests}
+                </strong>
+
+                <span>
+                    NC
+                </span>
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
 
@@ -937,9 +1429,15 @@ RESULTAAT OPSLAAN
 
 function saveResult() {
 
+    hideMessages();
+
+
+    reloadData();
+
+
     if (!selectedFight) {
 
-        alert(
+        showError(
             "Kies eerst een fight."
         );
 
@@ -974,7 +1472,7 @@ function saveResult() {
 
     if (!winner) {
 
-        alert(
+        showError(
             "Kies een winnaar, draw of no contest."
         );
 
@@ -985,7 +1483,7 @@ function saveResult() {
 
     if (!method) {
 
-        alert(
+        showError(
             "Kies een methode."
         );
 
@@ -996,7 +1494,7 @@ function saveResult() {
 
     if (!time) {
 
-        alert(
+        showError(
             "Vul de tijd in."
         );
 
@@ -1008,23 +1506,105 @@ function saveResult() {
     const event =
         events.find(
             event =>
-                event.id ===
-                selectedFight.eventId
+                String(event.id) ===
+                String(selectedFight.eventId)
         );
 
 
-    if (!event) return;
+    if (!event) {
+
+        showError(
+            "Event niet gevonden."
+        );
+
+        return;
+
+    }
 
 
     const fight =
         event.fights.find(
             fight =>
-                fight.id ===
-                selectedFight.fightId
+                String(fight.id) ===
+                String(selectedFight.fightId)
         );
 
 
-    if (!fight) return;
+    if (!fight) {
+
+        showError(
+            "Fight niet gevonden."
+        );
+
+        return;
+
+    }
+
+
+    /*
+    AL RESULTAAT?
+    */
+
+    if (fight.result) {
+
+        showError(
+            "Deze fight heeft al een resultaat."
+        );
+
+        return;
+
+    }
+
+
+    const fighterA =
+        getFighter(
+            fight.fighterA
+        );
+
+
+    const fighterB =
+        getFighter(
+            fight.fighterB
+        );
+
+
+    if (!fighterA || !fighterB) {
+
+        showError(
+            "Een of beide fighters bestaan niet meer."
+        );
+
+        return;
+
+    }
+
+
+    /*
+    RECORDS GARANDEREN
+    */
+
+    ensureRecord(
+        fighterA
+    );
+
+
+    ensureRecord(
+        fighterB
+    );
+
+
+    /*
+    RANKINGS GARANDEREN
+    */
+
+    ensureRanking(
+        fighterA
+    );
+
+
+    ensureRanking(
+        fighterB
+    );
 
 
     /*
@@ -1046,10 +1626,50 @@ function saveResult() {
             time,
 
         date:
-            new Date().toISOString()
+            new Date().toISOString(),
+
+        recordsUpdated:
+            true,
+
+        rankingsUpdated:
+            true
 
     };
 
+
+    /*
+    RECORD BIJWERKEN
+    */
+
+    updateRecords(
+        fighterA,
+        fighterB,
+        winner,
+        method
+    );
+
+
+    /*
+    RANKING BIJWERKEN
+    */
+
+    updateRankings(
+        fighterA,
+        fighterB,
+        winner
+    );
+
+
+    /*
+    FIGHTER DATA OPSLAAN
+    */
+
+    saveFighters();
+
+
+    /*
+    EVENT DATA OPSLAAN
+    */
 
     saveEvents();
 
@@ -1085,8 +1705,18 @@ function saveResult() {
         "none";
 
 
+    document.getElementById(
+        "recordPreview"
+    ).style.display =
+        "none";
+
+
     selectedFight = null;
 
+
+    /*
+    LIJST VERNIEUWEN
+    */
 
     loadFights();
 
@@ -1094,28 +1724,433 @@ function saveResult() {
 
 
     /*
-    SUCCESS MELDING
+    SUCCES
     */
 
-    const success =
-        document.getElementById(
-            "success"
+    showSuccess(
+        "Uitslag opgeslagen! Record en ranking zijn bijgewerkt. 🔥"
+    );
+
+}
+
+
+/*
+==================================================
+RECORDS BIJWERKEN
+==================================================
+*/
+
+function updateRecords(
+    fighterA,
+    fighterB,
+    winner,
+    method
+) {
+
+    ensureRecord(
+        fighterA
+    );
+
+
+    ensureRecord(
+        fighterB
+    );
+
+
+    /*
+    DRAW
+    */
+
+    if (
+        winner === "DRAW"
+    ) {
+
+        fighterA.record.draws++;
+
+        fighterB.record.draws++;
+
+        return;
+
+    }
+
+
+    /*
+    NO CONTEST
+    */
+
+    if (
+        winner === "NC"
+    ) {
+
+        fighterA.record.noContests++;
+
+        fighterB.record.noContests++;
+
+        return;
+
+    }
+
+
+    /*
+    A WINT
+    */
+
+    if (
+        winner === "A"
+    ) {
+
+        fighterA.record.wins++;
+
+        fighterB.record.losses++;
+
+
+        updateFinishStats(
+            fighterA,
+            method
         );
 
 
-    success.style.display =
-        "block";
+        return;
+
+    }
 
 
-    setTimeout(
-        () => {
+    /*
+    B WINT
+    */
 
-            success.style.display =
-                "none";
+    if (
+        winner === "B"
+    ) {
 
-        },
-        3000
+        fighterB.record.wins++;
+
+        fighterA.record.losses++;
+
+
+        updateFinishStats(
+            fighterB,
+            method
+        );
+
+    }
+
+}
+
+
+/*
+==================================================
+FINISH STATS
+==================================================
+*/
+
+function updateFinishStats(
+    fighter,
+    method
+) {
+
+    ensureRecord(
+        fighter
     );
+
+
+    if (
+        method === "KO"
+    ) {
+
+        fighter.record.ko++;
+
+    }
+
+
+    else if (
+        method === "TKO"
+    ) {
+
+        fighter.record.tko++;
+
+    }
+
+
+    else if (
+        method === "Submission"
+    ) {
+
+        fighter.record.submissions++;
+
+    }
+
+
+    else if (
+        method === "Unanimous Decision" ||
+        method === "Split Decision" ||
+        method === "Majority Decision" ||
+        method === "Technical Decision"
+    ) {
+
+        fighter.record.decisions++;
+
+    }
+
+
+    else if (
+        method === "Disqualification"
+    ) {
+
+        fighter.record.disqualifications++;
+
+    }
+
+}
+
+
+/*
+==================================================
+RANKING SYSTEEM
+==================================================
+
+Basis:
+
+Winner krijgt punten.
+Verliezer verliest punten.
+
+Grote underdog-overwinning =
+meer punten.
+
+Grote favoriet-overwinning =
+minder punten.
+
+Draw =
+kleine stijging.
+
+NC =
+geen verandering.
+==================================================
+*/
+
+function updateRankings(
+    fighterA,
+    fighterB,
+    winner
+) {
+
+    ensureRanking(
+        fighterA
+    );
+
+
+    ensureRanking(
+        fighterB
+    );
+
+
+    /*
+    DRAW
+    */
+
+    if (
+        winner === "DRAW"
+    ) {
+
+        fighterA.ranking += 5;
+
+        fighterB.ranking += 5;
+
+        normalizeRanking(
+            fighterA
+        );
+
+        normalizeRanking(
+            fighterB
+        );
+
+        return;
+
+    }
+
+
+    /*
+    NO CONTEST
+    */
+
+    if (
+        winner === "NC"
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+    A WINT
+    */
+
+    if (
+        winner === "A"
+    ) {
+
+        const points =
+            calculateRankingPoints(
+                fighterA,
+                fighterB
+            );
+
+
+        fighterA.ranking +=
+            points;
+
+
+        fighterB.ranking -=
+            points;
+
+    }
+
+
+    /*
+    B WINT
+    */
+
+    if (
+        winner === "B"
+    ) {
+
+        const points =
+            calculateRankingPoints(
+                fighterB,
+                fighterA
+            );
+
+
+        fighterB.ranking +=
+            points;
+
+
+        fighterA.ranking -=
+            points;
+
+    }
+
+
+    normalizeRanking(
+        fighterA
+    );
+
+
+    normalizeRanking(
+        fighterB
+    );
+
+}
+
+
+/*
+==================================================
+RANKING PUNTEN
+==================================================
+*/
+
+function calculateRankingPoints(
+    winner,
+    loser
+) {
+
+    const difference =
+        loser.ranking -
+        winner.ranking;
+
+
+    /*
+    Winner is grote underdog.
+    */
+
+    if (
+        difference >= 200
+    ) {
+
+        return 35;
+
+    }
+
+
+    /*
+    Underdog.
+    */
+
+    if (
+        difference >= 100
+    ) {
+
+        return 30;
+
+    }
+
+
+    /*
+    Licht underdog.
+    */
+
+    if (
+        difference >= 50
+    ) {
+
+        return 25;
+
+    }
+
+
+    /*
+    Gelijke ranking.
+    */
+
+    if (
+        difference >= -50
+    ) {
+
+        return 20;
+
+    }
+
+
+    /*
+    Favoriet.
+    */
+
+    if (
+        difference >= -100
+    ) {
+
+        return 15;
+
+    }
+
+
+    /*
+    Grote favoriet.
+    */
+
+    return 10;
+
+}
+
+
+/*
+==================================================
+RANKING NORMALISEREN
+==================================================
+*/
+
+function normalizeRanking(
+    fighter
+) {
+
+    fighter.ranking =
+        Math.max(
+            0,
+            Math.round(
+                fighter.ranking
+            )
+        );
 
 }
 
@@ -1147,10 +2182,19 @@ function getResultText(
         fight.result;
 
 
+    if (!fighterA || !fighterB) {
+
+        return "";
+
+    }
+
+
     let winnerText = "";
 
 
-    if (result.winner === "A") {
+    if (
+        result.winner === "A"
+    ) {
 
         winnerText =
             fighterA.name +
@@ -1190,30 +2234,57 @@ function getResultText(
     return `
 
         <h3>
-            ${fighterA.name}
-            <span style="color:#e10600;">
+
+            ${escapeHtml(
+                fighterA.name
+            )}
+
+            <span
+                style="color:#e10600;"
+            >
                 VS
             </span>
-            ${fighterB.name}
+
+            ${escapeHtml(
+                fighterB.name
+            )}
+
         </h3>
 
+
         <p>
+
             <strong>
-                ${winnerText}
+                ${escapeHtml(
+                    winnerText
+                )}
             </strong>
+
         </p>
 
-        <p style="margin-top:8px;">
+
+        <p
+            style="margin-top:8px;"
+        >
 
             <span class="method">
-                ${result.method}
+
+                ${escapeHtml(
+                    result.method
+                )}
+
             </span>
 
-            • Ronde ${result.round}
+            • Ronde
+            ${result.round}
 
-            • ${result.time}
+            •
+            ${escapeHtml(
+                result.time
+            )}
 
         </p>
+
 
         <p
             style="
@@ -1221,7 +2292,11 @@ function getResultText(
                 margin-top:8px;
             "
         >
-            ${event.name}
+
+            ${escapeHtml(
+                event.name
+            )}
+
         </p>
 
     `;
@@ -1237,6 +2312,9 @@ RESULTATEN WEERGEVEN
 
 function displayResults() {
 
+    reloadData();
+
+
     const list =
         document.getElementById(
             "resultsList"
@@ -1249,13 +2327,29 @@ function displayResults() {
     let found = false;
 
 
+    const completedResults = [];
+
+
     events.forEach(
         event => {
+
+            if (
+                !Array.isArray(
+                    event.fights
+                )
+            ) {
+
+                return;
+
+            }
+
 
             event.fights.forEach(
                 fight => {
 
-                    if (!fight.result) {
+                    if (
+                        !fight.result
+                    ) {
 
                         return;
 
@@ -1265,21 +2359,45 @@ function displayResults() {
                     found = true;
 
 
-                    list.innerHTML += `
+                    completedResults.push({
 
-                        <div class="result">
+                        event:
+                            event,
 
-                            ${getResultText(
-                                event,
-                                fight
-                            )}
+                        fight:
+                            fight
 
-                        </div>
-
-                    `;
+                    });
 
                 }
             );
+
+        }
+    );
+
+
+    /*
+    Nieuwste eerst.
+    */
+
+    completedResults.reverse();
+
+
+    completedResults.forEach(
+        item => {
+
+            list.innerHTML += `
+
+                <div class="result">
+
+                    ${getResultText(
+                        item.event,
+                        item.fight
+                    )}
+
+                </div>
+
+            `;
 
         }
     );
@@ -1304,6 +2422,127 @@ function displayResults() {
 
 /*
 ==================================================
+MESSAGES
+==================================================
+*/
+
+function hideMessages() {
+
+    document.getElementById(
+        "success"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "error"
+    ).style.display =
+        "none";
+
+}
+
+
+function showSuccess(
+    message
+) {
+
+    const success =
+        document.getElementById(
+            "success"
+        );
+
+
+    success.textContent =
+        message;
+
+
+    success.style.display =
+        "block";
+
+
+    setTimeout(
+        () => {
+
+            success.style.display =
+                "none";
+
+        },
+        4000
+    );
+
+}
+
+
+function showError(
+    message
+) {
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    error.textContent =
+        message;
+
+
+    error.style.display =
+        "block";
+
+}
+
+
+/*
+==================================================
+HTML VEILIG MAKEN
+==================================================
+*/
+
+function escapeHtml(text) {
+
+    if (
+        text === null ||
+        text === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/*
+==================================================
 START
 ==================================================
 */
@@ -1312,9 +2551,9 @@ loadFights();
 
 displayResults();
 
-
 </script>
 
 
 </body>
+
 </html>
