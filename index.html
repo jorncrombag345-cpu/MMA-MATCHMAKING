@@ -3,22 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MMA Matchmaker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b0b;
+            color: white;
+        }
+
+        header {
+            background: #111;
+            border-bottom: 2px solid #e10600;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #e10600;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #e10600;
+        }
+
+        .hero {
+            padding: 70px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #151515, #080808);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #e10600;
+        }
+
+        .hero p {
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #151515;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #aaa;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #e10600;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #ff211a;
+        }
+
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>MMA Matchmaker</h1>
-    <p>Welkom bij jouw MMA-organisatie.</p>
+<header>
+    <div class="logo">
+        MMA <span>MATCHMAKER</span>
+    </div>
 
-    <h2>Dashboard</h2>
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="#">Rankings</a>
+        <a href="#">Fighters</a>
+        <a href="#">Events</a>
+        <a href="#">Matchmaker</a>
+    </nav>
+</header>
 
-    <p>Hier komen straks:</p>
-    <ul>
-        <li>Rankings</li>
-        <li>Fighters</li>
-        <li>Events</li>
-        <li>Matchmaking</li>
-    </ul>
+<section class="hero">
+    <h1>Welcome to <span>MMA Matchmaker</span></h1>
+    <p>Build your own MMA organization.</p>
+</section>
+
+<main class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>🏆 Rankings</h2>
+            <p>Beheer zelf de rankings, champions en gewichtsklassen.</p>
+            <a class="button" href="#">Bekijk rankings</a>
+        </div>
+
+        <div class="card">
+            <h2>🥊 Fighters</h2>
+            <p>Voeg fighters toe en pas hun record, ranking en statistieken aan.</p>
+            <a class="button" href="#">Bekijk fighters</a>
+        </div>
+
+        <div class="card">
+            <h2>📅 Events</h2>
+            <p>Maak je eigen events en stel complete fight cards samen.</p>
+            <a class="button" href="#">Bekijk events</a>
+        </div>
+
+    </div>
+
+</main>
 
 </body>
 </html>
