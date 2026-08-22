@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fight Result - MMA Matchmaker</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b0b;
+            color: white;
+        }
+
+        header {
+            background: #111;
+            border-bottom: 2px solid #e10600;
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #e10600;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #e10600;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #151515;
+            border: 1px solid #292929;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 13px;
+
+            background: #222;
+            color: white;
+
+            border: 1px solid #444;
+            border-radius: 6px;
+
+            font-size: 15px;
+        }
+
+        .fight-preview {
+            margin-top: 25px;
+            padding: 30px;
+
+            background: #101010;
+            border: 1px solid #333;
+            border-radius: 10px;
+
+            text-align: center;
+        }
+
+        .fighters {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+
+            align-items: center;
+            gap: 20px;
+        }
+
+        .fighter {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .vs {
+            color: #e10600;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .fight-info {
+            color: #888;
+            margin-top: 15px;
+        }
+
+        .winner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+
+            gap: 15px;
+        }
+
+        .field label {
+            display: block;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .button {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #e10600;
+            color: white;
+
+            border: none;
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #ff211a;
+        }
+
+        .result {
+            background: #101010;
+
+            border: 1px solid #333;
+
+            border-radius: 8px;
+
+            padding: 20px;
+
+            margin-top: 15px;
+        }
+
+        .result h3 {
+            margin-bottom: 10px;
+        }
+
+        .method {
+            color: #e10600;
+            font-weight: bold;
+        }
+
+        .empty {
+            background: #151515;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+            color: #777;
+
+            text-align: center;
+        }
+
+        .success {
+            display: none;
+
+            background: #12351f;
+
+            border: 1px solid #1f7540;
+
+            color: #6ee7a0;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin-top: 20px;
+
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+
+            .fighters {
+                grid-template-columns: 1fr;
+            }
+
+            .vs {
+                margin: -10px 0;
+            }
+
+            .winner-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        MMA <span>MATCHMAKER</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="fighters.html">
+            Fighters
+        </a>
+
+        <a href="rankings.html">
+            Rankings
+        </a>
+
+        <a href="events.html">
+            Events
+        </a>
+
+        <a href="matchmaker.html">
+            Matchmaker
+        </a>
+
+        <a href="fight-result.html">
+            Results
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h1>
+        📝 Fight Result
+    </h1>
+
+    <p class="subtitle">
+        Bepaal zelf de uitslag van een gevecht.
+    </p>
+
+
+    <!-- FIGHT KIEZEN -->
+
+    <div class="card">
+
+        <h2>
+            1. Kies een fight
+        </h2>
+
+        <select
+            id="fightSelect"
+            onchange="showFight()"
+        >
+
+            <option value="">
+                Kies een fight
+            </option>
+
+        </select>
+
+
+        <div
+            id="fightPreview"
+            class="fight-preview"
+            style="display:none;"
+        >
+
+            <div class="fighters">
+
+                <div
+                    id="fighterAName"
+                    class="fighter"
+                >
+                    Fighter A
+                </div>
+
+                <div class="vs">
+                    VS
+                </div>
+
+                <div
+                    id="fighterBName"
+                    class="fighter"
+                >
+                    Fighter B
+                </div>
+
+            </div>
+
+
+            <div
+                id="fightInfo"
+                class="fight-info"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULTAAT -->
+
+    <div
+        id="resultForm"
+        class="card"
+        style="display:none;"
+    >
+
+        <h2>
+            2. Uitslag bepalen
+        </h2>
+
+
+        <div class="winner-grid">
+
+
+            <div class="field">
+
+                <label>
+                    Winnaar
+                </label>
+
+                <select id="winner">
+
+                    <option value="">
+                        Kies winnaar
+                    </option>
+
+                    <option value="A">
+                        Fighter A
+                    </option>
+
+                    <option value="B">
+                        Fighter B
+                    </option>
+
+                    <option value="DRAW">
+                        Draw
+                    </option>
+
+                    <option value="NC">
+                        No Contest
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Methode
+                </label>
+
+                <select id="method">
+
+                    <option value="">
+                        Kies methode
+                    </option>
+
+                    <option>
+                        KO
+                    </option>
+
+                    <option>
+                        TKO
+                    </option>
+
+                    <option>
+                        Submission
+                    </option>
+
+                    <option>
+                        Unanimous Decision
+                    </option>
+
+                    <option>
+                        Split Decision
+                    </option>
+
+                    <option>
+                        Majority Decision
+                    </option>
+
+                    <option>
+                        Technical Decision
+                    </option>
+
+                    <option>
+                        Disqualification
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Ronde
+                </label>
+
+                <select id="round">
+
+                    <option value="1">
+                        Ronde 1
+                    </option>
+
+                    <option value="2">
+                        Ronde 2
+                    </option>
+
+                    <option value="3">
+                        Ronde 3
+                    </option>
+
+                    <option value="4">
+                        Ronde 4
+                    </option>
+
+                    <option value="5">
+                        Ronde 5
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Tijd
+                </label>
+
+                <input
+                    id="time"
+                    type="text"
+                    placeholder="bijv. 3:42"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="button"
+            onclick="saveResult()"
+        >
+
+            🏆 Uitslag opslaan
+
+        </button>
+
+
+        <div
+            id="success"
+            class="success"
+        >
+
+            Uitslag opgeslagen! 🔥
+
+        </div>
+
+    </div>
+
+
+    <!-- OPGESLAGEN RESULTATEN -->
+
+    <div class="card">
+
+        <h2>
+            Opgeslagen resultaten
+        </h2>
+
+        <div id="resultsList"></div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/*
+==================================================
+DATA
+==================================================
+*/
+
+let fighters =
+    JSON.parse(
+        localStorage.getItem("fighters")
+    ) || [];
+
+
+let events =
+    JSON.parse(
+        localStorage.getItem("events")
+    ) || [];
+
+
+let selectedFight = null;
+
+
+/*
+==================================================
+OPSLAAN
+==================================================
+*/
+
+function saveEvents() {
+
+    localStorage.setItem(
+        "events",
+        JSON.stringify(events)
+    );
+
+}
+
+
+/*
+==================================================
+FIGHTER OPHALEN
+==================================================
+*/
+
+function getFighter(id) {
+
+    return fighters.find(
+        fighter =>
+            fighter.id == id
+    );
+
+}
+
+
+/*
+==================================================
+FIGHT NAAM
+==================================================
+*/
+
+function getFightLabel(
+    event,
+    fight
+) {
+
+    const fighterA =
+        getFighter(
+            fight.fighterA
+        );
+
+
+    const fighterB =
+        getFighter(
+            fight.fighterB
+        );
+
+
+    const nameA =
+        fighterA
+            ? fighterA.name
+            : "Onbekend";
+
+
+    const nameB =
+        fighterB
+            ? fighterB.name
+            : "Onbekend";
+
+
+    return (
+        event.name +
+        " — " +
+        nameA +
+        " vs " +
+        nameB
+    );
+
+}
+
+
+/*
+==================================================
+FIGHTS LADEN
+==================================================
+*/
+
+function loadFights() {
+
+    const select =
+        document.getElementById(
+            "fightSelect"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Kies een fight
+        </option>
+
+    `;
+
+
+    events.forEach(
+        event => {
+
+            event.fights.forEach(
+                fight => {
+
+                    /*
+                    Alleen fights zonder
+                    resultaat tonen.
+                    */
+
+                    if (fight.result) {
+
+                        return;
+
+                    }
+
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        event.id +
+                        "|" +
+                        fight.id;
+
+
+                    option.textContent =
+                        getFightLabel(
+                            event,
+                            fight
+                        );
+
+
+                    select.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    if (select.options.length === 1) {
+
+        select.innerHTML = `
+
+            <option value="">
+                Geen openstaande fights
+            </option>
+
+        `;
+
+    }
+
+}
+
+
+/*
+==================================================
+FIGHT TONEN
+==================================================
+*/
+
+function showFight() {
+
+    const value =
+        document.getElementById(
+            "fightSelect"
+        ).value;
+
+
+    const preview =
+        document.getElementById(
+            "fightPreview"
+        );
+
+
+    const form =
+        document.getElementById(
+            "resultForm"
+        );
+
+
+    if (!value) {
+
+        preview.style.display =
+            "none";
+
+        form.style.display =
+            "none";
+
+        selectedFight = null;
+
+        return;
+
+    }
+
+
+    const parts =
+        value.split("|");
+
+
+    const eventId =
+        Number(parts[0]);
+
+
+    const fightId =
+        Number(parts[1]);
+
+
+    const event =
+        events.find(
+            event =>
+                event.id === eventId
+        );
+
+
+    if (!event) return;
+
+
+    const fight =
+        event.fights.find(
+            fight =>
+                fight.id === fightId
+        );
+
+
+    if (!fight) return;
+
+
+    selectedFight = {
+
+        eventId:
+            eventId,
+
+        fightId:
+            fightId
+
+    };
+
+
+    const fighterA =
+        getFighter(
+            fight.fighterA
+        );
+
+
+    const fighterB =
+        getFighter(
+            fight.fighterB
+        );
+
+
+    document.getElementById(
+        "fighterAName"
+    ).textContent =
+        fighterA
+            ? fighterA.name
+            : "Onbekend";
+
+
+    document.getElementById(
+        "fighterBName"
+    ).textContent =
+        fighterB
+            ? fighterB.name
+            : "Onbekend";
+
+
+    document.getElementById(
+        "fightInfo"
+    ).textContent =
+
+        event.name +
+        " • " +
+        fight.weightClass +
+        " • " +
+        fight.rounds +
+        " rondes";
+
+
+    /*
+    Ronde-opties aanpassen
+    */
+
+    const round =
+        document.getElementById(
+            "round"
+        );
+
+
+    round.innerHTML = "";
+
+
+    for (
+        let i = 1;
+        i <= fight.rounds;
+        i++
+    ) {
+
+        round.innerHTML += `
+
+            <option value="${i}">
+                Ronde ${i}
+            </option>
+
+        `;
+
+    }
+
+
+    /*
+    Winner dropdown namen aanpassen
+    */
+
+    document.getElementById(
+        "winner"
+    ).innerHTML = `
+
+        <option value="">
+            Kies winnaar
+        </option>
+
+        <option value="A">
+            ${fighterA.name}
+        </option>
+
+        <option value="B">
+            ${fighterB.name}
+        </option>
+
+        <option value="DRAW">
+            Draw
+        </option>
+
+        <option value="NC">
+            No Contest
+        </option>
+
+    `;
+
+
+    preview.style.display =
+        "block";
+
+
+    form.style.display =
+        "block";
+
+}
+
+
+/*
+==================================================
+RESULTAAT OPSLAAN
+==================================================
+*/
+
+function saveResult() {
+
+    if (!selectedFight) {
+
+        alert(
+            "Kies eerst een fight."
+        );
+
+        return;
+
+    }
+
+
+    const winner =
+        document.getElementById(
+            "winner"
+        ).value;
+
+
+    const method =
+        document.getElementById(
+            "method"
+        ).value;
+
+
+    const round =
+        document.getElementById(
+            "round"
+        ).value;
+
+
+    const time =
+        document.getElementById(
+            "time"
+        ).value.trim();
+
+
+    if (!winner) {
+
+        alert(
+            "Kies een winnaar, draw of no contest."
+        );
+
+        return;
+
+    }
+
+
+    if (!method) {
+
+        alert(
+            "Kies een methode."
+        );
+
+        return;
+
+    }
+
+
+    if (!time) {
+
+        alert(
+            "Vul de tijd in."
+        );
+
+        return;
+
+    }
+
+
+    const event =
+        events.find(
+            event =>
+                event.id ===
+                selectedFight.eventId
+        );
+
+
+    if (!event) return;
+
+
+    const fight =
+        event.fights.find(
+            fight =>
+                fight.id ===
+                selectedFight.fightId
+        );
+
+
+    if (!fight) return;
+
+
+    /*
+    RESULTAAT OBJECT
+    */
+
+    fight.result = {
+
+        winner:
+            winner,
+
+        method:
+            method,
+
+        round:
+            Number(round),
+
+        time:
+            time,
+
+        date:
+            new Date().toISOString()
+
+    };
+
+
+    saveEvents();
+
+
+    /*
+    FORMULIER RESETTEN
+    */
+
+    document.getElementById(
+        "winner"
+    ).value = "";
+
+
+    document.getElementById(
+        "method"
+    ).value = "";
+
+
+    document.getElementById(
+        "time"
+    ).value = "";
+
+
+    document.getElementById(
+        "fightPreview"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "resultForm"
+    ).style.display =
+        "none";
+
+
+    selectedFight = null;
+
+
+    loadFights();
+
+    displayResults();
+
+
+    /*
+    SUCCESS MELDING
+    */
+
+    const success =
+        document.getElementById(
+            "success"
+        );
+
+
+    success.style.display =
+        "block";
+
+
+    setTimeout(
+        () => {
+
+            success.style.display =
+                "none";
+
+        },
+        3000
+    );
+
+}
+
+
+/*
+==================================================
+RESULTAAT TEKST
+==================================================
+*/
+
+function getResultText(
+    event,
+    fight
+) {
+
+    const fighterA =
+        getFighter(
+            fight.fighterA
+        );
+
+
+    const fighterB =
+        getFighter(
+            fight.fighterB
+        );
+
+
+    const result =
+        fight.result;
+
+
+    let winnerText = "";
+
+
+    if (result.winner === "A") {
+
+        winnerText =
+            fighterA.name +
+            " wint";
+
+    }
+
+    else if (
+        result.winner === "B"
+    ) {
+
+        winnerText =
+            fighterB.name +
+            " wint";
+
+    }
+
+    else if (
+        result.winner === "DRAW"
+    ) {
+
+        winnerText =
+            "Draw";
+
+    }
+
+    else if (
+        result.winner === "NC"
+    ) {
+
+        winnerText =
+            "No Contest";
+
+    }
+
+
+    return `
+
+        <h3>
+            ${fighterA.name}
+            <span style="color:#e10600;">
+                VS
+            </span>
+            ${fighterB.name}
+        </h3>
+
+        <p>
+            <strong>
+                ${winnerText}
+            </strong>
+        </p>
+
+        <p style="margin-top:8px;">
+
+            <span class="method">
+                ${result.method}
+            </span>
+
+            • Ronde ${result.round}
+
+            • ${result.time}
+
+        </p>
+
+        <p
+            style="
+                color:#777;
+                margin-top:8px;
+            "
+        >
+            ${event.name}
+        </p>
+
+    `;
+
+}
+
+
+/*
+==================================================
+RESULTATEN WEERGEVEN
+==================================================
+*/
+
+function displayResults() {
+
+    const list =
+        document.getElementById(
+            "resultsList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    let found = false;
+
+
+    events.forEach(
+        event => {
+
+            event.fights.forEach(
+                fight => {
+
+                    if (!fight.result) {
+
+                        return;
+
+                    }
+
+
+                    found = true;
+
+
+                    list.innerHTML += `
+
+                        <div class="result">
+
+                            ${getResultText(
+                                event,
+                                fight
+                            )}
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+        }
+    );
+
+
+    if (!found) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                Nog geen resultaten.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/*
+==================================================
+START
+==================================================
+*/
+
+loadFights();
+
+displayResults();
+
+
+</script>
+
+
+</body>
+</html>
