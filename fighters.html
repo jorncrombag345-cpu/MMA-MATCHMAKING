@@ -40,6 +40,7 @@
             color: white;
             text-decoration: none;
             margin-left: 20px;
+            font-weight: bold;
         }
 
         nav a:hover {
@@ -73,7 +74,8 @@
             gap: 15px;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 12px;
             background: #222;
@@ -106,7 +108,8 @@
         }
 
         .fighter h3 {
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 12px;
         }
 
         .stats {
@@ -116,22 +119,64 @@
             flex-wrap: wrap;
         }
 
-        .win {
+        .record {
+            color: white;
+        }
+
+        .wins {
             color: #35d07f;
         }
 
-        .loss {
+        .losses {
             color: #e10600;
         }
 
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .actions button {
+            margin-top: 0;
+        }
+
+        .delete {
+            background: #333;
+        }
+
+        .delete:hover {
+            background: #555;
+        }
+
+        .empty {
+            color: #777;
+            margin-top: 20px;
+        }
+
         @media (max-width: 700px) {
+
             header {
                 flex-direction: column;
                 gap: 20px;
             }
 
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+
             .form-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 8px;
             }
         }
     </style>
@@ -140,6 +185,7 @@
 <body>
 
 <header>
+
     <div class="logo">
         MMA <span>MATCHMAKER</span>
     </div>
@@ -151,11 +197,16 @@
         <a href="#">Events</a>
         <a href="#">Matchmaker</a>
     </nav>
+
 </header>
+
 
 <div class="container">
 
     <h1>🥊 Fighters</h1>
+
+
+    <!-- FIGHTER TOEVOEGEN -->
 
     <div class="form">
 
@@ -163,10 +214,18 @@
 
         <div class="form-grid">
 
-            <input id="name" type="text" placeholder="Naam">
+            <input
+                id="name"
+                type="text"
+                placeholder="Naam"
+            >
 
             <select id="weightClass">
-                <option value="">Gewichtsklasse</option>
+
+                <option value="">
+                    Gewichtsklasse
+                </option>
+
                 <option>Flyweight</option>
                 <option>Bantamweight</option>
                 <option>Featherweight</option>
@@ -175,23 +234,58 @@
                 <option>Middleweight</option>
                 <option>Light Heavyweight</option>
                 <option>Heavyweight</option>
+
             </select>
 
-            <input id="wins" type="number" placeholder="Wins" value="0">
+            <input
+                id="wins"
+                type="number"
+                placeholder="Wins"
+                value="0"
+                min="0"
+            >
 
-            <input id="losses" type="number" placeholder="Losses" value="0">
+            <input
+                id="losses"
+                type="number"
+                placeholder="Losses"
+                value="0"
+                min="0"
+            >
 
-            <input id="draws" type="number" placeholder="Draws" value="0">
+            <input
+                id="draws"
+                type="number"
+                placeholder="Draws"
+                value="0"
+                min="0"
+            >
 
-            <input id="ranking" type="number" placeholder="Ranking">
+            <input
+                id="ranking"
+                type="number"
+                placeholder="Ranking"
+                min="1"
+            >
 
-            <input id="streak" type="number" placeholder="Win streak" value="0">
+            <input
+                id="streak"
+                type="number"
+                placeholder="Win streak"
+                value="0"
+                min="0"
+            >
 
         </div>
 
-        <button onclick="addFighter()">+ Fighter toevoegen</button>
+        <button onclick="addFighter()">
+            + Fighter toevoegen
+        </button>
 
     </div>
+
+
+    <!-- FIGHTER LIJST -->
 
     <h2>Fighter roster</h2>
 
@@ -199,106 +293,429 @@
 
 </div>
 
+
 <script>
 
-let fighters = JSON.parse(localStorage.getItem("fighters")) || [];
+    /*
+    ==========================================
+    FIGHTER DATA
+    ==========================================
+    */
 
-function saveFighters() {
-    localStorage.setItem("fighters", JSON.stringify(fighters));
-}
+    let fighters =
+        JSON.parse(localStorage.getItem("fighters")) || [];
 
-function addFighter() {
 
-    const name = document.getElementById("name").value;
-    const weightClass = document.getElementById("weightClass").value;
-    const wins = Number(document.getElementById("wins").value);
-    const losses = Number(document.getElementById("losses").value);
-    const draws = Number(document.getElementById("draws").value);
-    const ranking = document.getElementById("ranking").value;
-    const streak = Number(document.getElementById("streak").value);
+    /*
+    ==========================================
+    DATA OPSLAAN
+    ==========================================
+    */
 
-    if (!name || !weightClass) {
-        alert("Vul minimaal de naam en gewichtsklasse in.");
-        return;
+    function saveFighters() {
+
+        localStorage.setItem(
+            "fighters",
+            JSON.stringify(fighters)
+        );
+
     }
 
-    const fighter = {
-        id: Date.now(),
-        name,
-        weightClass,
-        wins,
-        losses,
-        draws,
-        ranking,
-        streak
-    };
 
-    fighters.push(fighter);
+    /*
+    ==========================================
+    FIGHTER TOEVOEGEN
+    ==========================================
+    */
 
-    saveFighters();
-    displayFighters();
+    function addFighter() {
 
-    document.getElementById("name").value = "";
-}
+        const name =
+            document.getElementById("name").value.trim();
 
-function deleteFighter(id) {
+        const weightClass =
+            document.getElementById("weightClass").value;
 
-    fighters = fighters.filter(fighter => fighter.id !== id);
+        const wins =
+            Number(document.getElementById("wins").value);
 
-    saveFighters();
-    displayFighters();
-}
+        const losses =
+            Number(document.getElementById("losses").value);
 
-function displayFighters() {
+        const draws =
+            Number(document.getElementById("draws").value);
 
-    const list = document.getElementById("fighterList");
+        const ranking =
+            document.getElementById("ranking").value;
 
-    list.innerHTML = "";
+        const streak =
+            Number(document.getElementById("streak").value);
 
-    if (fighters.length === 0) {
-        list.innerHTML = "<p style='color:#777;'>Nog geen fighters toegevoegd.</p>";
-        return;
+
+        if (!name) {
+
+            alert("Vul een naam in.");
+
+            return;
+        }
+
+
+        if (!weightClass) {
+
+            alert("Kies een gewichtsklasse.");
+
+            return;
+        }
+
+
+        const fighter = {
+
+            id: Date.now(),
+
+            name: name,
+
+            weightClass: weightClass,
+
+            wins: wins,
+
+            losses: losses,
+
+            draws: draws,
+
+            ranking: ranking,
+
+            streak: streak
+
+        };
+
+
+        fighters.push(fighter);
+
+
+        saveFighters();
+
+        displayFighters();
+
+
+        /*
+        FORMULIER LEGEN
+        */
+
+        document.getElementById("name").value = "";
+
+        document.getElementById("weightClass").value = "";
+
+        document.getElementById("wins").value = "0";
+
+        document.getElementById("losses").value = "0";
+
+        document.getElementById("draws").value = "0";
+
+        document.getElementById("ranking").value = "";
+
+        document.getElementById("streak").value = "0";
+
     }
 
-    fighters.forEach(fighter => {
 
-        list.innerHTML += `
-            <div class="fighter">
+    /*
+    ==========================================
+    FIGHTER BEWERKEN
+    ==========================================
+    */
 
-                <h3>${fighter.name}</h3>
+    function editFighter(id) {
 
-                <div class="stats">
+        const fighter =
+            fighters.find(
+                fighter => fighter.id === id
+            );
 
-                    <span>${fighter.weightClass}</span>
 
-                    <span>Ranking: ${
-                        fighter.ranking ? "#" + fighter.ranking : "Unranked"
-                    }</span>
+        if (!fighter) {
 
-                    <span>
-                        Record:
-                        <span class="win">${fighter.wins}</span>-
-                        <span class="loss">${fighter.losses}</span>-
-                        ${fighter.draws}
-                    </span>
+            return;
 
-                    <span>
-                        Streak: ${fighter.streak}
-                    </span>
+        }
+
+
+        const name =
+            prompt(
+                "Naam:",
+                fighter.name
+            );
+
+
+        if (name === null) return;
+
+
+        const weightClass =
+            prompt(
+                "Gewichtsklasse:",
+                fighter.weightClass
+            );
+
+
+        if (weightClass === null) return;
+
+
+        const wins =
+            prompt(
+                "Wins:",
+                fighter.wins
+            );
+
+
+        if (wins === null) return;
+
+
+        const losses =
+            prompt(
+                "Losses:",
+                fighter.losses
+            );
+
+
+        if (losses === null) return;
+
+
+        const draws =
+            prompt(
+                "Draws:",
+                fighter.draws
+            );
+
+
+        if (draws === null) return;
+
+
+        const ranking =
+            prompt(
+                "Ranking (leeg = unranked):",
+                fighter.ranking
+            );
+
+
+        if (ranking === null) return;
+
+
+        const streak =
+            prompt(
+                "Win streak:",
+                fighter.streak
+            );
+
+
+        if (streak === null) return;
+
+
+        /*
+        GEGEVENS AANPASSEN
+        */
+
+        fighter.name =
+            name.trim();
+
+
+        fighter.weightClass =
+            weightClass;
+
+
+        fighter.wins =
+            Number(wins);
+
+
+        fighter.losses =
+            Number(losses);
+
+
+        fighter.draws =
+            Number(draws);
+
+
+        fighter.ranking =
+            ranking;
+
+
+        fighter.streak =
+            Number(streak);
+
+
+        saveFighters();
+
+        displayFighters();
+
+    }
+
+
+    /*
+    ==========================================
+    FIGHTER VERWIJDEREN
+    ==========================================
+    */
+
+    function deleteFighter(id) {
+
+        const fighter =
+            fighters.find(
+                fighter => fighter.id === id
+            );
+
+
+        if (!fighter) return;
+
+
+        const confirmDelete =
+            confirm(
+                "Wil je " +
+                fighter.name +
+                " verwijderen?"
+            );
+
+
+        if (!confirmDelete) {
+
+            return;
+
+        }
+
+
+        fighters =
+            fighters.filter(
+                fighter => fighter.id !== id
+            );
+
+
+        saveFighters();
+
+        displayFighters();
+
+    }
+
+
+    /*
+    ==========================================
+    FIGHTERS WEERGEVEN
+    ==========================================
+    */
+
+    function displayFighters() {
+
+        const list =
+            document.getElementById(
+                "fighterList"
+            );
+
+
+        list.innerHTML = "";
+
+
+        if (fighters.length === 0) {
+
+            list.innerHTML = `
+                <p class="empty">
+                    Nog geen fighters toegevoegd.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        fighters.forEach(fighter => {
+
+            const rankingText =
+                fighter.ranking
+                    ? "#" + fighter.ranking
+                    : "Unranked";
+
+
+            list.innerHTML += `
+
+                <div class="fighter">
+
+                    <h3>
+                        ${fighter.name}
+                    </h3>
+
+
+                    <div class="stats">
+
+                        <span>
+                            ${fighter.weightClass}
+                        </span>
+
+
+                        <span>
+                            Ranking:
+                            ${rankingText}
+                        </span>
+
+
+                        <span class="record">
+
+                            Record:
+
+                            <span class="wins">
+                                ${fighter.wins}
+                            </span>
+
+                            -
+
+                            <span class="losses">
+                                ${fighter.losses}
+                            </span>
+
+                            -
+
+                            ${fighter.draws}
+
+                        </span>
+
+
+                        <span>
+                            Win streak:
+                            ${fighter.streak}
+                        </span>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button
+                            onclick="editFighter(${fighter.id})"
+                        >
+                            ✏️ Bewerken
+                        </button>
+
+
+                        <button
+                            class="delete"
+                            onclick="deleteFighter(${fighter.id})"
+                        >
+                            🗑️ Verwijderen
+                        </button>
+
+                    </div>
 
                 </div>
 
-                <button onclick="deleteFighter(${fighter.id})">
-                    Verwijderen
-                </button>
+            `;
 
-            </div>
-        `;
+        });
 
-    });
-}
+    }
 
-displayFighters();
+
+    /*
+    ==========================================
+    PAGINA LADEN
+    ==========================================
+    */
+
+    displayFighters();
 
 </script>
 
