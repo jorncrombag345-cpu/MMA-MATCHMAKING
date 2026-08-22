@@ -154,6 +154,16 @@
         }
 
 
+        select:focus {
+
+            outline: none;
+
+            border-color:
+                #e10600;
+
+        }
+
+
         .champion {
 
             background:
@@ -226,7 +236,7 @@
             display: grid;
 
             grid-template-columns:
-                70px 1fr 160px 120px;
+                70px 1fr 140px 140px;
 
             align-items: center;
 
@@ -244,6 +254,14 @@
         }
 
 
+        .rank:hover {
+
+            border-color:
+                #e10600;
+
+        }
+
+
         .position {
 
             font-size: 24px;
@@ -257,6 +275,27 @@
         }
 
 
+        .position.top1 {
+
+            color: #ffd700;
+
+        }
+
+
+        .position.top2 {
+
+            color: #c0c0c0;
+
+        }
+
+
+        .position.top3 {
+
+            color: #cd7f32;
+
+        }
+
+
         .fighter-name {
 
             font-size: 18px;
@@ -266,9 +305,49 @@
         }
 
 
+        .fighter-division {
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+
+        }
+
+
         .record {
 
             color: #aaa;
+
+        }
+
+
+        .score {
+
+            text-align: right;
+
+            font-weight: bold;
+
+        }
+
+
+        .score-number {
+
+            color: #e10600;
+
+            font-size: 18px;
+
+        }
+
+
+        .score-label {
+
+            color: #666;
+
+            font-size: 11px;
+
+            margin-top: 4px;
 
         }
 
@@ -297,7 +376,34 @@
         }
 
 
-        @media (max-width: 700px) {
+        .info {
+
+            background: #151515;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 10px;
+
+            padding: 18px;
+
+            margin-bottom: 25px;
+
+            color: #999;
+
+            line-height: 1.5;
+
+        }
+
+
+        .info strong {
+
+            color: white;
+
+        }
+
+
+        @media (max-width: 800px) {
 
             header {
 
@@ -327,12 +433,13 @@
             .rank {
 
                 grid-template-columns:
-                    50px 1fr;
+                    55px 1fr;
 
             }
 
 
             .record,
+            .score,
             .streak {
 
                 text-align: left;
@@ -382,6 +489,10 @@
             Matchmaker
         </a>
 
+        <a href="fight-result.html">
+            Results
+        </a>
+
         <a href="fighter-profile.html">
             Profiles
         </a>
@@ -410,6 +521,24 @@
     </p>
 
 
+    <!-- INFO -->
+
+
+    <div class="info">
+
+        <strong>
+            Ranking systeem:
+        </strong>
+
+        Fighters worden automatisch gerangschikt
+        op basis van hun ranking-score.
+
+        Een overwinning verhoogt de score,
+        een nederlaag verlaagt de score.
+
+    </div>
+
+
     <!-- GEWICHTSKLASSE -->
 
 
@@ -425,35 +554,35 @@
             onchange="displayRankings()"
         >
 
-            <option>
+            <option value="Flyweight">
                 Flyweight
             </option>
 
-            <option>
+            <option value="Bantamweight">
                 Bantamweight
             </option>
 
-            <option>
+            <option value="Featherweight">
                 Featherweight
             </option>
 
-            <option>
+            <option value="Lightweight">
                 Lightweight
             </option>
 
-            <option>
+            <option value="Welterweight">
                 Welterweight
             </option>
 
-            <option>
+            <option value="Middleweight">
                 Middleweight
             </option>
 
-            <option>
+            <option value="Light Heavyweight">
                 Light Heavyweight
             </option>
 
-            <option>
+            <option value="Heavyweight">
                 Heavyweight
             </option>
 
@@ -500,11 +629,174 @@ let fighters =
 
 /*
 ==================================================
+DATA OPNIEUW INLADEN
+==================================================
+*/
+
+function reloadFighters() {
+
+    fighters =
+        JSON.parse(
+            localStorage.getItem("fighters")
+        ) || [];
+
+}
+
+
+/*
+==================================================
+RECORD OPHALEN
+==================================================
+*/
+
+function getRecord(
+    fighter
+) {
+
+    /*
+    Nieuw systeem
+    */
+
+    if (
+        fighter.record
+    ) {
+
+        return {
+
+            wins:
+                Number(
+                    fighter.record.wins || 0
+                ),
+
+            losses:
+                Number(
+                    fighter.record.losses || 0
+                ),
+
+            draws:
+                Number(
+                    fighter.record.draws || 0
+                ),
+
+            noContests:
+                Number(
+                    fighter.record.noContests || 0
+                )
+
+        };
+
+    }
+
+
+    /*
+    Oud systeem
+    */
+
+    return {
+
+        wins:
+            Number(
+                fighter.wins || 0
+            ),
+
+        losses:
+            Number(
+                fighter.losses || 0
+            ),
+
+        draws:
+            Number(
+                fighter.draws || 0
+            ),
+
+        noContests:
+            Number(
+                fighter.noContests || 0
+            )
+
+    };
+
+}
+
+
+/*
+==================================================
+RANKING SCORE
+==================================================
+*/
+
+function getRankingScore(
+    fighter
+) {
+
+    /*
+    Nieuw ranking systeem.
+    */
+
+    if (
+        fighter.ranking !== undefined &&
+        fighter.ranking !== null &&
+        fighter.ranking !== ""
+    ) {
+
+        const value =
+            Number(
+                fighter.ranking
+            );
+
+
+        if (
+            !Number.isNaN(value)
+        ) {
+
+            return value;
+
+        }
+
+    }
+
+
+    /*
+    Als er nog geen score is:
+    standaard 1000.
+    */
+
+    fighter.ranking = 1000;
+
+
+    return 1000;
+
+}
+
+
+/*
+==================================================
+CHAMPION
+==================================================
+*/
+
+function getChampion(
+    division
+) {
+
+    return division.find(
+        fighter =>
+            fighter.champion === true
+    );
+
+}
+
+
+/*
+==================================================
 RANKINGS WEERGEVEN
 ==================================================
 */
 
 function displayRankings() {
+
+    reloadFighters();
+
 
     const weightClass =
         document.getElementById(
@@ -526,15 +818,17 @@ function displayRankings() {
 
     /*
     ------------------------------------------
-    FILTER
+    DIVISIE FILTER
     ------------------------------------------
     */
 
     const division =
         fighters.filter(
             fighter =>
+
                 fighter.weightClass ===
                 weightClass
+
         );
 
 
@@ -545,13 +839,18 @@ function displayRankings() {
     */
 
     const champion =
-        division.find(
-            fighter =>
-                fighter.champion === true
+        getChampion(
+            division
         );
 
 
     if (champion) {
+
+        const record =
+            getRecord(
+                champion
+            );
+
 
         championBox.innerHTML = `
 
@@ -564,7 +863,9 @@ function displayRankings() {
 
             <div class="champion-name">
 
-                ${champion.name}
+                ${escapeHtml(
+                    champion.name
+                )}
 
             </div>
 
@@ -572,7 +873,11 @@ function displayRankings() {
             <div class="champion-record">
 
                 Record:
-                ${champion.wins}-${champion.losses}-${champion.draws}
+                ${record.wins}
+                -
+                ${record.losses}
+                -
+                ${record.draws}
 
             </div>
 
@@ -617,27 +922,81 @@ function displayRankings() {
 
     const ranked =
         division
-            .filter(
-                fighter =>
-                    fighter.ranking
+            .map(
+                fighter => {
+
+                    return {
+
+                        fighter:
+                            fighter,
+
+                        score:
+                            getRankingScore(
+                                fighter
+                            )
+
+                    };
+
+                }
             )
             .sort(
-                (a, b) =>
-                    a.ranking -
-                    b.ranking
+                (a, b) => {
+
+                    /*
+                    Hoogste score eerst.
+                    */
+
+                    if (
+                        b.score !==
+                        a.score
+                    ) {
+
+                        return (
+                            b.score -
+                            a.score
+                        );
+
+                    }
+
+
+                    /*
+                    Bij gelijke score:
+                    meer wins eerst.
+                    */
+
+                    const recordA =
+                        getRecord(
+                            a.fighter
+                        );
+
+
+                    const recordB =
+                        getRecord(
+                            b.fighter
+                        );
+
+
+                    return (
+                        recordB.wins -
+                        recordA.wins
+                    );
+
+                }
             );
 
 
     rankingsBox.innerHTML = "";
 
 
-    if (ranked.length === 0) {
+    if (
+        ranked.length === 0
+    ) {
 
         rankingsBox.innerHTML = `
 
             <div class="empty">
 
-                Nog geen gerankte fighters
+                Nog geen fighters
                 in deze divisie.
 
             </div>
@@ -658,7 +1017,62 @@ function displayRankings() {
     ranked
         .slice(0, 15)
         .forEach(
-            fighter => {
+            (
+                item,
+                index
+            ) => {
+
+
+                const fighter =
+                    item.fighter;
+
+
+                const position =
+                    index + 1;
+
+
+                const record =
+                    getRecord(
+                        fighter
+                    );
+
+
+                const streak =
+                    Number(
+                        fighter.streak || 0
+                    );
+
+
+                let positionClass =
+                    "";
+
+
+                if (
+                    position === 1
+                ) {
+
+                    positionClass =
+                        "top1";
+
+                }
+
+                else if (
+                    position === 2
+                ) {
+
+                    positionClass =
+                        "top2";
+
+                }
+
+                else if (
+                    position === 3
+                ) {
+
+                    positionClass =
+                        "top3";
+
+                }
 
 
                 rankingsBox.innerHTML += `
@@ -666,18 +1080,38 @@ function displayRankings() {
                     <div class="rank">
 
 
-                        <div class="position">
+                        <div
+                            class="
+                                position
+                                ${positionClass}
+                            "
+                        >
 
-                            #${fighter.ranking}
+                            #${position}
 
                         </div>
 
 
                         <div>
 
-                            <div class="fighter-name">
+                            <div
+                                class="fighter-name"
+                            >
 
-                                ${fighter.name}
+                                ${escapeHtml(
+                                    fighter.name
+                                )}
+
+                            </div>
+
+
+                            <div
+                                class="fighter-division"
+                            >
+
+                                ${escapeHtml(
+                                    weightClass
+                                )}
 
                             </div>
 
@@ -686,20 +1120,50 @@ function displayRankings() {
 
                         <div class="record">
 
-                            ${fighter.wins}
+                            ${record.wins}
                             -
-                            ${fighter.losses}
+                            ${record.losses}
                             -
-                            ${fighter.draws}
+                            ${record.draws}
+
+                            ${
+                                record.noContests > 0
+                                ? ` • ${record.noContests} NC`
+                                : ""
+                            }
 
                         </div>
 
 
-                        <div class="streak">
+                        <div class="score">
 
-                            🔥
-                            ${fighter.streak || 0}
-                            streak
+                            <div
+                                class="score-number"
+                            >
+
+                                ${item.score}
+
+                            </div>
+
+
+                            <div
+                                class="score-label"
+                            >
+
+                                RANKING SCORE
+
+                            </div>
+
+
+                            <div
+                                class="streak"
+                                style="margin-top:5px;"
+                            >
+
+                                🔥
+                                ${streak}
+
+                            </div>
 
                         </div>
 
@@ -711,7 +1175,94 @@ function displayRankings() {
             }
         );
 
+
+    /*
+    ------------------------------------------
+    OPSLAAN
+    ------------------------------------------
+    */
+
+    localStorage.setItem(
+        "fighters",
+        JSON.stringify(
+            fighters
+        )
+    );
+
 }
+
+
+/*
+==================================================
+HTML VEILIG MAKEN
+==================================================
+*/
+
+function escapeHtml(
+    text
+) {
+
+    if (
+        text === null ||
+        text === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/*
+==================================================
+AUTOMATISCH VERNIEUWEN
+==================================================
+*/
+
+window.addEventListener(
+    "storage",
+    function(event) {
+
+        if (
+            event.key ===
+            "fighters"
+        ) {
+
+            displayRankings();
+
+        }
+
+    }
+);
 
 
 /*
