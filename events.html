@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Events - MMA Matchmaker</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b0b;
+            color: white;
+        }
+
+        header {
+            background: #111;
+            border-bottom: 2px solid #e10600;
+
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #e10600;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #e10600;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .form {
+            background: #151515;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 12px;
+
+            background: #222;
+
+            color: white;
+
+            border: 1px solid #444;
+
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 20px;
+
+            padding: 12px 20px;
+
+            background: #e10600;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #ff211a;
+        }
+
+        .events {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .event {
+            background: #151515;
+
+            border: 1px solid #292929;
+
+            border-radius: 10px;
+
+            padding: 25px;
+        }
+
+        .event-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+        .event-title {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .event-info {
+            color: #999;
+
+            margin-top: 8px;
+        }
+
+        .fight-form {
+            border-top: 1px solid #333;
+
+            padding-top: 20px;
+
+            margin-top: 20px;
+        }
+
+        .fight-form h3 {
+            margin-bottom: 15px;
+        }
+
+        .fight-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap: 10px;
+        }
+
+        .fight {
+            background: #101010;
+
+            border: 1px solid #333;
+
+            border-radius: 8px;
+
+            padding: 18px;
+
+            margin-top: 12px;
+        }
+
+        .fight.main-event {
+            border: 1px solid #e10600;
+        }
+
+        .main-label {
+            display: inline-block;
+
+            background: #e10600;
+
+            padding: 5px 10px;
+
+            border-radius: 4px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        .fight-names {
+            font-size: 20px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .vs {
+            color: #e10600;
+
+            margin: 0 8px;
+        }
+
+        .fight-info {
+            color: #888;
+
+            font-size: 14px;
+        }
+
+        .delete {
+            background: #333;
+        }
+
+        .delete:hover {
+            background: #555;
+        }
+
+        .empty {
+            color: #777;
+
+            padding: 20px;
+
+            background: #151515;
+
+            border-radius: 10px;
+
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+
+                gap: 20px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+
+                margin: 5px;
+            }
+
+            .form-grid,
+            .fight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        MMA <span>MATCHMAKER</span>
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="fighters.html">
+            Fighters
+        </a>
+
+        <a href="rankings.html">
+            Rankings
+        </a>
+
+        <a href="events.html">
+            Events
+        </a>
+
+        <a href="#">
+            Matchmaker
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h1>
+        📅 Events
+    </h1>
+
+
+    <!-- EVENT AANMAKEN -->
+
+    <div class="form">
+
+        <h2>
+            Nieuw event maken
+        </h2>
+
+
+        <div class="form-grid">
+
+            <input
+                id="eventName"
+                type="text"
+                placeholder="Event naam"
+            >
+
+
+            <input
+                id="eventDate"
+                type="date"
+            >
+
+
+            <input
+                id="eventLocation"
+                type="text"
+                placeholder="Locatie"
+            >
+
+        </div>
+
+
+        <button onclick="createEvent()">
+
+            + Event maken
+
+        </button>
+
+    </div>
+
+
+    <!-- EVENTS -->
+
+    <h2 style="margin-bottom:20px;">
+        Mijn events
+    </h2>
+
+
+    <div
+        id="eventList"
+        class="events"
+    ></div>
+
+</div>
+
+
+<script>
+
+
+/*
+==================================================
+DATA
+==================================================
+*/
+
+let fighters =
+    JSON.parse(
+        localStorage.getItem("fighters")
+    ) || [];
+
+
+let events =
+    JSON.parse(
+        localStorage.getItem("events")
+    ) || [];
+
+
+/*
+==================================================
+OPSLAAN
+==================================================
+*/
+
+function saveEvents() {
+
+    localStorage.setItem(
+        "events",
+        JSON.stringify(events)
+    );
+
+}
+
+
+/*
+==================================================
+EVENT MAKEN
+==================================================
+*/
+
+function createEvent() {
+
+    const name =
+        document.getElementById(
+            "eventName"
+        ).value.trim();
+
+
+    const date =
+        document.getElementById(
+            "eventDate"
+        ).value;
+
+
+    const location =
+        document.getElementById(
+            "eventLocation"
+        ).value.trim();
+
+
+    if (!name) {
+
+        alert(
+            "Vul een eventnaam in."
+        );
+
+        return;
+
+    }
+
+
+    const event = {
+
+        id: Date.now(),
+
+        name: name,
+
+        date: date,
+
+        location: location,
+
+        fights: []
+
+    };
+
+
+    events.push(event);
+
+
+    saveEvents();
+
+
+    document.getElementById(
+        "eventName"
+    ).value = "";
+
+
+    document.getElementById(
+        "eventDate"
+    ).value = "";
+
+
+    document.getElementById(
+        "eventLocation"
+    ).value = "";
+
+
+    displayEvents();
+
+}
+
+
+/*
+==================================================
+EVENT VERWIJDEREN
+==================================================
+*/
+
+function deleteEvent(id) {
+
+    const event =
+        events.find(
+            event =>
+                event.id === id
+        );
+
+
+    if (!event) return;
+
+
+    if (
+        !confirm(
+            "Wil je " +
+            event.name +
+            " verwijderen?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    events =
+        events.filter(
+            event =>
+                event.id !== id
+        );
+
+
+    saveEvents();
+
+    displayEvents();
+
+}
+
+
+/*
+==================================================
+FIGHT TOEVOEGEN
+==================================================
+*/
+
+function addFight(eventId) {
+
+    const event =
+        events.find(
+            event =>
+                event.id === eventId
+        );
+
+
+    if (!event) return;
+
+
+    if (fighters.length < 2) {
+
+        alert(
+            "Je hebt minimaal 2 fighters nodig."
+        );
+
+        return;
+
+    }
+
+
+    const fighterAId =
+        document.getElementById(
+            "fighterA-" + eventId
+        ).value;
+
+
+    const fighterBId =
+        document.getElementById(
+            "fighterB-" + eventId
+        ).value;
+
+
+    const weightClass =
+        document.getElementById(
+            "weight-" + eventId
+        ).value;
+
+
+    const mainEvent =
+        document.getElementById(
+            "main-" + eventId
+        ).checked;
+
+
+    if (!fighterAId || !fighterBId) {
+
+        alert(
+            "Kies beide fighters."
+        );
+
+        return;
+
+    }
+
+
+    if (fighterAId === fighterBId) {
+
+        alert(
+            "Een fighter kan niet tegen zichzelf vechten."
+        );
+
+        return;
+
+    }
+
+
+    const fighterA =
+        fighters.find(
+            fighter =>
+                fighter.id ==
+                fighterAId
+        );
+
+
+    const fighterB =
+        fighters.find(
+            fighter =>
+                fighter.id ==
+                fighterBId
+        );
+
+
+    const fight = {
+
+        id: Date.now(),
+
+        fighterA:
+            fighterA.id,
+
+        fighterB:
+            fighterB.id,
+
+        weightClass:
+            weightClass,
+
+        mainEvent:
+            mainEvent,
+
+        result:
+            null
+
+    };
+
+
+    /*
+    Als dit main event is,
+    worden andere main events uitgezet.
+    */
+
+    if (mainEvent) {
+
+        event.fights.forEach(
+            fight => {
+
+                fight.mainEvent =
+                    false;
+
+            }
+        );
+
+    }
+
+
+    event.fights.push(fight);
+
+
+    saveEvents();
+
+    displayEvents();
+
+}
+
+
+/*
+==================================================
+FIGHT VERWIJDEREN
+==================================================
+*/
+
+function deleteFight(
+    eventId,
+    fightId
+) {
+
+    const event =
+        events.find(
+            event =>
+                event.id === eventId
+        );
+
+
+    if (!event) return;
+
+
+    event.fights =
+        event.fights.filter(
+            fight =>
+                fight.id !== fightId
+        );
+
+
+    saveEvents();
+
+    displayEvents();
+
+}
+
+
+/*
+==================================================
+FIGHTER NAAM
+==================================================
+*/
+
+function getFighterName(id) {
+
+    const fighter =
+        fighters.find(
+            fighter =>
+                fighter.id == id
+        );
+
+
+    return fighter
+        ? fighter.name
+        : "Onbekend";
+
+}
+
+
+/*
+==================================================
+DATUM
+==================================================
+*/
+
+function formatDate(date) {
+
+    if (!date) {
+
+        return "Datum onbekend";
+
+    }
+
+
+    const parts =
+        date.split("-");
+
+
+    if (parts.length !== 3) {
+
+        return date;
+
+    }
+
+
+    return (
+        parts[2] +
+        "-" +
+        parts[1] +
+        "-" +
+        parts[0]
+    );
+
+}
+
+
+/*
+==================================================
+EVENTS WEERGEVEN
+==================================================
+*/
+
+function displayEvents() {
+
+    const list =
+        document.getElementById(
+            "eventList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (events.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                Je hebt nog geen events.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    events.forEach(
+        event => {
+
+            let fightsHTML = "";
+
+
+            /*
+            ------------------------------------------
+            FIGHTS
+            ------------------------------------------
+            */
+
+            event.fights.forEach(
+                fight => {
+
+                    const fighterA =
+                        getFighterName(
+                            fight.fighterA
+                        );
+
+
+                    const fighterB =
+                        getFighterName(
+                            fight.fighterB
+                        );
+
+
+                    fightsHTML += `
+
+                        <div class="
+                            fight
+                            ${fight.mainEvent
+                                ? "main-event"
+                                : ""}
+                        ">
+
+                            ${
+                                fight.mainEvent
+                                ? `
+                                    <div class="main-label">
+                                        MAIN EVENT
+                                    </div>
+                                  `
+                                : ""
+                            }
+
+
+                            <div class="fight-names">
+
+                                ${fighterA}
+
+                                <span class="vs">
+                                    VS
+                                </span>
+
+                                ${fighterB}
+
+                            </div>
+
+
+                            <div class="fight-info">
+
+                                ${fight.weightClass}
+
+                            </div>
+
+
+                            <button
+                                class="delete"
+                                onclick="
+                                    deleteFight(
+                                        ${event.id},
+                                        ${fight.id}
+                                    )
+                                "
+                            >
+
+                                🗑️ Fight verwijderen
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+
+            /*
+            ------------------------------------------
+            EVENT HTML
+            ------------------------------------------
+            */
+
+            list.innerHTML += `
+
+                <div class="event">
+
+
+                    <div class="event-header">
+
+                        <div>
+
+                            <div class="event-title">
+
+                                ${event.name}
+
+                            </div>
+
+
+                            <div class="event-info">
+
+                                📅
+                                ${formatDate(event.date)}
+
+                                &nbsp;&nbsp;
+
+                                📍
+                                ${event.location || "Locatie onbekend"}
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="delete"
+                            onclick="
+                                deleteEvent(
+                                    ${event.id}
+                                )
+                            "
+                        >
+
+                            🗑️ Event verwijderen
+
+                        </button>
+
+                    </div>
+
+
+                    <h3>
+                        Fight Card
+                    </h3>
+
+
+                    ${
+                        event.fights.length === 0
+                        ? `
+                            <p
+                                style="
+                                    color:#777;
+                                    margin-top:15px;
+                                "
+                            >
+                                Nog geen fights.
+                            </p>
+                          `
+                        : fightsHTML
+                    }
+
+
+                    <!-- FIGHT TOEVOEGEN -->
+
+                    <div class="fight-form">
+
+                        <h3>
+                            Fight toevoegen
+                        </h3>
+
+
+                        <div class="fight-grid">
+
+
+                            <select
+                                id="fighterA-${event.id}"
+                            >
+
+                                <option value="">
+                                    Fighter A
+                                </option>
+
+                                ${
+                                    fighters.map(
+                                        fighter => `
+                                            <option
+                                                value="${fighter.id}"
+                                            >
+                                                ${fighter.name}
+                                            </option>
+                                        `
+                                    ).join("")
+                                }
+
+                            </select>
+
+
+                            <select
+                                id="fighterB-${event.id}"
+                            >
+
+                                <option value="">
+                                    Fighter B
+                                </option>
+
+                                ${
+                                    fighters.map(
+                                        fighter => `
+                                            <option
+                                                value="${fighter.id}"
+                                            >
+                                                ${fighter.name}
+                                            </option>
+                                        `
+                                    ).join("")
+                                }
+
+                            </select>
+
+
+                            <select
+                                id="weight-${event.id}"
+                            >
+
+                                <option>
+                                    Flyweight
+                                </option>
+
+                                <option>
+                                    Bantamweight
+                                </option>
+
+                                <option>
+                                    Featherweight
+                                </option>
+
+                                <option>
+                                    Lightweight
+                                </option>
+
+                                <option>
+                                    Welterweight
+                                </option>
+
+                                <option>
+                                    Middleweight
+                                </option>
+
+                                <option>
+                                    Light Heavyweight
+                                </option>
+
+                                <option>
+                                    Heavyweight
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <label
+                            style="
+                                display:block;
+                                margin-top:15px;
+                                color:#aaa;
+                            "
+                        >
+
+                            <input
+                                type="checkbox"
+                                id="main-${event.id}"
+                                style="width:auto;"
+                            >
+
+                            Main Event
+
+                        </label>
+
+
+                        <button
+                            onclick="
+                                addFight(
+                                    ${event.id}
+                                )
+                            "
+                        >
+
+                            + Fight toevoegen
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/*
+==================================================
+START
+==================================================
+*/
+
+displayEvents();
+
+
+</script>
+
+
+</body>
+</html>
