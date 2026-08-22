@@ -5,13 +5,9 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Events - MMA Matchmaker</title>
-
 
     <style>
 
@@ -21,703 +17,381 @@
             padding: 0;
         }
 
-
         body {
-
             font-family: Arial, sans-serif;
-
             background: #090909;
-
             color: white;
-
         }
-
-
-        /* =========================
-           HEADER
-        ========================= */
 
         header {
-
             background: #111;
-
-            border-bottom:
-                2px solid #e10600;
-
-            padding: 18px 35px;
+            border-bottom: 2px solid #e10600;
+            padding: 20px 30px;
 
             display: flex;
-
-            justify-content:
-                space-between;
-
+            justify-content: space-between;
             align-items: center;
 
+            flex-wrap: wrap;
+            gap: 20px;
         }
-
 
         .logo {
-
             font-size: 24px;
-
             font-weight: bold;
-
-            white-space: nowrap;
-
         }
-
 
         .logo span {
-
             color: #e10600;
-
         }
-
 
         nav {
-
             display: flex;
-
             flex-wrap: wrap;
-
-            justify-content: flex-end;
-
+            gap: 15px;
         }
-
 
         nav a {
-
             color: #aaa;
-
             text-decoration: none;
-
-            margin-left: 18px;
-
-            font-size: 14px;
-
             font-weight: bold;
-
         }
-
 
         nav a:hover {
-
-            color: white;
-
+            color: #e10600;
         }
-
-
-        /* =========================
-           CONTAINER
-        ========================= */
 
         .container {
-
-            max-width: 1150px;
-
+            max-width: 1100px;
             margin: auto;
-
-            padding: 40px 20px 60px;
-
+            padding: 40px 20px;
         }
-
 
         h1 {
-
-            margin-bottom: 8px;
-
+            margin-bottom: 10px;
         }
-
 
         .subtitle {
-
             color: #777;
-
             margin-bottom: 30px;
-
         }
-
-
-        /* =========================
-           CARDS
-        ========================= */
 
         .card {
-
             background: #151515;
-
-            border:
-                1px solid #292929;
-
-            border-radius: 10px;
-
+            border: 1px solid #292929;
+            border-radius: 12px;
             padding: 25px;
-
             margin-bottom: 25px;
-
         }
-
 
         .card h2 {
-
             margin-bottom: 20px;
-
         }
 
-
-        /* =========================
-           FORM
-        ========================= */
-
-        .grid {
-
+        .form-grid {
             display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-
         }
-
-
-        .field {
-
-            margin-bottom: 5px;
-
-        }
-
 
         .full {
-
-            grid-column:
-                1 / -1;
-
+            grid-column: 1 / -1;
         }
-
 
         label {
-
             display: block;
-
             color: #aaa;
-
             margin-bottom: 8px;
-
             font-size: 14px;
-
         }
-
 
         input,
         textarea {
-
             width: 100%;
-
             padding: 14px;
 
             background: #222;
-
             color: white;
 
-            border:
-                1px solid #444;
-
+            border: 1px solid #444;
             border-radius: 7px;
 
-            font-family: inherit;
-
             font-size: 15px;
-
+            font-family: Arial, sans-serif;
         }
-
 
         textarea {
-
             min-height: 100px;
-
             resize: vertical;
-
         }
-
 
         input:focus,
         textarea:focus {
-
             outline: none;
-
-            border-color:
-                #e10600;
-
+            border-color: #e10600;
         }
 
+        button {
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
 
-        /* =========================
-           BUTTONS
-        ========================= */
-
-        .button {
-
+        .main-button {
             width: 100%;
 
             padding: 15px;
 
             background: #e10600;
-
             color: white;
 
             border: none;
-
             border-radius: 7px;
 
-            cursor: pointer;
-
             font-size: 16px;
-
             font-weight: bold;
-
         }
 
-
-        .button:hover {
-
+        .main-button:hover {
             background: #ff211a;
-
         }
 
+        .clear-button {
+            width: 100%;
 
-        .secondary {
-
-            background: #222;
-
-            border:
-                1px solid #444;
+            padding: 13px;
 
             margin-top: 10px;
 
+            background: #222;
+            color: white;
+
+            border: 1px solid #444;
+            border-radius: 7px;
+
+            font-size: 15px;
         }
-
-
-        .secondary:hover {
-
-            background: #333;
-
-        }
-
-
-        /* =========================
-           MESSAGES
-        ========================= */
 
         .message {
-
             display: none;
 
+            margin-top: 15px;
             padding: 14px;
 
             border-radius: 7px;
 
-            margin-top: 15px;
-
             text-align: center;
-
         }
-
 
         .success {
-
             background: #12351f;
-
-            border:
-                1px solid #1f7540;
-
+            border: 1px solid #1f7540;
             color: #6ee7a0;
-
         }
-
 
         .error {
-
             background: #3a1111;
-
-            border:
-                1px solid #6d2222;
-
+            border: 1px solid #6d2222;
             color: #ff8b8b;
-
         }
 
-
-        /* =========================
-           EVENT LIST
-        ========================= */
-
-        .event-list {
-
-            display: grid;
-
+        .events {
+            display: flex;
+            flex-direction: column;
             gap: 15px;
-
         }
 
-
-        .event-card {
-
+        .event {
             background: #101010;
 
-            border:
-                1px solid #333;
-
+            border: 1px solid #333;
             border-radius: 10px;
 
             padding: 22px;
-
         }
 
-
-        .event-header {
-
+        .event-top {
             display: flex;
-
-            justify-content:
-                space-between;
-
+            justify-content: space-between;
             align-items: flex-start;
 
             gap: 15px;
-
-            margin-bottom: 15px;
-
         }
-
 
         .event-name {
-
-            font-size: 23px;
-
+            font-size: 24px;
             font-weight: bold;
-
         }
 
-
-        .event-meta {
-
-            color: #777;
-
-            font-size: 13px;
-
-            margin-top: 7px;
-
+        .event-date {
+            color: #aaa;
+            margin-top: 8px;
             line-height: 1.6;
-
         }
-
 
         .event-description {
-
-            color: #999;
-
+            color: #888;
+            margin-top: 15px;
             line-height: 1.5;
-
-            margin-bottom: 18px;
-
         }
-
-
-        .event-actions {
-
-            display: flex;
-
-            gap: 10px;
-
-            flex-wrap: wrap;
-
-        }
-
-
-        .small-button {
-
-            padding: 9px 13px;
-
-            background: #222;
-
-            color: white;
-
-            border:
-                1px solid #444;
-
-            border-radius: 6px;
-
-            cursor: pointer;
-
-        }
-
-
-        .small-button:hover {
-
-            background: #333;
-
-        }
-
-
-        .delete-button:hover {
-
-            background: #5a1515;
-
-            border-color: #7a2222;
-
-        }
-
-
-        /* =========================
-           STATUS
-        ========================= */
 
         .status {
-
-            display: inline-block;
-
-            padding: 5px 9px;
+            padding: 6px 10px;
 
             border-radius: 5px;
 
             font-size: 11px;
-
             font-weight: bold;
-
-            text-transform: uppercase;
-
         }
-
 
         .upcoming {
-
             background: #12351f;
-
             color: #6ee7a0;
-
         }
-
 
         .past {
-
             background: #292929;
-
             color: #aaa;
-
         }
 
+        .actions {
+            display: flex;
+            gap: 10px;
 
-        /* =========================
-           FIGHTS
-        ========================= */
+            flex-wrap: wrap;
 
-        .fights {
+            margin-top: 20px;
+        }
 
-            border-top:
-                1px solid #292929;
+        .action-button {
+            padding: 10px 14px;
 
-            padding-top: 18px;
+            background: #222;
+            color: white;
 
-            margin-top: 18px;
+            border: 1px solid #444;
+            border-radius: 6px;
+        }
 
+        .action-button:hover {
+            background: #333;
+        }
+
+        .delete:hover {
+            background: #5a1515;
+            border-color: #7a2222;
+        }
+
+        .fight-box {
             display: none;
 
+            margin-top: 20px;
+            padding-top: 20px;
+
+            border-top: 1px solid #292929;
         }
 
-
         .fight {
+            background: #171717;
 
-            background: #151515;
-
-            border:
-                1px solid #333;
-
+            border: 1px solid #333;
             border-radius: 8px;
 
             padding: 15px;
 
             margin-bottom: 10px;
-
         }
-
 
         .fight:last-child {
-
             margin-bottom: 0;
-
         }
-
-
-        .fight-top {
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items: center;
-
-            margin-bottom: 8px;
-
-        }
-
 
         .fight-number {
-
             color: #777;
-
             font-size: 12px;
 
+            margin-bottom: 8px;
         }
-
-
-        .badges {
-
-            display: flex;
-
-            gap: 6px;
-
-            flex-wrap: wrap;
-
-        }
-
-
-        .badge {
-
-            display: inline-block;
-
-            padding: 4px 7px;
-
-            border-radius: 4px;
-
-            background: #292929;
-
-            color: #ccc;
-
-            font-size: 10px;
-
-            font-weight: bold;
-
-        }
-
-
-        .title-badge {
-
-            background: #5c4b00;
-
-            color: #ffd700;
-
-        }
-
-
-        .main-badge {
-
-            background: #e10600;
-
-            color: white;
-
-        }
-
 
         .fight-names {
-
             font-size: 18px;
-
             font-weight: bold;
-
         }
-
 
         .fight-names span {
-
             color: #e10600;
-
-            margin: 0 7px;
-
+            margin: 0 8px;
         }
-
 
         .fight-info {
-
             color: #777;
-
-            font-size: 12px;
-
-            margin-top: 7px;
-
+            font-size: 13px;
+            margin-top: 8px;
         }
-
 
         .result {
-
             color: #6ee7a0;
-
-            margin-top: 7px;
-
+            margin-top: 8px;
             font-size: 13px;
-
         }
 
-
         .empty {
-
-            color: #666;
+            padding: 30px;
 
             text-align: center;
 
-            padding: 25px;
+            color: #777;
 
+            background: #111;
+
+            border-radius: 8px;
         }
 
+        .danger-box {
+            margin-top: 30px;
 
-        /* =========================
-           RESPONSIVE
-        ========================= */
+            padding: 15px;
 
-        @media (max-width: 750px) {
+            background: #1b1010;
+
+            border: 1px solid #4b2222;
+
+            border-radius: 8px;
+        }
+
+        .danger-button {
+            margin-top: 10px;
+
+            padding: 10px 15px;
+
+            background: #5a1515;
+
+            color: white;
+
+            border: 1px solid #7a2222;
+
+            border-radius: 6px;
+        }
+
+        @media (max-width: 700px) {
 
             header {
-
                 flex-direction: column;
-
-                gap: 18px;
-
             }
-
 
             nav {
-
                 justify-content: center;
-
             }
 
-
-            nav a {
-
-                margin: 5px 7px;
-
-            }
-
-
-            .grid {
-
+            .form-grid {
                 grid-template-columns: 1fr;
-
             }
-
 
             .full {
-
                 grid-column: auto;
-
             }
 
-
-            .event-header {
-
+            .event-top {
                 flex-direction: column;
-
             }
 
         }
@@ -730,98 +404,63 @@
 <body>
 
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
     <div class="logo">
 
-        MMA
-        <span>MATCHMAKER</span>
+        MMA <span>MATCHMAKER</span>
 
     </div>
 
 
     <nav>
 
-        <a href="index.html">
-            Home
-        </a>
+        <a href="index.html">Home</a>
 
-        <a href="fighters.html">
-            Fighters
-        </a>
+        <a href="fighters.html">Fighters</a>
 
-        <a href="rankings.html">
-            Rankings
-        </a>
+        <a href="rankings.html">Rankings</a>
 
-        <a href="events.html">
-            Events
-        </a>
+        <a href="events.html">Events</a>
 
-        <a href="matchmaker.html">
-            Matchmaker
-        </a>
+        <a href="matchmaker.html">Matchmaker</a>
 
-        <a href="fight-result.html">
-            Results
-        </a>
+        <a href="fight-result.html">Results</a>
 
-        <a href="fighter-profile.html">
-            Profiles
-        </a>
+        <a href="fighter-profile.html">Profiles</a>
 
-        <a href="admin.html">
-            Admin
-        </a>
+        <a href="admin.html">Admin</a>
 
     </nav>
 
 </header>
 
 
-<!-- =========================
-     MAIN
-========================= -->
-
 <main class="container">
 
 
-    <h1>
-        📅 Events
-    </h1>
-
+    <h1>📅 Events</h1>
 
     <p class="subtitle">
-
         Maak en beheer je eigen MMA-events.
-
     </p>
 
 
-    <!-- =========================
-         NIEUW EVENT
-    ========================= -->
+    <!-- NIEUW EVENT -->
 
     <div class="card">
 
-        <h2>
-            Nieuw Event
-        </h2>
+        <h2>Nieuw Event</h2>
 
 
-        <div class="grid">
+        <div class="form-grid">
 
 
-            <div class="field">
+            <div>
 
-                <label>
+                <label for="eventName">
                     Eventnaam
                 </label>
-
 
                 <input
                     id="eventName"
@@ -832,12 +471,11 @@
             </div>
 
 
-            <div class="field">
+            <div>
 
-                <label>
+                <label for="eventDate">
                     Datum
                 </label>
-
 
                 <input
                     id="eventDate"
@@ -847,28 +485,26 @@
             </div>
 
 
-            <div class="field">
+            <div>
 
-                <label>
+                <label for="eventLocation">
                     Locatie
                 </label>
-
 
                 <input
                     id="eventLocation"
                     type="text"
-                    placeholder="Bijv. Arena"
+                    placeholder="Bijv. Ziggo Dome"
                 >
 
             </div>
 
 
-            <div class="field">
+            <div>
 
-                <label>
+                <label for="eventCity">
                     Stad / Land
                 </label>
-
 
                 <input
                     id="eventCity"
@@ -879,12 +515,11 @@
             </div>
 
 
-            <div class="field full">
+            <div class="full">
 
-                <label>
+                <label for="eventDescription">
                     Beschrijving
                 </label>
-
 
                 <textarea
                     id="eventDescription"
@@ -894,21 +529,22 @@
             </div>
 
 
-            <div class="field full">
-
+            <div class="full">
 
                 <button
-                    class="button"
+                    type="button"
+                    class="main-button"
                     onclick="createEvent()"
                 >
 
-                    ➕ Event maken
+                    ➕ EVENT MAKEN
 
                 </button>
 
 
                 <button
-                    class="button secondary"
+                    type="button"
+                    class="clear-button"
                     onclick="clearForm()"
                 >
 
@@ -928,7 +564,6 @@
                     class="message error"
                 ></div>
 
-
             </div>
 
         </div>
@@ -936,21 +571,44 @@
     </div>
 
 
-    <!-- =========================
-         EVENTS
-    ========================= -->
+    <!-- EVENT LIJST -->
 
     <div class="card">
 
-        <h2>
-            Alle Events
-        </h2>
+        <h2>Alle Events</h2>
 
 
         <div
             id="eventList"
-            class="event-list"
+            class="events"
         ></div>
+
+
+        <!-- DATA RESET -->
+
+        <div class="danger-box">
+
+            <strong>
+                Problemen met oude data?
+            </strong>
+
+            <p style="color:#888; margin-top:7px;">
+                Gebruik dit alleen als events
+                verkeerd opgeslagen zijn.
+            </p>
+
+
+            <button
+                type="button"
+                class="danger-button"
+                onclick="resetEvents()"
+            >
+
+                🗑️ Alle Events Wissen
+
+            </button>
+
+        </div>
 
     </div>
 
@@ -962,25 +620,120 @@
 
 /*
 ==================================================
-DATA
+VEILIG DATA LADEN
 ==================================================
 */
 
-let events =
-    JSON.parse(
-        localStorage.getItem("events")
-    ) || [];
+function loadEvents() {
+
+    try {
+
+        const data =
+            localStorage.getItem("events");
 
 
-let fighters =
-    JSON.parse(
-        localStorage.getItem("fighters")
-    ) || [];
+        if (!data) {
+
+            return [];
+
+        }
+
+
+        const parsed =
+            JSON.parse(data);
+
+
+        if (
+            !Array.isArray(parsed)
+        ) {
+
+            return [];
+
+        }
+
+
+        return parsed;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Events konden niet worden geladen:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
 
 
 /*
 ==================================================
-EVENTS OPSLAAN
+EVENTS
+==================================================
+*/
+
+let events =
+    loadEvents();
+
+
+/*
+==================================================
+FIGHTERS
+==================================================
+*/
+
+function loadFighters() {
+
+    try {
+
+        const data =
+            localStorage.getItem("fighters");
+
+
+        if (!data) {
+
+            return [];
+
+        }
+
+
+        const parsed =
+            JSON.parse(data);
+
+
+        if (
+            !Array.isArray(parsed)
+        ) {
+
+            return [];
+
+        }
+
+
+        return parsed;
+
+    }
+
+    catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+let fighters =
+    loadFighters();
+
+
+/*
+==================================================
+OPSLAAN
 ==================================================
 */
 
@@ -990,122 +743,6 @@ function saveEvents() {
         "events",
         JSON.stringify(events)
     );
-
-}
-
-
-/*
-==================================================
-FIGHTER OPHALEN
-==================================================
-*/
-
-function getFighter(id) {
-
-    return fighters.find(
-        fighter =>
-            String(fighter.id) ===
-            String(id)
-    );
-
-}
-
-
-/*
-==================================================
-DATUM
-==================================================
-*/
-
-function formatDate(date) {
-
-    if (!date) {
-
-        return "Geen datum";
-
-    }
-
-
-    const d =
-        new Date(
-            date + "T00:00:00"
-        );
-
-
-    if (
-        Number.isNaN(
-            d.getTime()
-        )
-    ) {
-
-        return date;
-
-    }
-
-
-    return d.toLocaleDateString(
-        "nl-NL",
-        {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        }
-    );
-
-}
-
-
-/*
-==================================================
-STATUS
-==================================================
-*/
-
-function getStatus(date) {
-
-    if (!date) {
-
-        return {
-            text: "Geen datum",
-            className: "past"
-        };
-
-    }
-
-
-    const today =
-        new Date();
-
-    today.setHours(
-        0,
-        0,
-        0,
-        0
-    );
-
-
-    const eventDate =
-        new Date(
-            date + "T00:00:00"
-        );
-
-
-    if (
-        eventDate >= today
-    ) {
-
-        return {
-            text: "Upcoming",
-            className: "upcoming"
-        };
-
-    }
-
-
-    return {
-        text: "Past",
-        className: "past"
-    };
 
 }
 
@@ -1155,10 +792,16 @@ function createEvent() {
             .trim();
 
 
-    if (!name) {
+    /*
+    ------------------------------------------
+    CONTROLE
+    ------------------------------------------
+    */
+
+    if (name === "") {
 
         showError(
-            "Vul een eventnaam in."
+            "Vul eerst een eventnaam in."
         );
 
         return;
@@ -1166,10 +809,10 @@ function createEvent() {
     }
 
 
-    if (!date) {
+    if (date === "") {
 
         showError(
-            "Kies een datum."
+            "Kies eerst een datum."
         );
 
         return;
@@ -1177,7 +820,13 @@ function createEvent() {
     }
 
 
-    const event = {
+    /*
+    ------------------------------------------
+    EVENT OBJECT
+    ------------------------------------------
+    */
+
+    const newEvent = {
 
         id:
             Date.now(),
@@ -1206,22 +855,60 @@ function createEvent() {
     };
 
 
-    events.push(event);
+    /*
+    ------------------------------------------
+    EVENT TOEVOEGEN
+    ------------------------------------------
+    */
 
+    events.push(
+        newEvent
+    );
+
+
+    /*
+    ------------------------------------------
+    OPSLAAN
+    ------------------------------------------
+    */
 
     saveEvents();
 
 
+    /*
+    ------------------------------------------
+    FORMULIER WISSEN
+    ------------------------------------------
+    */
+
     clearForm();
 
 
+    /*
+    ------------------------------------------
+    LIJST OPNIEUW MAKEN
+    ------------------------------------------
+    */
+
     displayEvents();
 
+
+    /*
+    ------------------------------------------
+    MELDING
+    ------------------------------------------
+    */
 
     showSuccess(
         "✅ " +
         name +
         " is aangemaakt!"
+    );
+
+
+    console.log(
+        "Nieuw event:",
+        newEvent
     );
 
 }
@@ -1236,13 +923,12 @@ EVENTS WEERGEVEN
 function displayEvents() {
 
     /*
-    Opnieuw uit localStorage lezen.
+    Opnieuw laden zodat
+    localStorage altijd leidend is.
     */
 
     events =
-        JSON.parse(
-            localStorage.getItem("events")
-        ) || [];
+        loadEvents();
 
 
     const list =
@@ -1251,15 +937,14 @@ function displayEvents() {
         );
 
 
-    if (!list) {
-
-        return;
-
-    }
-
-
     list.innerHTML = "";
 
+
+    /*
+    ------------------------------------------
+    GEEN EVENTS
+    ------------------------------------------
+    */
 
     if (
         events.length === 0
@@ -1274,7 +959,7 @@ function displayEvents() {
                 <br><br>
 
                 Maak hierboven je eerste
-                MMA-event.
+                event.
 
             </div>
 
@@ -1285,35 +970,32 @@ function displayEvents() {
     }
 
 
-    const sortedEvents =
-        [...events].sort(
-            (a, b) => {
+    /*
+    ------------------------------------------
+    SORTEREN
+    ------------------------------------------
+    */
 
-                if (!a.date) {
+    events.sort(
+        function(a, b) {
 
-                    return 1;
-
-                }
-
-
-                if (!b.date) {
-
-                    return -1;
-
-                }
-
-
-                return (
-                    new Date(a.date) -
-                    new Date(b.date)
+            return String(a.date)
+                .localeCompare(
+                    String(b.date)
                 );
 
-            }
-        );
+        }
+    );
 
 
-    sortedEvents.forEach(
-        event => {
+    /*
+    ------------------------------------------
+    EVENTS MAKEN
+    ------------------------------------------
+    */
+
+    events.forEach(
+        function(event) {
 
             const status =
                 getStatus(
@@ -1329,52 +1011,50 @@ function displayEvents() {
                     : [];
 
 
-            list.innerHTML += `
+            const eventHTML = `
 
                 <div
-                    class="event-card"
+                    class="event"
                     id="event-${event.id}"
                 >
 
-                    <div class="event-header">
+                    <div class="event-top">
 
                         <div>
 
                             <div class="event-name">
 
-                                ${escapeHtml(
+                                ${escapeHTML(
                                     event.name
                                 )}
 
                             </div>
 
 
-                            <div class="event-meta">
+                            <div class="event-date">
 
                                 📅
                                 ${formatDate(
                                     event.date
                                 )}
 
+                                <br>
+
                                 ${
                                     event.location
-                                    ? `
-                                        • 📍
-                                        ${escapeHtml(
-                                            event.location
-                                        )}
-                                      `
+                                    ? "📍 " +
+                                      escapeHTML(
+                                          event.location
+                                      )
                                     : ""
                                 }
 
                                 ${
                                     event.city
-                                    ? `
-                                        •
-                                        ${escapeHtml(
-                                            event.city
-                                        )}
-                                      `
+                                    ? " • " +
+                                      escapeHTML(
+                                          event.city
+                                      )
                                     : ""
                                 }
 
@@ -1389,7 +1069,7 @@ function displayEvents() {
                         </div>
 
 
-                        <span
+                        <div
                             class="
                                 status
                                 ${status.className}
@@ -1398,7 +1078,7 @@ function displayEvents() {
 
                             ${status.text}
 
-                        </span>
+                        </div>
 
                     </div>
 
@@ -1406,25 +1086,27 @@ function displayEvents() {
                     ${
                         event.description
                         ? `
+
                             <div
                                 class="event-description"
                             >
 
-                                ${escapeHtml(
+                                ${escapeHTML(
                                     event.description
                                 )}
 
                             </div>
+
                           `
                         : ""
                     }
 
 
-                    <div class="event-actions">
-
+                    <div class="actions">
 
                         <button
-                            class="small-button"
+                            type="button"
+                            class="action-button"
                             onclick="
                                 toggleFights(
                                     ${event.id}
@@ -1438,7 +1120,8 @@ function displayEvents() {
 
 
                         <button
-                            class="small-button"
+                            type="button"
+                            class="action-button"
                             onclick="
                                 editEvent(
                                     ${event.id}
@@ -1452,9 +1135,10 @@ function displayEvents() {
 
 
                         <button
+                            type="button"
                             class="
-                                small-button
-                                delete-button
+                                action-button
+                                delete
                             "
                             onclick="
                                 deleteEvent(
@@ -1467,19 +1151,21 @@ function displayEvents() {
 
                         </button>
 
-
                     </div>
 
 
                     <div
                         id="fights-${event.id}"
-                        class="fights"
+                        class="fight-box"
                     ></div>
-
 
                 </div>
 
             `;
+
+
+            list.innerHTML +=
+                eventHTML;
 
         }
     );
@@ -1489,7 +1175,106 @@ function displayEvents() {
 
 /*
 ==================================================
-FIGHTS OPENEN
+STATUS
+==================================================
+*/
+
+function getStatus(date) {
+
+    if (!date) {
+
+        return {
+            text: "Geen datum",
+            className: "past"
+        };
+
+    }
+
+
+    const today =
+        new Date();
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    const eventDate =
+        new Date(
+            date + "T00:00:00"
+        );
+
+
+    if (
+        eventDate >= today
+    ) {
+
+        return {
+            text: "UPCOMING",
+            className: "upcoming"
+        };
+
+    }
+
+
+    return {
+        text: "PAST",
+        className: "past"
+    };
+
+}
+
+
+/*
+==================================================
+DATUM
+==================================================
+*/
+
+function formatDate(date) {
+
+    if (!date) {
+
+        return "Geen datum";
+
+    }
+
+
+    const d =
+        new Date(
+            date + "T00:00:00"
+        );
+
+
+    if (
+        isNaN(
+            d.getTime()
+        )
+    ) {
+
+        return date;
+
+    }
+
+
+    return d.toLocaleDateString(
+        "nl-NL",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/*
+==================================================
+FIGHTS
 ==================================================
 */
 
@@ -1548,9 +1333,12 @@ function displayFights(eventId) {
 
     const event =
         events.find(
-            e =>
-                String(e.id) ===
-                String(eventId)
+            function(e) {
+
+                return String(e.id) ===
+                    String(eventId);
+
+            }
         );
 
 
@@ -1562,14 +1350,9 @@ function displayFights(eventId) {
 
 
     const fights =
-        Array.isArray(
-            event.fights
-        )
+        Array.isArray(event.fights)
             ? event.fights
             : [];
-
-
-    box.innerHTML = "";
 
 
     if (
@@ -1580,12 +1363,12 @@ function displayFights(eventId) {
 
             <div class="empty">
 
-                Nog geen fights.
+                🥊 Nog geen fights.
 
                 <br><br>
 
-                Voeg fights toe via
-                Matchmaker.
+                We gaan hier later de
+                Matchmaker aan koppelen.
 
             </div>
 
@@ -1596,98 +1379,50 @@ function displayFights(eventId) {
     }
 
 
+    box.innerHTML = "";
+
+
     fights.forEach(
-        (fight, index) => {
+        function(fight, index) {
 
             const fighterA =
-                getFighter(
-                    fight.fighterA
+                fighters.find(
+                    function(fighter) {
+
+                        return String(
+                            fighter.id
+                        ) === String(
+                            fight.fighterA
+                        );
+
+                    }
                 );
 
 
             const fighterB =
-                getFighter(
-                    fight.fighterB
+                fighters.find(
+                    function(fighter) {
+
+                        return String(
+                            fighter.id
+                        ) === String(
+                            fight.fighterB
+                        );
+
+                    }
                 );
 
 
             const nameA =
                 fighterA
-                ? fighterA.name
-                : "Onbekend";
+                    ? fighterA.name
+                    : "Fighter A";
 
 
             const nameB =
                 fighterB
-                ? fighterB.name
-                : "Onbekend";
-
-
-            let badges = "";
-
-
-            if (
-                fight.fightType ===
-                "Title"
-            ) {
-
-                badges += `
-
-                    <span
-                        class="
-                            badge
-                            title-badge
-                        "
-                    >
-
-                        🏆 TITLE
-
-                    </span>
-
-                `;
-
-            }
-
-
-            if (
-                fight.position ===
-                "Main Event"
-            ) {
-
-                badges += `
-
-                    <span
-                        class="
-                            badge
-                            main-badge
-                        "
-                    >
-
-                        MAIN EVENT
-
-                    </span>
-
-                `;
-
-            }
-
-
-            if (
-                fight.position ===
-                "Co-Main Event"
-            ) {
-
-                badges += `
-
-                    <span class="badge">
-
-                        CO-MAIN EVENT
-
-                    </span>
-
-                `;
-
-            }
+                    ? fighterB.name
+                    : "Fighter B";
 
 
             let resultHTML = "";
@@ -1697,7 +1432,7 @@ function displayFights(eventId) {
                 fight.result
             ) {
 
-                let winnerText =
+                let winner =
                     "Resultaat";
 
 
@@ -1706,42 +1441,39 @@ function displayFights(eventId) {
                     "A"
                 ) {
 
-                    winnerText =
+                    winner =
                         nameA +
                         " wint";
 
                 }
-
 
                 else if (
                     fight.result.winner ===
                     "B"
                 ) {
 
-                    winnerText =
+                    winner =
                         nameB +
                         " wint";
 
                 }
-
 
                 else if (
                     fight.result.winner ===
                     "DRAW"
                 ) {
 
-                    winnerText =
+                    winner =
                         "Draw";
 
                 }
-
 
                 else if (
                     fight.result.winner ===
                     "NC"
                 ) {
 
-                    winnerText =
+                    winner =
                         "No Contest";
 
                 }
@@ -1752,14 +1484,14 @@ function displayFights(eventId) {
                     <div class="result">
 
                         🏆
-                        ${escapeHtml(
-                            winnerText
+                        ${escapeHTML(
+                            winner
                         )}
 
                         ${
                             fight.result.method
                             ? " • " +
-                              escapeHtml(
+                              escapeHTML(
                                   fight.result.method
                               )
                             : ""
@@ -1776,50 +1508,32 @@ function displayFights(eventId) {
 
                 <div class="fight">
 
-                    <div class="fight-top">
+                    <div class="fight-number">
 
-                        <div class="fight-number">
-
-                            Fight #${index + 1}
-
-                        </div>
-
-
-                        <div class="badges">
-
-                            ${badges}
-
-                        </div>
+                        FIGHT #${index + 1}
 
                     </div>
 
 
                     <div class="fight-names">
 
-                        ${escapeHtml(
-                            nameA
-                        )}
+                        ${escapeHTML(nameA)}
 
-                        <span>
-                            VS
-                        </span>
+                        <span>VS</span>
 
-                        ${escapeHtml(
-                            nameB
-                        )}
+                        ${escapeHTML(nameB)}
 
                     </div>
 
 
                     <div class="fight-info">
 
-                        ${escapeHtml(
+                        ${escapeHTML(
                             fight.weightClass ||
                             "Onbekend"
                         )}
 
                         •
-
                         ${fight.rounds || 3}
                         rondes
 
@@ -1848,9 +1562,12 @@ function editEvent(eventId) {
 
     const event =
         events.find(
-            e =>
-                String(e.id) ===
-                String(eventId)
+            function(e) {
+
+                return String(e.id) ===
+                    String(eventId);
+
+            }
         );
 
 
@@ -1864,13 +1581,11 @@ function editEvent(eventId) {
     const name =
         prompt(
             "Eventnaam:",
-            event.name || ""
+            event.name
         );
 
 
-    if (
-        name === null
-    ) {
+    if (name === null) {
 
         return;
 
@@ -1878,7 +1593,7 @@ function editEvent(eventId) {
 
 
     if (
-        !name.trim()
+        name.trim() === ""
     ) {
 
         alert(
@@ -1893,13 +1608,11 @@ function editEvent(eventId) {
     const date =
         prompt(
             "Datum (YYYY-MM-DD):",
-            event.date || ""
+            event.date
         );
 
 
-    if (
-        date === null
-    ) {
+    if (date === null) {
 
         return;
 
@@ -1913,9 +1626,7 @@ function editEvent(eventId) {
         );
 
 
-    if (
-        location === null
-    ) {
+    if (location === null) {
 
         return;
 
@@ -1929,9 +1640,7 @@ function editEvent(eventId) {
         );
 
 
-    if (
-        city === null
-    ) {
+    if (city === null) {
 
         return;
 
@@ -1945,9 +1654,7 @@ function editEvent(eventId) {
         );
 
 
-    if (
-        description === null
-    ) {
+    if (description === null) {
 
         return;
 
@@ -1997,9 +1704,12 @@ function deleteEvent(eventId) {
 
     const event =
         events.find(
-            e =>
-                String(e.id) ===
-                String(eventId)
+            function(e) {
+
+                return String(e.id) ===
+                    String(eventId);
+
+            }
         );
 
 
@@ -2027,9 +1737,12 @@ function deleteEvent(eventId) {
 
     events =
         events.filter(
-            e =>
-                String(e.id) !==
-                String(eventId)
+            function(e) {
+
+                return String(e.id) !==
+                    String(eventId);
+
+            }
         );
 
 
@@ -2040,7 +1753,7 @@ function deleteEvent(eventId) {
 
 
     showSuccess(
-        "🗑️ Event verwijderd."
+        "🗑️ Event verwijderd!"
     );
 
 }
@@ -2083,25 +1796,9 @@ function clearForm() {
 
 /*
 ==================================================
-MESSAGES
+SUCCESS
 ==================================================
 */
-
-function hideMessages() {
-
-    document.getElementById(
-        "success"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "error"
-    ).style.display =
-        "none";
-
-}
-
 
 function showSuccess(message) {
 
@@ -2120,7 +1817,7 @@ function showSuccess(message) {
 
 
     setTimeout(
-        () => {
+        function() {
 
             box.style.display =
                 "none";
@@ -2131,6 +1828,12 @@ function showSuccess(message) {
 
 }
 
+
+/*
+==================================================
+ERROR
+==================================================
+*/
 
 function showError(message) {
 
@@ -2152,11 +1855,33 @@ function showError(message) {
 
 /*
 ==================================================
-VEILIGE HTML
+MESSAGES VERBERGEN
 ==================================================
 */
 
-function escapeHtml(text) {
+function hideMessages() {
+
+    document.getElementById(
+        "success"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "error"
+    ).style.display =
+        "none";
+
+}
+
+
+/*
+==================================================
+HTML VEILIG MAKEN
+==================================================
+*/
+
+function escapeHTML(text) {
 
     if (
         text === null ||
@@ -2200,6 +1925,48 @@ function escapeHtml(text) {
 
 /*
 ==================================================
+ ALLE EVENTS RESETTEN
+==================================================
+*/
+
+function resetEvents() {
+
+    const confirmed =
+        confirm(
+            "WAARSCHUWING!\n\n" +
+            "Hiermee verwijder je ALLE events " +
+            "uit deze browser.\n\n" +
+            "Doorgaan?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "events"
+    );
+
+
+    events = [];
+
+
+    displayEvents();
+
+
+    showSuccess(
+        "Alle events zijn verwijderd."
+    );
+
+}
+
+
+/*
+==================================================
 START
 ==================================================
 */
@@ -2207,6 +1974,7 @@ START
 displayEvents();
 
 </script>
+
 
 </body>
 
