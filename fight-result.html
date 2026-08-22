@@ -10,7 +10,8 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Fight Result - MMA Matchmaker</title>
+    <title>Fight Results - MMA Matchmaker</title>
+
 
     <style>
 
@@ -20,138 +21,286 @@
             padding: 0;
         }
 
+
         body {
+
             font-family: Arial, sans-serif;
+
             background: #0b0b0b;
+
             color: white;
+
         }
+
+
+        /* ==============================
+           HEADER
+        ============================== */
 
         header {
+
             background: #111;
-            border-bottom: 2px solid #e10600;
-            padding: 20px 40px;
+
+            border-bottom:
+                2px solid #e10600;
+
+            padding:
+                20px 35px;
 
             display: flex;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             align-items: center;
+
         }
+
 
         .logo {
+
             font-size: 24px;
+
             font-weight: bold;
+
         }
+
 
         .logo span {
+
             color: #e10600;
+
         }
+
+
+        nav {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
+
+        }
+
 
         nav a {
-            color: white;
+
+            color: #aaa;
+
             text-decoration: none;
-            margin-left: 20px;
+
+            margin-left: 18px;
+
+            font-size: 14px;
+
             font-weight: bold;
+
         }
+
 
         nav a:hover {
-            color: #e10600;
+
+            color: white;
+
         }
+
+
+        /* ==============================
+           CONTAINER
+        ============================== */
 
         .container {
+
             max-width: 1100px;
+
             margin: auto;
-            padding: 40px 20px;
+
+            padding:
+                40px 20px 60px;
+
         }
+
 
         h1 {
-            margin-bottom: 10px;
+
+            margin-bottom: 8px;
+
         }
+
 
         .subtitle {
-            color: #888;
+
+            color: #777;
+
             margin-bottom: 30px;
+
         }
+
+
+        /* ==============================
+           CARD
+        ============================== */
 
         .card {
+
             background: #151515;
-            border: 1px solid #292929;
-            border-radius: 12px;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 10px;
+
             padding: 25px;
+
             margin-bottom: 25px;
+
         }
 
+
         .card h2 {
+
             margin-bottom: 20px;
+
         }
+
+
+        /* ==============================
+           SELECT / INPUT
+        ============================== */
 
         select,
         input {
+
             width: 100%;
-            padding: 13px;
+
+            padding: 14px;
 
             background: #222;
+
             color: white;
 
-            border: 1px solid #444;
-            border-radius: 6px;
+            border:
+                1px solid #444;
+
+            border-radius: 7px;
 
             font-size: 15px;
+
         }
+
 
         select:focus,
         input:focus {
+
             outline: none;
-            border-color: #e10600;
+
+            border-color:
+                #e10600;
+
         }
 
+
+        /* ==============================
+           FIGHT PREVIEW
+        ============================== */
+
         .fight-preview {
-            margin-top: 25px;
+
+            margin-top: 20px;
+
             padding: 30px;
 
             background: #101010;
-            border: 1px solid #333;
+
+            border:
+                1px solid #333;
+
             border-radius: 10px;
 
             text-align: center;
+
         }
+
 
         .fighters {
+
             display: grid;
-            grid-template-columns: 1fr 100px 1fr;
+
+            grid-template-columns:
+                1fr 100px 1fr;
 
             align-items: center;
+
             gap: 20px;
+
         }
+
 
         .fighter {
+
             font-size: 25px;
+
             font-weight: bold;
+
         }
+
 
         .vs {
+
             color: #e10600;
-            font-size: 25px;
+
+            font-size: 24px;
+
             font-weight: bold;
+
         }
+
 
         .fight-info {
-            color: #888;
+
+            color: #777;
+
             margin-top: 15px;
+
         }
+
+
+        /* ==============================
+           FORM GRID
+        ============================== */
 
         .winner-grid {
+
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+
+            grid-template-columns:
+                repeat(4, 1fr);
 
             gap: 15px;
+
         }
+
 
         .field label {
+
             display: block;
+
             color: #aaa;
+
             margin-bottom: 8px;
+
+            font-size: 14px;
+
         }
 
+
+        /* ==============================
+           BUTTON
+        ============================== */
+
         .button {
+
             width: 100%;
 
             margin-top: 25px;
@@ -159,194 +308,198 @@
             padding: 15px;
 
             background: #e10600;
+
             color: white;
 
             border: none;
+
             border-radius: 7px;
 
             cursor: pointer;
 
             font-size: 16px;
+
             font-weight: bold;
+
         }
+
 
         .button:hover {
+
             background: #ff211a;
+
         }
 
+
+        /* ==============================
+           SUCCESS
+        ============================== */
+
+        .success {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            background: #12351f;
+
+            border:
+                1px solid #1f7540;
+
+            color: #6ee7a0;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+        }
+
+
+        /* ==============================
+           RESULT
+        ============================== */
+
         .result {
+
             background: #101010;
 
-            border: 1px solid #333;
+            border:
+                1px solid #333;
 
             border-radius: 8px;
 
             padding: 20px;
 
-            margin-top: 15px;
+            margin-bottom: 12px;
+
         }
+
 
         .result h3 {
+
             margin-bottom: 10px;
+
         }
+
 
         .method {
+
             color: #e10600;
+
             font-weight: bold;
+
         }
 
+
+        .result-meta {
+
+            color: #777;
+
+            margin-top: 8px;
+
+            font-size: 13px;
+
+        }
+
+
+        .winner {
+
+            color: #6ee7a0;
+
+            font-weight: bold;
+
+        }
+
+
         .empty {
+
             background: #151515;
 
-            border-radius: 10px;
+            border-radius: 8px;
 
             padding: 25px;
 
             color: #777;
 
             text-align: center;
+
         }
 
-        .success {
-            display: none;
 
-            background: #12351f;
+        /* ==============================
+           MANUAL NOTICE
+        ============================== */
 
-            border: 1px solid #1f7540;
+        .manual-notice {
 
-            color: #6ee7a0;
+            background: #201b08;
+
+            border:
+                1px solid #6d5a16;
+
+            color: #e6d58a;
+
+            border-radius: 8px;
 
             padding: 15px;
 
-            border-radius: 8px;
+            margin-bottom: 25px;
 
-            margin-top: 20px;
+            line-height: 1.5;
 
-            text-align: center;
         }
 
-        .error {
-            display: none;
 
-            background: #3a1111;
+        /* ==============================
+           MOBILE
+        ============================== */
 
-            border: 1px solid #722020;
-
-            color: #ff8b8b;
-
-            padding: 15px;
-
-            border-radius: 8px;
-
-            margin-top: 20px;
-
-            text-align: center;
-        }
-
-        .record-preview {
-            margin-top: 20px;
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 15px;
-        }
-
-        .record-box {
-            background: #101010;
-
-            border: 1px solid #333;
-
-            border-radius: 8px;
-
-            padding: 18px;
-
-            text-align: center;
-        }
-
-        .record-box h3 {
-            margin-bottom: 12px;
-        }
-
-        .record-number {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .record-label {
-            color: #777;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        .stat-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 10px;
-
-            margin-top: 15px;
-        }
-
-        .stat {
-            background: #191919;
-
-            border-radius: 6px;
-
-            padding: 12px;
-
-            text-align: center;
-        }
-
-        .stat strong {
-            display: block;
-
-            font-size: 20px;
-        }
-
-        .stat span {
-            color: #777;
-
-            font-size: 11px;
-        }
-
-        @media (max-width: 700px) {
+        @media (max-width: 750px) {
 
             header {
+
                 flex-direction: column;
+
                 gap: 20px;
+
             }
+
 
             nav {
-                text-align: center;
+
+                justify-content: center;
+
             }
+
 
             nav a {
-                display: inline-block;
-                margin: 5px;
+
+                margin: 5px 7px;
+
             }
+
 
             .fighters {
+
                 grid-template-columns: 1fr;
+
             }
+
 
             .vs {
-                margin: -10px 0;
+
+                margin:
+                    -10px 0;
+
             }
+
 
             .winner-grid {
-                grid-template-columns: 1fr;
-            }
 
-            .record-preview {
                 grid-template-columns: 1fr;
-            }
 
-            .stat-grid {
-                grid-template-columns: 1fr 1fr;
             }
 
         }
@@ -359,11 +512,20 @@
 <body>
 
 
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header>
 
+
     <div class="logo">
-        MMA <span>MATCHMAKER</span>
+
+        MMA
+        <span>MATCHMAKER</span>
+
     </div>
+
 
     <nav>
 
@@ -387,6 +549,14 @@
             Matchmaker
         </a>
 
+        <a href="fighter-profile.html">
+            Profiles
+        </a>
+
+        <a href="admin.html">
+            Admin
+        </a>
+
         <a href="fight-result.html">
             Results
         </a>
@@ -396,24 +566,67 @@
 </header>
 
 
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <div class="container">
 
+
     <h1>
-        📝 Fight Result
+
+        📝 Fight Results
+
     </h1>
 
+
     <p class="subtitle">
-        Bepaal de officiële uitslag van een gevecht.
+
+        Bepaal zelf de uitslag van een gevecht.
+
     </p>
 
 
-    <!-- FIGHT KIEZEN -->
+    <!-- =====================================
+         BELANGRIJKE MELDING
+    ====================================== -->
+
+    <div class="manual-notice">
+
+        <strong>
+            ⚙️ Handmatig systeem
+        </strong>
+
+        <br>
+
+        Een fight result verandert
+        <strong>NIETS</strong>
+        aan de ranking, record, streak
+        of championship-status.
+
+        <br>
+
+        Alles daarvan beheer je zelf via
+        de fighter/admin-pagina's.
+
+    </div>
+
+
+
+    <!-- =====================================
+         FIGHT KIEZEN
+    ====================================== -->
 
     <div class="card">
 
+
         <h2>
+
             1. Kies een fight
+
         </h2>
+
 
         <select
             id="fightSelect"
@@ -421,10 +634,13 @@
         >
 
             <option value="">
+
                 Kies een fight
+
             </option>
 
         </select>
+
 
 
         <div
@@ -433,25 +649,36 @@
             style="display:none;"
         >
 
+
             <div class="fighters">
+
 
                 <div
                     id="fighterAName"
                     class="fighter"
                 >
+
                     Fighter A
+
                 </div>
 
+
                 <div class="vs">
+
                     VS
+
                 </div>
+
 
                 <div
                     id="fighterBName"
                     class="fighter"
                 >
+
                     Fighter B
+
                 </div>
+
 
             </div>
 
@@ -461,12 +688,16 @@
                 class="fight-info"
             ></div>
 
+
         </div>
 
     </div>
 
 
-    <!-- RESULTAAT -->
+
+    <!-- =====================================
+         RESULTAAT FORM
+    ====================================== -->
 
     <div
         id="resultForm"
@@ -474,152 +705,249 @@
         style="display:none;"
     >
 
+
         <h2>
+
             2. Uitslag bepalen
+
         </h2>
 
 
         <div class="winner-grid">
 
 
+            <!-- WINNAAR -->
+
             <div class="field">
 
+
                 <label>
+
                     Winnaar
+
                 </label>
+
 
                 <select id="winner">
 
                     <option value="">
+
                         Kies winnaar
+
                     </option>
 
                     <option value="A">
+
                         Fighter A
+
                     </option>
 
                     <option value="B">
+
                         Fighter B
+
                     </option>
 
                     <option value="DRAW">
+
                         Draw
+
                     </option>
 
                     <option value="NC">
+
                         No Contest
+
                     </option>
 
                 </select>
 
+
             </div>
 
 
+
+            <!-- METHODE -->
+
             <div class="field">
 
+
                 <label>
+
                     Methode
+
                 </label>
+
 
                 <select id="method">
 
+
                     <option value="">
+
                         Kies methode
+
                     </option>
+
 
                     <option value="KO">
+
                         KO
+
                     </option>
+
 
                     <option value="TKO">
+
                         TKO
+
                     </option>
+
 
                     <option value="Submission">
+
                         Submission
+
                     </option>
+
 
                     <option value="Unanimous Decision">
+
                         Unanimous Decision
+
                     </option>
+
 
                     <option value="Split Decision">
+
                         Split Decision
+
                     </option>
+
 
                     <option value="Majority Decision">
+
                         Majority Decision
+
                     </option>
+
 
                     <option value="Technical Decision">
+
                         Technical Decision
+
                     </option>
+
 
                     <option value="Disqualification">
+
                         Disqualification
+
                     </option>
 
+
+                    <option value="Doctor Stoppage">
+
+                        Doctor Stoppage
+
+                    </option>
+
+
+                    <option value="Retirement">
+
+                        Retirement
+
+                    </option>
+
+
+                    <option value="Overturned">
+
+                        Overturned
+
+                    </option>
+
+
                 </select>
+
 
             </div>
 
 
+
+            <!-- RONDE -->
+
             <div class="field">
 
+
                 <label>
+
                     Ronde
+
                 </label>
+
 
                 <select id="round">
 
                     <option value="1">
+
                         Ronde 1
+
                     </option>
 
                     <option value="2">
+
                         Ronde 2
+
                     </option>
 
                     <option value="3">
+
                         Ronde 3
+
                     </option>
 
                     <option value="4">
+
                         Ronde 4
+
                     </option>
 
                     <option value="5">
+
                         Ronde 5
+
                     </option>
 
                 </select>
 
+
             </div>
 
 
+
+            <!-- TIJD -->
+
             <div class="field">
 
+
                 <label>
+
                     Tijd
+
                 </label>
+
 
                 <input
                     id="time"
                     type="text"
-                    placeholder="bijv. 3:42"
+                    placeholder="Bijv. 3:42"
                 >
+
 
             </div>
 
 
         </div>
 
-
-        <div
-            id="recordPreview"
-            class="record-preview"
-            style="display:none;"
-        ></div>
 
 
         <button
@@ -635,26 +963,35 @@
         <div
             id="success"
             class="success"
-        ></div>
+        >
 
+            Uitslag opgeslagen!
 
-        <div
-            id="error"
-            class="error"
-        ></div>
+        </div>
+
 
     </div>
 
 
-    <!-- RESULTATEN -->
+
+    <!-- =====================================
+         OPGESLAGEN RESULTATEN
+    ====================================== -->
 
     <div class="card">
 
+
         <h2>
+
             Opgeslagen resultaten
+
         </h2>
 
-        <div id="resultsList"></div>
+
+        <div
+            id="resultsList"
+        ></div>
+
 
     </div>
 
@@ -662,18 +999,15 @@
 </div>
 
 
+
 <script>
+
 
 /*
 ==================================================
 DATA
 ==================================================
 */
-
-let fighters =
-    JSON.parse(
-        localStorage.getItem("fighters")
-    ) || [];
 
 
 let events =
@@ -682,33 +1016,19 @@ let events =
     ) || [];
 
 
+let fighters =
+    JSON.parse(
+        localStorage.getItem("fighters")
+    ) || [];
+
+
 let selectedFight = null;
 
 
-/*
-==================================================
-DATA OPNIEUW INLADEN
-==================================================
-*/
-
-function reloadData() {
-
-    fighters =
-        JSON.parse(
-            localStorage.getItem("fighters")
-        ) || [];
-
-    events =
-        JSON.parse(
-            localStorage.getItem("events")
-        ) || [];
-
-}
-
 
 /*
 ==================================================
-OPSLAAN
+EVENTS OPSLAAN
 ==================================================
 */
 
@@ -722,15 +1042,6 @@ function saveEvents() {
 }
 
 
-function saveFighters() {
-
-    localStorage.setItem(
-        "fighters",
-        JSON.stringify(fighters)
-    );
-
-}
-
 
 /*
 ==================================================
@@ -742,116 +1053,11 @@ function getFighter(id) {
 
     return fighters.find(
         fighter =>
-            String(fighter.id) ===
-            String(id)
+            fighter.id == id
     );
 
 }
 
-
-/*
-==================================================
-RECORD STRUCTUUR
-==================================================
-*/
-
-function ensureRecord(fighter) {
-
-    if (!fighter.record) {
-
-        fighter.record = {};
-
-    }
-
-
-    fighter.record.wins =
-        Number(
-            fighter.record.wins || 0
-        );
-
-
-    fighter.record.losses =
-        Number(
-            fighter.record.losses || 0
-        );
-
-
-    fighter.record.draws =
-        Number(
-            fighter.record.draws || 0
-        );
-
-
-    fighter.record.noContests =
-        Number(
-            fighter.record.noContests || 0
-        );
-
-
-    fighter.record.ko =
-        Number(
-            fighter.record.ko ||
-            fighter.record.KO ||
-            0
-        );
-
-
-    fighter.record.tko =
-        Number(
-            fighter.record.tko ||
-            fighter.record.TKO ||
-            0
-        );
-
-
-    fighter.record.submissions =
-        Number(
-            fighter.record.submissions ||
-            0
-        );
-
-
-    fighter.record.decisions =
-        Number(
-            fighter.record.decisions ||
-            0
-        );
-
-
-    fighter.record.disqualifications =
-        Number(
-            fighter.record.disqualifications ||
-            0
-        );
-
-}
-
-
-/*
-==================================================
-RANKING STRUCTUUR
-==================================================
-*/
-
-function ensureRanking(fighter) {
-
-    if (
-        fighter.ranking === undefined ||
-        fighter.ranking === null ||
-        fighter.ranking === ""
-    ) {
-
-        fighter.ranking = 1000;
-
-    }
-
-
-    fighter.ranking =
-        Number(
-            fighter.ranking
-        );
-
-}
 
 
 /*
@@ -864,6 +1070,7 @@ function getFightLabel(
     event,
     fight
 ) {
+
 
     const fighterA =
         getFighter(
@@ -880,35 +1087,36 @@ function getFightLabel(
     const nameA =
         fighterA
             ? fighterA.name
-            : "Onbekend";
+            : "Fighter A";
 
 
     const nameB =
         fighterB
             ? fighterB.name
-            : "Onbekend";
+            : "Fighter B";
 
 
     return (
+
         event.name +
         " — " +
         nameA +
         " vs " +
         nameB
+
     );
 
 }
 
 
+
 /*
 ==================================================
-FIGHTS LADEN
+OPENSTAANDE FIGHTS LADEN
 ==================================================
 */
 
 function loadFights() {
-
-    reloadData();
 
 
     const select =
@@ -920,7 +1128,9 @@ function loadFights() {
     select.innerHTML = `
 
         <option value="">
+
             Kies een fight
+
         </option>
 
     `;
@@ -929,23 +1139,24 @@ function loadFights() {
     events.forEach(
         event => {
 
-            if (
-                !Array.isArray(
+
+            const fights =
+                Array.isArray(
                     event.fights
                 )
-            ) {
-
-                return;
-
-            }
+                    ? event.fights
+                    : [];
 
 
-            event.fights.forEach(
+            fights.forEach(
                 fight => {
 
+
                     /*
-                    Alleen fights zonder
-                    resultaat.
+                    --------------------------------
+                    Resultaten worden niet opnieuw
+                    aangeboden.
+                    --------------------------------
                     */
 
                     if (fight.result) {
@@ -962,12 +1173,14 @@ function loadFights() {
 
 
                     option.value =
+
                         event.id +
                         "|" +
                         fight.id;
 
 
                     option.textContent =
+
                         getFightLabel(
                             event,
                             fight
@@ -978,8 +1191,10 @@ function loadFights() {
                         option
                     );
 
+
                 }
             );
+
 
         }
     );
@@ -989,10 +1204,13 @@ function loadFights() {
         select.options.length === 1
     ) {
 
+
         select.innerHTML = `
 
             <option value="">
+
                 Geen openstaande fights
+
             </option>
 
         `;
@@ -1002,6 +1220,7 @@ function loadFights() {
 }
 
 
+
 /*
 ==================================================
 FIGHT TONEN
@@ -1009,8 +1228,6 @@ FIGHT TONEN
 */
 
 function showFight() {
-
-    hideMessages();
 
 
     const value =
@@ -1031,24 +1248,19 @@ function showFight() {
         );
 
 
-    const recordPreview =
-        document.getElementById(
-            "recordPreview"
-        );
-
-
     if (!value) {
+
 
         preview.style.display =
             "none";
 
+
         form.style.display =
             "none";
 
-        recordPreview.style.display =
-            "none";
 
         selectedFight = null;
+
 
         return;
 
@@ -1060,26 +1272,25 @@ function showFight() {
 
 
     const eventId =
-        parts[0];
+        Number(
+            parts[0]
+        );
 
 
     const fightId =
-        parts[1];
+        Number(
+            parts[1]
+        );
 
 
     const event =
         events.find(
             event =>
-                String(event.id) ===
-                String(eventId)
+                event.id === eventId
         );
 
 
     if (!event) {
-
-        showError(
-            "Event niet gevonden."
-        );
 
         return;
 
@@ -1089,16 +1300,11 @@ function showFight() {
     const fight =
         event.fights.find(
             fight =>
-                String(fight.id) ===
-                String(fightId)
+                fight.id === fightId
         );
 
 
     if (!fight) {
-
-        showError(
-            "Fight niet gevonden."
-        );
 
         return;
 
@@ -1128,27 +1334,28 @@ function showFight() {
         );
 
 
-    if (!fighterA || !fighterB) {
+    const nameA =
+        fighterA
+            ? fighterA.name
+            : "Fighter A";
 
-        showError(
-            "Een of beide fighters konden niet worden gevonden."
-        );
 
-        return;
-
-    }
+    const nameB =
+        fighterB
+            ? fighterB.name
+            : "Fighter B";
 
 
     document.getElementById(
         "fighterAName"
     ).textContent =
-        fighterA.name;
+        nameA;
 
 
     document.getElementById(
         "fighterBName"
     ).textContent =
-        fighterB.name;
+        nameB;
 
 
     document.getElementById(
@@ -1159,7 +1366,7 @@ function showFight() {
         " • " +
         (
             fight.weightClass ||
-            "Gewichtsklasse onbekend"
+            "Weight class onbekend"
         ) +
         " • " +
         (
@@ -1170,7 +1377,9 @@ function showFight() {
 
 
     /*
-    RONDE OPTIES
+    ==============================================
+    RONDES AANPASSEN
+    ==============================================
     */
 
     const round =
@@ -1184,8 +1393,8 @@ function showFight() {
 
     const totalRounds =
         Number(
-            fight.rounds || 3
-        );
+            fight.rounds
+        ) || 3;
 
 
     for (
@@ -1194,10 +1403,13 @@ function showFight() {
         i++
     ) {
 
+
         round.innerHTML += `
 
             <option value="${i}">
+
                 Ronde ${i}
+
             </option>
 
         `;
@@ -1206,7 +1418,9 @@ function showFight() {
 
 
     /*
+    ==============================================
     WINNAAR NAMEN
+    ==============================================
     */
 
     document.getElementById(
@@ -1214,23 +1428,33 @@ function showFight() {
     ).innerHTML = `
 
         <option value="">
+
             Kies winnaar
+
         </option>
 
         <option value="A">
-            ${escapeHtml(fighterA.name)}
+
+            ${escapeHtml(nameA)}
+
         </option>
 
         <option value="B">
-            ${escapeHtml(fighterB.name)}
+
+            ${escapeHtml(nameB)}
+
         </option>
 
         <option value="DRAW">
+
             Draw
+
         </option>
 
         <option value="NC">
+
             No Contest
+
         </option>
 
     `;
@@ -1243,203 +1467,43 @@ function showFight() {
     form.style.display =
         "block";
 
-
-    updateRecordPreview();
-
 }
 
-
-/*
-==================================================
-RECORD PREVIEW
-==================================================
-*/
-
-function updateRecordPreview() {
-
-    if (!selectedFight) {
-
-        return;
-
-    }
-
-
-    const event =
-        events.find(
-            event =>
-                String(event.id) ===
-                String(selectedFight.eventId)
-        );
-
-
-    if (!event) return;
-
-
-    const fight =
-        event.fights.find(
-            fight =>
-                String(fight.id) ===
-                String(selectedFight.fightId)
-        );
-
-
-    if (!fight) return;
-
-
-    const fighterA =
-        getFighter(
-            fight.fighterA
-        );
-
-
-    const fighterB =
-        getFighter(
-            fight.fighterB
-        );
-
-
-    if (!fighterA || !fighterB) {
-
-        return;
-
-    }
-
-
-    ensureRecord(
-        fighterA
-    );
-
-
-    ensureRecord(
-        fighterB
-    );
-
-
-    const box =
-        document.getElementById(
-            "recordPreview"
-        );
-
-
-    box.innerHTML = `
-
-        <div class="record-box">
-
-            <h3>
-                ${escapeHtml(fighterA.name)}
-            </h3>
-
-            ${recordHTML(fighterA)}
-
-        </div>
-
-
-        <div class="record-box">
-
-            <h3>
-                ${escapeHtml(fighterB.name)}
-            </h3>
-
-            ${recordHTML(fighterB)}
-
-        </div>
-
-    `;
-
-
-    box.style.display =
-        "grid";
-
-}
-
-
-function recordHTML(fighter) {
-
-    const r =
-        fighter.record;
-
-
-    return `
-
-        <div class="stat-grid">
-
-            <div class="stat">
-
-                <strong>
-                    ${r.wins}
-                </strong>
-
-                <span>
-                    WINS
-                </span>
-
-            </div>
-
-
-            <div class="stat">
-
-                <strong>
-                    ${r.losses}
-                </strong>
-
-                <span>
-                    LOSSES
-                </span>
-
-            </div>
-
-
-            <div class="stat">
-
-                <strong>
-                    ${r.draws}
-                </strong>
-
-                <span>
-                    DRAWS
-                </span>
-
-            </div>
-
-
-            <div class="stat">
-
-                <strong>
-                    ${r.noContests}
-                </strong>
-
-                <span>
-                    NC
-                </span>
-
-            </div>
-
-        </div>
-
-    `;
-
-}
 
 
 /*
 ==================================================
 RESULTAAT OPSLAAN
 ==================================================
+
+BELANGRIJK:
+
+Deze functie verandert ALLEEN:
+
+    fight.result
+
+Deze functie verandert NIET:
+
+    fighter.wins
+    fighter.losses
+    fighter.draws
+    fighter.streak
+    fighter.ranking
+    fighter.champion
+
+==================================================
 */
 
 function saveResult() {
 
-    hideMessages();
-
-
-    reloadData();
-
 
     if (!selectedFight) {
 
-        showError(
+
+        alert(
             "Kies eerst een fight."
         );
+
 
         return;
 
@@ -1470,11 +1534,20 @@ function saveResult() {
         ).value.trim();
 
 
+    /*
+    ==============================================
+    VALIDATIE
+    ==============================================
+    */
+
+
     if (!winner) {
 
-        showError(
+
+        alert(
             "Kies een winnaar, draw of no contest."
         );
+
 
         return;
 
@@ -1483,9 +1556,11 @@ function saveResult() {
 
     if (!method) {
 
-        showError(
+
+        alert(
             "Kies een methode."
         );
+
 
         return;
 
@@ -1494,85 +1569,67 @@ function saveResult() {
 
     if (!time) {
 
-        showError(
+
+        alert(
             "Vul de tijd in."
         );
+
 
         return;
 
     }
+
+
+    /*
+    ==============================================
+    EVENT OPHALEN
+    ==============================================
+    */
 
 
     const event =
         events.find(
             event =>
-                String(event.id) ===
-                String(selectedFight.eventId)
+                event.id ===
+                selectedFight.eventId
         );
 
 
     if (!event) {
 
-        showError(
+
+        alert(
             "Event niet gevonden."
         );
+
 
         return;
 
     }
+
+
+    /*
+    ==============================================
+    FIGHT OPHALEN
+    ==============================================
+    */
 
 
     const fight =
         event.fights.find(
             fight =>
-                String(fight.id) ===
-                String(selectedFight.fightId)
+                fight.id ===
+                selectedFight.fightId
         );
 
 
     if (!fight) {
 
-        showError(
+
+        alert(
             "Fight niet gevonden."
         );
 
-        return;
-
-    }
-
-
-    /*
-    AL RESULTAAT?
-    */
-
-    if (fight.result) {
-
-        showError(
-            "Deze fight heeft al een resultaat."
-        );
-
-        return;
-
-    }
-
-
-    const fighterA =
-        getFighter(
-            fight.fighterA
-        );
-
-
-    const fighterB =
-        getFighter(
-            fight.fighterB
-        );
-
-
-    if (!fighterA || !fighterB) {
-
-        showError(
-            "Een of beide fighters bestaan niet meer."
-        );
 
         return;
 
@@ -1580,36 +1637,11 @@ function saveResult() {
 
 
     /*
-    RECORDS GARANDEREN
+    ==============================================
+    ALLEEN RESULTAAT TOEVOEGEN
+    ==============================================
     */
 
-    ensureRecord(
-        fighterA
-    );
-
-
-    ensureRecord(
-        fighterB
-    );
-
-
-    /*
-    RANKINGS GARANDEREN
-    */
-
-    ensureRanking(
-        fighterA
-    );
-
-
-    ensureRanking(
-        fighterB
-    );
-
-
-    /*
-    RESULTAAT OBJECT
-    */
 
     fight.result = {
 
@@ -1626,57 +1658,76 @@ function saveResult() {
             time,
 
         date:
-            new Date().toISOString(),
-
-        recordsUpdated:
-            true,
-
-        rankingsUpdated:
-            true
+            new Date().toISOString()
 
     };
 
 
     /*
-    RECORD BIJWERKEN
-    */
-
-    updateRecords(
-        fighterA,
-        fighterB,
-        winner,
-        method
-    );
-
-
-    /*
-    RANKING BIJWERKEN
-    */
-
-    updateRankings(
-        fighterA,
-        fighterB,
-        winner
-    );
-
-
-    /*
-    FIGHTER DATA OPSLAAN
-    */
-
-    saveFighters();
-
-
-    /*
-    EVENT DATA OPSLAAN
+    ==============================================
+    EVENTS OPSLAAN
+    ==============================================
     */
 
     saveEvents();
 
 
     /*
-    FORMULIER RESETTEN
+    ==============================================
+    ZEER BELANGRIJK
+    ==============================================
+
+    WIJ DOEN HIER NIET:
+
+        fighters.find(...).wins++;
+
+        fighters.find(...).losses++;
+
+        fighters.find(...).draws++;
+
+        fighters.find(...).streak++;
+
+        fighters.find(...).ranking++;
+
+        fighters.find(...).ranking--;
+
+        fighters.find(...).champion = true;
+
+    En we slaan fighters ook NIET opnieuw op.
+
+    Daardoor blijft alles handmatig.
+
+    ==============================================
     */
+
+
+    /*
+    ==============================================
+    SUCCESS
+    ==============================================
+    */
+
+
+    const success =
+        document.getElementById(
+            "success"
+        );
+
+
+    success.textContent =
+        "🏆 Uitslag opgeslagen! Rankings en records zijn niet aangepast.";
+
+
+    success.style.display =
+        "block";
+
+
+    /*
+    ==============================================
+    FORMULIER RESETTEN
+    ==============================================
+    */
+
 
     document.getElementById(
         "winner"
@@ -1705,18 +1756,15 @@ function saveResult() {
         "none";
 
 
-    document.getElementById(
-        "recordPreview"
-    ).style.display =
-        "none";
-
-
     selectedFight = null;
 
 
     /*
+    ==============================================
     LIJST VERNIEUWEN
+    ==============================================
     */
+
 
     loadFights();
 
@@ -1724,435 +1772,24 @@ function saveResult() {
 
 
     /*
-    SUCCES
+    ==============================================
+    SUCCESS MELDING VERBERGEN
+    ==============================================
     */
 
-    showSuccess(
-        "Uitslag opgeslagen! Record en ranking zijn bijgewerkt. 🔥"
+
+    setTimeout(
+        () => {
+
+            success.style.display =
+                "none";
+
+        },
+        4000
     );
 
 }
 
-
-/*
-==================================================
-RECORDS BIJWERKEN
-==================================================
-*/
-
-function updateRecords(
-    fighterA,
-    fighterB,
-    winner,
-    method
-) {
-
-    ensureRecord(
-        fighterA
-    );
-
-
-    ensureRecord(
-        fighterB
-    );
-
-
-    /*
-    DRAW
-    */
-
-    if (
-        winner === "DRAW"
-    ) {
-
-        fighterA.record.draws++;
-
-        fighterB.record.draws++;
-
-        return;
-
-    }
-
-
-    /*
-    NO CONTEST
-    */
-
-    if (
-        winner === "NC"
-    ) {
-
-        fighterA.record.noContests++;
-
-        fighterB.record.noContests++;
-
-        return;
-
-    }
-
-
-    /*
-    A WINT
-    */
-
-    if (
-        winner === "A"
-    ) {
-
-        fighterA.record.wins++;
-
-        fighterB.record.losses++;
-
-
-        updateFinishStats(
-            fighterA,
-            method
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-    B WINT
-    */
-
-    if (
-        winner === "B"
-    ) {
-
-        fighterB.record.wins++;
-
-        fighterA.record.losses++;
-
-
-        updateFinishStats(
-            fighterB,
-            method
-        );
-
-    }
-
-}
-
-
-/*
-==================================================
-FINISH STATS
-==================================================
-*/
-
-function updateFinishStats(
-    fighter,
-    method
-) {
-
-    ensureRecord(
-        fighter
-    );
-
-
-    if (
-        method === "KO"
-    ) {
-
-        fighter.record.ko++;
-
-    }
-
-
-    else if (
-        method === "TKO"
-    ) {
-
-        fighter.record.tko++;
-
-    }
-
-
-    else if (
-        method === "Submission"
-    ) {
-
-        fighter.record.submissions++;
-
-    }
-
-
-    else if (
-        method === "Unanimous Decision" ||
-        method === "Split Decision" ||
-        method === "Majority Decision" ||
-        method === "Technical Decision"
-    ) {
-
-        fighter.record.decisions++;
-
-    }
-
-
-    else if (
-        method === "Disqualification"
-    ) {
-
-        fighter.record.disqualifications++;
-
-    }
-
-}
-
-
-/*
-==================================================
-RANKING SYSTEEM
-==================================================
-
-Basis:
-
-Winner krijgt punten.
-Verliezer verliest punten.
-
-Grote underdog-overwinning =
-meer punten.
-
-Grote favoriet-overwinning =
-minder punten.
-
-Draw =
-kleine stijging.
-
-NC =
-geen verandering.
-==================================================
-*/
-
-function updateRankings(
-    fighterA,
-    fighterB,
-    winner
-) {
-
-    ensureRanking(
-        fighterA
-    );
-
-
-    ensureRanking(
-        fighterB
-    );
-
-
-    /*
-    DRAW
-    */
-
-    if (
-        winner === "DRAW"
-    ) {
-
-        fighterA.ranking += 5;
-
-        fighterB.ranking += 5;
-
-        normalizeRanking(
-            fighterA
-        );
-
-        normalizeRanking(
-            fighterB
-        );
-
-        return;
-
-    }
-
-
-    /*
-    NO CONTEST
-    */
-
-    if (
-        winner === "NC"
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-    A WINT
-    */
-
-    if (
-        winner === "A"
-    ) {
-
-        const points =
-            calculateRankingPoints(
-                fighterA,
-                fighterB
-            );
-
-
-        fighterA.ranking +=
-            points;
-
-
-        fighterB.ranking -=
-            points;
-
-    }
-
-
-    /*
-    B WINT
-    */
-
-    if (
-        winner === "B"
-    ) {
-
-        const points =
-            calculateRankingPoints(
-                fighterB,
-                fighterA
-            );
-
-
-        fighterB.ranking +=
-            points;
-
-
-        fighterA.ranking -=
-            points;
-
-    }
-
-
-    normalizeRanking(
-        fighterA
-    );
-
-
-    normalizeRanking(
-        fighterB
-    );
-
-}
-
-
-/*
-==================================================
-RANKING PUNTEN
-==================================================
-*/
-
-function calculateRankingPoints(
-    winner,
-    loser
-) {
-
-    const difference =
-        loser.ranking -
-        winner.ranking;
-
-
-    /*
-    Winner is grote underdog.
-    */
-
-    if (
-        difference >= 200
-    ) {
-
-        return 35;
-
-    }
-
-
-    /*
-    Underdog.
-    */
-
-    if (
-        difference >= 100
-    ) {
-
-        return 30;
-
-    }
-
-
-    /*
-    Licht underdog.
-    */
-
-    if (
-        difference >= 50
-    ) {
-
-        return 25;
-
-    }
-
-
-    /*
-    Gelijke ranking.
-    */
-
-    if (
-        difference >= -50
-    ) {
-
-        return 20;
-
-    }
-
-
-    /*
-    Favoriet.
-    */
-
-    if (
-        difference >= -100
-    ) {
-
-        return 15;
-
-    }
-
-
-    /*
-    Grote favoriet.
-    */
-
-    return 10;
-
-}
-
-
-/*
-==================================================
-RANKING NORMALISEREN
-==================================================
-*/
-
-function normalizeRanking(
-    fighter
-) {
-
-    fighter.ranking =
-        Math.max(
-            0,
-            Math.round(
-                fighter.ranking
-            )
-        );
-
-}
 
 
 /*
@@ -2166,6 +1803,7 @@ function getResultText(
     fight
 ) {
 
+
     const fighterA =
         getFighter(
             fight.fighterA
@@ -2178,27 +1816,35 @@ function getResultText(
         );
 
 
+    const nameA =
+        fighterA
+            ? fighterA.name
+            : "Fighter A";
+
+
+    const nameB =
+        fighterB
+            ? fighterB.name
+            : "Fighter B";
+
+
     const result =
         fight.result;
 
 
-    if (!fighterA || !fighterB) {
-
-        return "";
-
-    }
-
-
-    let winnerText = "";
+    let winnerText =
+        "Unknown";
 
 
     if (
         result.winner === "A"
     ) {
 
+
         winnerText =
-            fighterA.name +
+            nameA +
             " wint";
+
 
     }
 
@@ -2206,9 +1852,11 @@ function getResultText(
         result.winner === "B"
     ) {
 
+
         winnerText =
-            fighterB.name +
+            nameB +
             " wint";
+
 
     }
 
@@ -2216,14 +1864,17 @@ function getResultText(
         result.winner === "DRAW"
     ) {
 
+
         winnerText =
             "Draw";
+
 
     }
 
     else if (
         result.winner === "NC"
     ) {
+
 
         winnerText =
             "No Contest";
@@ -2235,36 +1886,35 @@ function getResultText(
 
         <h3>
 
-            ${escapeHtml(
-                fighterA.name
-            )}
+            ${escapeHtml(nameA)}
 
             <span
-                style="color:#e10600;"
+                style="
+                    color:#e10600;
+                "
             >
+
                 VS
+
             </span>
 
-            ${escapeHtml(
-                fighterB.name
-            )}
+            ${escapeHtml(nameB)}
 
         </h3>
 
 
-        <p>
+        <p class="winner">
 
-            <strong>
-                ${escapeHtml(
-                    winnerText
-                )}
-            </strong>
+            🏆
+            ${escapeHtml(winnerText)}
 
         </p>
 
 
         <p
-            style="margin-top:8px;"
+            style="
+                margin-top:8px;
+            "
         >
 
             <span class="method">
@@ -2286,12 +1936,7 @@ function getResultText(
         </p>
 
 
-        <p
-            style="
-                color:#777;
-                margin-top:8px;
-            "
-        >
+        <p class="result-meta">
 
             ${escapeHtml(
                 event.name
@@ -2304,6 +1949,7 @@ function getResultText(
 }
 
 
+
 /*
 ==================================================
 RESULTATEN WEERGEVEN
@@ -2311,8 +1957,6 @@ RESULTATEN WEERGEVEN
 */
 
 function displayResults() {
-
-    reloadData();
 
 
     const list =
@@ -2327,25 +1971,21 @@ function displayResults() {
     let found = false;
 
 
-    const completedResults = [];
-
-
     events.forEach(
         event => {
 
-            if (
-                !Array.isArray(
+
+            const fights =
+                Array.isArray(
                     event.fights
                 )
-            ) {
-
-                return;
-
-            }
+                    ? event.fights
+                    : [];
 
 
-            event.fights.forEach(
+            fights.forEach(
                 fight => {
+
 
                     if (
                         !fight.result
@@ -2359,51 +1999,30 @@ function displayResults() {
                     found = true;
 
 
-                    completedResults.push({
+                    list.innerHTML += `
 
-                        event:
-                            event,
+                        <div class="result">
 
-                        fight:
-                            fight
+                            ${getResultText(
+                                event,
+                                fight
+                            )}
 
-                    });
+                        </div>
+
+                    `;
+
 
                 }
             );
 
-        }
-    );
-
-
-    /*
-    Nieuwste eerst.
-    */
-
-    completedResults.reverse();
-
-
-    completedResults.forEach(
-        item => {
-
-            list.innerHTML += `
-
-                <div class="result">
-
-                    ${getResultText(
-                        item.event,
-                        item.fight
-                    )}
-
-                </div>
-
-            `;
 
         }
     );
 
 
     if (!found) {
+
 
         list.innerHTML = `
 
@@ -2420,78 +2039,6 @@ function displayResults() {
 }
 
 
-/*
-==================================================
-MESSAGES
-==================================================
-*/
-
-function hideMessages() {
-
-    document.getElementById(
-        "success"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "error"
-    ).style.display =
-        "none";
-
-}
-
-
-function showSuccess(
-    message
-) {
-
-    const success =
-        document.getElementById(
-            "success"
-        );
-
-
-    success.textContent =
-        message;
-
-
-    success.style.display =
-        "block";
-
-
-    setTimeout(
-        () => {
-
-            success.style.display =
-                "none";
-
-        },
-        4000
-    );
-
-}
-
-
-function showError(
-    message
-) {
-
-    const error =
-        document.getElementById(
-            "error"
-        );
-
-
-    error.textContent =
-        message;
-
-
-    error.style.display =
-        "block";
-
-}
-
 
 /*
 ==================================================
@@ -2500,6 +2047,7 @@ HTML VEILIG MAKEN
 */
 
 function escapeHtml(text) {
+
 
     if (
         text === null ||
@@ -2541,6 +2089,7 @@ function escapeHtml(text) {
 }
 
 
+
 /*
 ==================================================
 START
@@ -2550,6 +2099,7 @@ START
 loadFights();
 
 displayResults();
+
 
 </script>
 
