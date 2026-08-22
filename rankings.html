@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Rankings - MMA Matchmaker</title>
+
 
     <style>
 
@@ -14,200 +21,322 @@
             padding: 0;
         }
 
+
         body {
+
             font-family: Arial, sans-serif;
+
             background: #0b0b0b;
+
             color: white;
+
         }
+
 
         header {
-            background: #111;
-            border-bottom: 2px solid #e10600;
 
-            padding: 20px 40px;
+            background: #111;
+
+            border-bottom:
+                2px solid #e10600;
+
+            padding:
+                20px 40px;
 
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
         }
+
 
         .logo {
+
             font-size: 24px;
+
             font-weight: bold;
+
         }
+
 
         .logo span {
+
             color: #e10600;
+
         }
+
 
         nav a {
+
             color: white;
+
             text-decoration: none;
+
             margin-left: 20px;
+
             font-weight: bold;
+
         }
+
 
         nav a:hover {
+
             color: #e10600;
+
         }
+
 
         .container {
-            max-width: 1100px;
+
+            max-width: 1000px;
+
             margin: auto;
-            padding: 40px 20px;
+
+            padding:
+                40px 20px;
+
         }
+
 
         h1 {
-            margin-bottom: 30px;
+
+            margin-bottom: 10px;
+
         }
 
-        .controls {
+
+        .subtitle {
+
+            color: #888;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .selector {
+
             background: #151515;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 10px;
+
             padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        select {
-            width: 100%;
-            max-width: 400px;
-
-            padding: 12px;
-
-            background: #222;
-            color: white;
-
-            border: 1px solid #444;
-            border-radius: 6px;
-        }
-
-        .champion {
-            background: linear-gradient(
-                135deg,
-                #2b2200,
-                #151515
-            );
-
-            border: 1px solid #8f7200;
-
-            border-radius: 10px;
-
-            padding: 25px;
 
             margin-bottom: 25px;
 
-            text-align: center;
         }
 
-        .champion h2 {
-            color: #ffd700;
-            margin-bottom: 15px;
+
+        select {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 10px;
+
+            background: #222;
+
+            color: white;
+
+            border:
+                1px solid #444;
+
+            border-radius: 6px;
+
         }
+
+
+        .champion {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #211b05,
+                    #111
+                );
+
+            border:
+                1px solid #8d7210;
+
+            border-radius: 12px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .champion-label {
+
+            color: #ffd700;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+        }
+
 
         .champion-name {
-            font-size: 28px;
+
+            font-size: 32px;
+
             font-weight: bold;
+
+            margin-top: 10px;
+
         }
 
-        .ranking-list {
+
+        .champion-record {
+
+            color: #aaa;
+
+            margin-top: 8px;
+
+        }
+
+
+        .rankings {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 10px;
+
         }
 
-        .ranking-item {
+
+        .rank {
+
+            display: grid;
+
+            grid-template-columns:
+                70px 1fr 160px 120px;
+
+            align-items: center;
+
+            gap: 15px;
+
             background: #151515;
 
-            border: 1px solid #292929;
+            border:
+                1px solid #292929;
 
             border-radius: 8px;
 
             padding: 18px;
 
-            display: flex;
-            align-items: center;
-
-            gap: 20px;
         }
+
 
         .position {
-            width: 45px;
 
-            font-size: 22px;
+            font-size: 24px;
+
             font-weight: bold;
+
+            text-align: center;
 
             color: #777;
+
         }
 
-        .fighter-info {
-            flex: 1;
-        }
 
         .fighter-name {
+
             font-size: 18px;
-            font-weight: bold;
-        }
-
-        .fighter-record {
-            color: #888;
-            margin-top: 5px;
-            font-size: 14px;
-        }
-
-        .edit-button {
-            background: #e10600;
-
-            border: none;
-
-            color: white;
-
-            padding: 10px 15px;
-
-            border-radius: 6px;
-
-            cursor: pointer;
 
             font-weight: bold;
+
         }
 
-        .edit-button:hover {
-            background: #ff211a;
+
+        .record {
+
+            color: #aaa;
+
         }
+
+
+        .streak {
+
+            color: #35d07f;
+
+            text-align: right;
+
+        }
+
 
         .empty {
+
             background: #151515;
 
-            padding: 25px;
+            color: #777;
+
+            padding: 30px;
+
+            text-align: center;
 
             border-radius: 10px;
 
-            color: #777;
-
-            text-align: center;
         }
+
 
         @media (max-width: 700px) {
 
             header {
+
                 flex-direction: column;
+
                 gap: 20px;
+
             }
+
 
             nav {
+
                 text-align: center;
+
             }
+
 
             nav a {
+
                 display: inline-block;
+
                 margin: 5px;
+
             }
 
-            .ranking-item {
-                flex-wrap: wrap;
+
+            .rank {
+
+                grid-template-columns:
+                    50px 1fr;
+
             }
 
-            .edit-button {
-                width: 100%;
+
+            .record,
+            .streak {
+
+                text-align: left;
+
             }
 
         }
@@ -222,9 +351,14 @@
 
 <header>
 
+
     <div class="logo">
-        MMA <span>MATCHMAKER</span>
+
+        MMA
+        <span>MATCHMAKER</span>
+
     </div>
+
 
     <nav>
 
@@ -240,12 +374,20 @@
             Rankings
         </a>
 
-        <a href="#">
+        <a href="events.html">
             Events
         </a>
 
-        <a href="#">
+        <a href="matchmaker.html">
             Matchmaker
+        </a>
+
+        <a href="fighter-profile.html">
+            Profiles
+        </a>
+
+        <a href="admin.html">
+            Admin
         </a>
 
     </nav>
@@ -255,18 +397,28 @@
 
 <div class="container">
 
+
     <h1>
         🏆 Rankings
     </h1>
 
 
-    <div class="controls">
+    <p class="subtitle">
 
-        <h3>
+        Bekijk de rankings per gewichtsklasse.
+
+    </p>
+
+
+    <!-- GEWICHTSKLASSE -->
+
+
+    <div class="selector">
+
+        <strong>
             Gewichtsklasse
-        </h3>
+        </strong>
 
-        <br>
 
         <select
             id="weightClass"
@@ -310,12 +462,23 @@
     </div>
 
 
-    <div id="champion"></div>
+    <!-- CHAMPION -->
 
 
-    <div id="rankingList"
-         class="ranking-list">
-    </div>
+    <div
+        id="champion"
+        class="champion"
+    ></div>
+
+
+    <!-- RANKINGS -->
+
+
+    <div
+        id="rankings"
+        class="rankings"
+    ></div>
+
 
 </div>
 
@@ -325,7 +488,7 @@
 
 /*
 ==================================================
-FIGHTERS UIT LOCALSTORAGE
+DATA
 ==================================================
 */
 
@@ -333,199 +496,6 @@ let fighters =
     JSON.parse(
         localStorage.getItem("fighters")
     ) || [];
-
-
-/*
-==================================================
-CHAMPIONS UIT LOCALSTORAGE
-==================================================
-*/
-
-let champions =
-    JSON.parse(
-        localStorage.getItem("champions")
-    ) || {};
-
-
-/*
-==================================================
-CHAMPIONS OPSLAAN
-==================================================
-*/
-
-function saveChampions() {
-
-    localStorage.setItem(
-        "champions",
-        JSON.stringify(champions)
-    );
-
-}
-
-
-/*
-==================================================
-CHAMPION INSTELLEN
-==================================================
-*/
-
-function setChampion(weightClass) {
-
-    const availableFighters =
-        fighters.filter(
-            fighter =>
-                fighter.weightClass === weightClass
-        );
-
-
-    if (availableFighters.length === 0) {
-
-        alert(
-            "Voeg eerst een fighter toe in deze gewichtsklasse."
-        );
-
-        return;
-
-    }
-
-
-    let options =
-        availableFighters
-            .map(
-                fighter =>
-                    fighter.name
-            )
-            .join("\n");
-
-
-    const currentChampion =
-        champions[weightClass] || "";
-
-
-    const name =
-        prompt(
-            "Typ de naam van de nieuwe champion:\n\n" +
-            options,
-            currentChampion
-        );
-
-
-    if (name === null) {
-
-        return;
-
-    }
-
-
-    const fighter =
-        availableFighters.find(
-            fighter =>
-                fighter.name.toLowerCase() ===
-                name.toLowerCase()
-        );
-
-
-    if (!fighter) {
-
-        alert(
-            "Deze fighter bestaat niet in deze gewichtsklasse."
-        );
-
-        return;
-
-    }
-
-
-    champions[weightClass] =
-        fighter.id;
-
-
-    saveChampions();
-
-    displayRankings();
-
-}
-
-
-/*
-==================================================
-RANKING AANPASSEN
-==================================================
-*/
-
-function editRanking(id) {
-
-    const fighter =
-        fighters.find(
-            fighter =>
-                fighter.id === id
-        );
-
-
-    if (!fighter) {
-
-        return;
-
-    }
-
-
-    const ranking =
-        prompt(
-            "Nieuwe ranking voor " +
-            fighter.name +
-            ":\n\n" +
-            "Typ 1 t/m 15\n" +
-            "Of laat leeg voor Unranked.",
-            fighter.ranking || ""
-        );
-
-
-    if (ranking === null) {
-
-        return;
-
-    }
-
-
-    if (ranking === "") {
-
-        fighter.ranking = "";
-
-    } else {
-
-        const number =
-            Number(ranking);
-
-
-        if (
-            !Number.isInteger(number) ||
-            number < 1 ||
-            number > 15
-        ) {
-
-            alert(
-                "Ranking moet tussen 1 en 15 liggen."
-            );
-
-            return;
-
-        }
-
-
-        fighter.ranking = number;
-
-    }
-
-
-    localStorage.setItem(
-        "fighters",
-        JSON.stringify(fighters)
-    );
-
-
-    displayRankings();
-
-}
 
 
 /*
@@ -542,86 +512,95 @@ function displayRankings() {
         ).value;
 
 
-    const championContainer =
+    const championBox =
         document.getElementById(
             "champion"
         );
 
 
-    const rankingContainer =
+    const rankingsBox =
         document.getElementById(
-            "rankingList"
+            "rankings"
         );
 
 
     /*
-    ----------------------------------------------
-    CHAMPION
-    ----------------------------------------------
+    ------------------------------------------
+    FILTER
+    ------------------------------------------
     */
 
-    const championId =
-        champions[weightClass];
+    const division =
+        fighters.filter(
+            fighter =>
+                fighter.weightClass ===
+                weightClass
+        );
 
+
+    /*
+    ------------------------------------------
+    CHAMPION
+    ------------------------------------------
+    */
 
     const champion =
-        fighters.find(
+        division.find(
             fighter =>
-                fighter.id === championId
+                fighter.champion === true
         );
 
 
     if (champion) {
 
-        championContainer.innerHTML = `
+        championBox.innerHTML = `
 
-            <div class="champion">
+            <div class="champion-label">
 
-                <h2>
-                    🏆 CHAMPION
-                </h2>
+                🏆 CHAMPION
 
-                <div class="champion-name">
-                    ${champion.name}
-                </div>
+            </div>
 
-                <p style="color:#aaa; margin-top:8px;">
-                    ${weightClass}
-                </p>
 
-                <button
-                    class="edit-button"
-                    onclick="setChampion('${weightClass}')"
-                    style="margin-top:15px;"
-                >
-                    Champion wijzigen
-                </button>
+            <div class="champion-name">
+
+                ${champion.name}
+
+            </div>
+
+
+            <div class="champion-record">
+
+                Record:
+                ${champion.wins}-${champion.losses}-${champion.draws}
 
             </div>
 
         `;
 
-    } else {
+    }
 
-        championContainer.innerHTML = `
+    else {
 
-            <div class="champion">
+        championBox.innerHTML = `
 
-                <h2>
-                    🏆 CHAMPION
-                </h2>
+            <div class="champion-label">
 
-                <div class="champion-name">
-                    Vacant
-                </div>
+                🏆 CHAMPION
 
-                <button
-                    class="edit-button"
-                    onclick="setChampion('${weightClass}')"
-                    style="margin-top:15px;"
-                >
-                    Champion instellen
-                </button>
+            </div>
+
+
+            <div class="champion-name">
+
+                Vacant
+
+            </div>
+
+
+            <div class="champion-record">
+
+                Nog geen kampioen
 
             </div>
 
@@ -631,53 +610,35 @@ function displayRankings() {
 
 
     /*
-    ----------------------------------------------
+    ------------------------------------------
     RANKED FIGHTERS
-    ----------------------------------------------
+    ------------------------------------------
     */
 
-    const rankedFighters =
-        fighters
+    const ranked =
+        division
             .filter(
                 fighter =>
-                    fighter.weightClass ===
-                    weightClass
-            )
-            .filter(
-                fighter =>
-                    fighter.ranking &&
-                    Number(fighter.ranking) >= 1 &&
-                    Number(fighter.ranking) <= 15
+                    fighter.ranking
             )
             .sort(
                 (a, b) =>
-                    Number(a.ranking) -
-                    Number(b.ranking)
+                    a.ranking -
+                    b.ranking
             );
 
 
-    rankingContainer.innerHTML = "";
+    rankingsBox.innerHTML = "";
 
 
-    /*
-    ----------------------------------------------
-    GEEN RANKINGS
-    ----------------------------------------------
-    */
+    if (ranked.length === 0) {
 
-    if (rankedFighters.length === 0) {
-
-        rankingContainer.innerHTML = `
+        rankingsBox.innerHTML = `
 
             <div class="empty">
 
-                Nog geen fighters gerankt in
-                ${weightClass}.
-
-                <br><br>
-
-                Voeg eerst fighters toe en geef ze
-                een ranking.
+                Nog geen gerankte fighters
+                in deze divisie.
 
             </div>
 
@@ -689,74 +650,73 @@ function displayRankings() {
 
 
     /*
-    ----------------------------------------------
-    RANKING ITEMS
-    ----------------------------------------------
+    ------------------------------------------
+    MAX 15
+    ------------------------------------------
     */
 
-    rankedFighters.forEach(
-        fighter => {
-
-            rankingContainer.innerHTML += `
-
-                <div class="ranking-item">
-
-                    <div class="position">
-
-                        #${fighter.ranking}
-
-                    </div>
+    ranked
+        .slice(0, 15)
+        .forEach(
+            fighter => {
 
 
-                    <div class="fighter-info">
+                rankingsBox.innerHTML += `
 
-                        <div class="fighter-name">
+                    <div class="rank">
 
-                            ${fighter.name}
+
+                        <div class="position">
+
+                            #${fighter.ranking}
 
                         </div>
 
 
-                        <div class="fighter-record">
+                        <div>
 
-                            Record:
+                            <div class="fighter-name">
 
-                            ${fighter.wins}-
-                            ${fighter.losses}-
+                                ${fighter.name}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="record">
+
+                            ${fighter.wins}
+                            -
+                            ${fighter.losses}
+                            -
                             ${fighter.draws}
 
-                            &nbsp; | &nbsp;
+                        </div>
 
-                            Win streak:
-                            ${fighter.streak}
+
+                        <div class="streak">
+
+                            🔥
+                            ${fighter.streak || 0}
+                            streak
 
                         </div>
 
+
                     </div>
 
+                `;
 
-                    <button
-                        class="edit-button"
-                        onclick="editRanking(${fighter.id})"
-                    >
-
-                        ✏️ Ranking
-
-                    </button>
-
-                </div>
-
-            `;
-
-        }
-    );
+            }
+        );
 
 }
 
 
 /*
 ==================================================
-PAGINA STARTEN
+START
 ==================================================
 */
 
@@ -767,4 +727,5 @@ displayRankings();
 
 
 </body>
+
 </html>
