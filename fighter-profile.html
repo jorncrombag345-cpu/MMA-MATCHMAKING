@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Fighter Profile - MMA Matchmaker</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #0b0b0b;
+
+            color: white;
+
+        }
+
+
+        header {
+
+            background: #111;
+
+            border-bottom:
+                2px solid #e10600;
+
+            padding:
+                20px 40px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+        }
+
+
+        .logo {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #e10600;
+
+        }
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        nav a:hover {
+
+            color: #e10600;
+
+        }
+
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding:
+                40px 20px;
+
+        }
+
+
+        h1 {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .subtitle {
+
+            color: #888;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .select-box {
+
+            background: #151515;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        select {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 10px;
+
+            background: #222;
+
+            color: white;
+
+            border:
+                1px solid #444;
+
+            border-radius: 6px;
+
+        }
+
+
+        .profile {
+
+            display: none;
+
+        }
+
+
+        .profile-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b1b1b,
+                    #0d0d0d
+                );
+
+            border:
+                1px solid #333;
+
+            border-radius: 12px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .fighter-name {
+
+            font-size: 36px;
+
+            font-weight: bold;
+
+        }
+
+
+        .fighter-class {
+
+            color: #e10600;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+
+        }
+
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .stat {
+
+            background: #151515;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 8px;
+
+            padding: 20px;
+
+            text-align: center;
+
+        }
+
+
+        .stat-number {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+        }
+
+
+        .stat-label {
+
+            color: #777;
+
+            margin-top: 5px;
+
+        }
+
+
+        .wins {
+
+            color: #35d07f;
+
+        }
+
+
+        .losses {
+
+            color: #e10600;
+
+        }
+
+
+        .ranking {
+
+            color: #ffd700;
+
+        }
+
+
+        .card {
+
+            background: #151515;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .card h2 {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .fight {
+
+            background: #101010;
+
+            border:
+                1px solid #333;
+
+            border-radius: 8px;
+
+            padding: 18px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .fight:last-child {
+
+            margin-bottom: 0;
+
+        }
+
+
+        .fight-top {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap: 15px;
+
+        }
+
+
+        .opponent {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        .result-badge {
+
+            padding:
+                6px 10px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        .win-badge {
+
+            background: #12351f;
+
+            color: #6ee7a0;
+
+        }
+
+
+        .loss-badge {
+
+            background: #351212;
+
+            color: #ff7777;
+
+        }
+
+
+        .draw-badge {
+
+            background: #333;
+
+            color: #ccc;
+
+        }
+
+
+        .nc-badge {
+
+            background: #252525;
+
+            color: #aaa;
+
+        }
+
+
+        .fight-details {
+
+            color: #888;
+
+            margin-top: 8px;
+
+            font-size: 14px;
+
+        }
+
+
+        .empty {
+
+            color: #777;
+
+            text-align: center;
+
+            padding: 25px;
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            header {
+
+                flex-direction: column;
+
+                gap: 20px;
+
+            }
+
+
+            nav {
+
+                text-align: center;
+
+            }
+
+
+            nav a {
+
+                display: inline-block;
+
+                margin: 5px;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .fight-top {
+
+                flex-direction: column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .fighter-name {
+
+                font-size: 28px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+    <div class="logo">
+
+        MMA
+        <span>MATCHMAKER</span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="fighters.html">
+            Fighters
+        </a>
+
+        <a href="rankings.html">
+            Rankings
+        </a>
+
+        <a href="events.html">
+            Events
+        </a>
+
+        <a href="matchmaker.html">
+            Matchmaker
+        </a>
+
+        <a href="fighter-profile.html">
+            Profiles
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+
+    <h1>
+        👤 Fighter Profiles
+    </h1>
+
+
+    <p class="subtitle">
+        Bekijk de complete carrière van een fighter.
+    </p>
+
+
+    <!-- FIGHTER KIEZEN -->
+
+
+    <div class="select-box">
+
+        <strong>
+            Kies een fighter
+        </strong>
+
+
+        <select
+            id="fighterSelect"
+            onchange="showProfile()"
+        >
+
+            <option value="">
+                Kies een fighter
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- PROFIEL -->
+
+
+    <div
+        id="profile"
+        class="profile"
+    >
+
+
+        <!-- HEADER -->
+
+
+        <div class="profile-header">
+
+
+            <div
+                id="fighterName"
+                class="fighter-name"
+            >
+                Fighter
+            </div>
+
+
+            <div
+                id="fighterClass"
+                class="fighter-class"
+            >
+                Weight Class
+            </div>
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    <div
+                        id="record"
+                        class="stat-number"
+                    >
+                        0-0-0
+                    </div>
+
+                    <div class="stat-label">
+                        Record
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        id="ranking"
+                        class="stat-number ranking"
+                    >
+                        Unranked
+                    </div>
+
+                    <div class="stat-label">
+                        Ranking
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        id="streak"
+                        class="stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Win Streak
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        id="totalFights"
+                        class="stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Total Fights
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- FIGHT HISTORY -->
+
+
+        <div class="card">
+
+            <h2>
+                🥊 Fight History
+            </h2>
+
+
+            <div
+                id="fightHistory"
+            ></div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/*
+==================================================
+DATA
+==================================================
+*/
+
+let fighters =
+    JSON.parse(
+        localStorage.getItem("fighters")
+    ) || [];
+
+
+let events =
+    JSON.parse(
+        localStorage.getItem("events")
+    ) || [];
+
+
+/*
+==================================================
+FIGHTERS LADEN
+==================================================
+*/
+
+function loadFighters() {
+
+    const select =
+        document.getElementById(
+            "fighterSelect"
+        );
+
+
+    fighters.forEach(
+        fighter => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                fighter.id;
+
+
+            option.textContent =
+                fighter.name;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/*
+==================================================
+FIGHTER OPHALEN
+==================================================
+*/
+
+function getFighter(id) {
+
+    return fighters.find(
+        fighter =>
+            fighter.id == id
+    );
+
+}
+
+
+/*
+==================================================
+RESULTAAT BEPALEN
+==================================================
+*/
+
+function getFightResult(
+    fight,
+    fighterId
+) {
+
+    if (!fight.result) {
+
+        return null;
+
+    }
+
+
+    const result =
+        fight.result;
+
+
+    if (
+        result.winner ===
+        "DRAW"
+    ) {
+
+        return "DRAW";
+
+    }
+
+
+    if (
+        result.winner ===
+        "NC"
+    ) {
+
+        return "NC";
+
+    }
+
+
+    if (
+        result.winner ===
+        "A"
+    ) {
+
+        return fight.fighterA == fighterId
+            ? "WIN"
+            : "LOSS";
+
+    }
+
+
+    if (
+        result.winner ===
+        "B"
+    ) {
+
+        return fight.fighterB == fighterId
+            ? "WIN"
+            : "LOSS";
+
+    }
+
+
+    return null;
+
+}
+
+
+/*
+==================================================
+TEGENSTANDER
+==================================================
+*/
+
+function getOpponent(
+    fight,
+    fighterId
+) {
+
+    const opponentId =
+        fight.fighterA == fighterId
+            ? fight.fighterB
+            : fight.fighterA;
+
+
+    return getFighter(
+        opponentId
+    );
+
+}
+
+
+/*
+==================================================
+PROFILE TONEN
+==================================================
+*/
+
+function showProfile() {
+
+    const id =
+        document.getElementById(
+            "fighterSelect"
+        ).value;
+
+
+    const profile =
+        document.getElementById(
+            "profile"
+        );
+
+
+    if (!id) {
+
+        profile.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const fighter =
+        getFighter(id);
+
+
+    if (!fighter) {
+
+        return;
+
+    }
+
+
+    profile.style.display =
+        "block";
+
+
+    /*
+    ------------------------------------------
+    BASISGEGEVENS
+    ------------------------------------------
+    */
+
+    document.getElementById(
+        "fighterName"
+    ).textContent =
+        fighter.name;
+
+
+    document.getElementById(
+        "fighterClass"
+    ).textContent =
+        fighter.weightClass;
+
+
+    document.getElementById(
+        "record"
+    ).innerHTML = `
+
+        <span class="wins">
+            ${fighter.wins}
+        </span>
+
+        -
+
+        <span class="losses">
+            ${fighter.losses}
+        </span>
+
+        -
+
+        ${fighter.draws}
+
+    `;
+
+
+    document.getElementById(
+        "ranking"
+    ).textContent =
+        fighter.ranking
+            ? "#" + fighter.ranking
+            : "Unranked";
+
+
+    document.getElementById(
+        "streak"
+    ).textContent =
+        fighter.streak;
+
+
+    /*
+    ------------------------------------------
+    FIGHT HISTORY VINDEN
+    ------------------------------------------
+    */
+
+    let history = [];
+
+
+    events.forEach(
+        event => {
+
+            event.fights.forEach(
+                fight => {
+
+                    if (
+                        fight.fighterA != id &&
+                        fight.fighterB != id
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    if (!fight.result) {
+
+                        return;
+
+                    }
+
+
+                    history.push({
+
+                        event:
+                            event,
+
+                        fight:
+                            fight,
+
+                        result:
+                            getFightResult(
+                                fight,
+                                id
+                            ),
+
+                        opponent:
+                            getOpponent(
+                                fight,
+                                id
+                            )
+
+                    });
+
+                }
+            );
+
+        }
+    );
+
+
+    /*
+    ------------------------------------------
+    TOTAL FIGHTS
+    ------------------------------------------
+    */
+
+    document.getElementById(
+        "totalFights"
+    ).textContent =
+        history.length;
+
+
+    /*
+    ------------------------------------------
+    HISTORY WEERGEVEN
+    ------------------------------------------
+    */
+
+    const historyContainer =
+        document.getElementById(
+            "fightHistory"
+        );
+
+
+    historyContainer.innerHTML = "";
+
+
+    if (history.length === 0) {
+
+        historyContainer.innerHTML = `
+
+            <div class="empty">
+
+                Nog geen officiële fight results.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+    ------------------------------------------
+    LAATSTE FIGHT BOVENAAN
+    ------------------------------------------
+    */
+
+    history.reverse();
+
+
+    history.forEach(
+        item => {
+
+            const fight =
+                item.fight;
+
+
+            const opponent =
+                item.opponent;
+
+
+            let badgeClass =
+                "draw-badge";
+
+
+            let badgeText =
+                "DRAW";
+
+
+            if (
+                item.result ===
+                "WIN"
+            ) {
+
+                badgeClass =
+                    "win-badge";
+
+                badgeText =
+                    "WIN";
+
+            }
+
+
+            else if (
+                item.result ===
+                "LOSS"
+            ) {
+
+                badgeClass =
+                    "loss-badge";
+
+                badgeText =
+                    "LOSS";
+
+            }
+
+
+            else if (
+                item.result ===
+                "NC"
+            ) {
+
+                badgeClass =
+                    "nc-badge";
+
+                badgeText =
+                    "NO CONTEST";
+
+            }
+
+
+            historyContainer.innerHTML += `
+
+                <div class="fight">
+
+
+                    <div class="fight-top">
+
+
+                        <div class="opponent">
+
+                            vs
+                            ${
+                                opponent
+                                    ? opponent.name
+                                    : "Onbekend"
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="
+                                result-badge
+                                ${badgeClass}
+                            "
+                        >
+
+                            ${badgeText}
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="fight-details">
+
+                        ${fight.weightClass}
+
+                        &nbsp; • &nbsp;
+
+                        ${fight.result.method}
+
+                        &nbsp; • &nbsp;
+
+                        Ronde
+                        ${fight.result.round}
+
+                        &nbsp; • &nbsp;
+
+                        ${fight.result.time}
+
+                    </div>
+
+
+                    <div
+                        class="fight-details"
+                        style="margin-top:5px;"
+                    >
+
+                        ${item.event.name}
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/*
+==================================================
+START
+==================================================
+*/
+
+loadFighters();
+
+
+</script>
+
+
+</body>
+</html>
