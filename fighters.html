@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fighters - MMA Matchmaker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b0b;
+            color: white;
+        }
+
+        header {
+            background: #111;
+            border-bottom: 2px solid #e10600;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #e10600;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            color: #e10600;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .form {
+            background: #151515;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .form h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #e10600;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #ff211a;
+        }
+
+        .fighter {
+            background: #151515;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .fighter h3 {
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            color: #aaa;
+            flex-wrap: wrap;
+        }
+
+        .win {
+            color: #35d07f;
+        }
+
+        .loss {
+            color: #e10600;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        MMA <span>MATCHMAKER</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="fighters.html">Fighters</a>
+        <a href="#">Rankings</a>
+        <a href="#">Events</a>
+        <a href="#">Matchmaker</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <h1>🥊 Fighters</h1>
+
+    <div class="form">
+
+        <h2>Nieuwe fighter toevoegen</h2>
+
+        <div class="form-grid">
+
+            <input id="name" type="text" placeholder="Naam">
+
+            <select id="weightClass">
+                <option value="">Gewichtsklasse</option>
+                <option>Flyweight</option>
+                <option>Bantamweight</option>
+                <option>Featherweight</option>
+                <option>Lightweight</option>
+                <option>Welterweight</option>
+                <option>Middleweight</option>
+                <option>Light Heavyweight</option>
+                <option>Heavyweight</option>
+            </select>
+
+            <input id="wins" type="number" placeholder="Wins" value="0">
+
+            <input id="losses" type="number" placeholder="Losses" value="0">
+
+            <input id="draws" type="number" placeholder="Draws" value="0">
+
+            <input id="ranking" type="number" placeholder="Ranking">
+
+            <input id="streak" type="number" placeholder="Win streak" value="0">
+
+        </div>
+
+        <button onclick="addFighter()">+ Fighter toevoegen</button>
+
+    </div>
+
+    <h2>Fighter roster</h2>
+
+    <div id="fighterList"></div>
+
+</div>
+
+<script>
+
+let fighters = JSON.parse(localStorage.getItem("fighters")) || [];
+
+function saveFighters() {
+    localStorage.setItem("fighters", JSON.stringify(fighters));
+}
+
+function addFighter() {
+
+    const name = document.getElementById("name").value;
+    const weightClass = document.getElementById("weightClass").value;
+    const wins = Number(document.getElementById("wins").value);
+    const losses = Number(document.getElementById("losses").value);
+    const draws = Number(document.getElementById("draws").value);
+    const ranking = document.getElementById("ranking").value;
+    const streak = Number(document.getElementById("streak").value);
+
+    if (!name || !weightClass) {
+        alert("Vul minimaal de naam en gewichtsklasse in.");
+        return;
+    }
+
+    const fighter = {
+        id: Date.now(),
+        name,
+        weightClass,
+        wins,
+        losses,
+        draws,
+        ranking,
+        streak
+    };
+
+    fighters.push(fighter);
+
+    saveFighters();
+    displayFighters();
+
+    document.getElementById("name").value = "";
+}
+
+function deleteFighter(id) {
+
+    fighters = fighters.filter(fighter => fighter.id !== id);
+
+    saveFighters();
+    displayFighters();
+}
+
+function displayFighters() {
+
+    const list = document.getElementById("fighterList");
+
+    list.innerHTML = "";
+
+    if (fighters.length === 0) {
+        list.innerHTML = "<p style='color:#777;'>Nog geen fighters toegevoegd.</p>";
+        return;
+    }
+
+    fighters.forEach(fighter => {
+
+        list.innerHTML += `
+            <div class="fighter">
+
+                <h3>${fighter.name}</h3>
+
+                <div class="stats">
+
+                    <span>${fighter.weightClass}</span>
+
+                    <span>Ranking: ${
+                        fighter.ranking ? "#" + fighter.ranking : "Unranked"
+                    }</span>
+
+                    <span>
+                        Record:
+                        <span class="win">${fighter.wins}</span>-
+                        <span class="loss">${fighter.losses}</span>-
+                        ${fighter.draws}
+                    </span>
+
+                    <span>
+                        Streak: ${fighter.streak}
+                    </span>
+
+                </div>
+
+                <button onclick="deleteFighter(${fighter.id})">
+                    Verwijderen
+                </button>
+
+            </div>
+        `;
+
+    });
+}
+
+displayFighters();
+
+</script>
+
+</body>
+</html>
