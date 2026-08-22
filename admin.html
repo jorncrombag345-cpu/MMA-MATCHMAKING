@@ -40,16 +40,13 @@
             border-bottom:
                 2px solid #e10600;
 
-            padding:
-                20px 40px;
+            padding: 20px 40px;
 
             display: flex;
 
-            justify-content:
-                space-between;
+            justify-content: space-between;
 
-            align-items:
-                center;
+            align-items: center;
 
         }
 
@@ -66,6 +63,17 @@
         .logo span {
 
             color: #e10600;
+
+        }
+
+
+        nav {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
 
         }
 
@@ -96,8 +104,7 @@
 
             margin: auto;
 
-            padding:
-                40px 20px;
+            padding: 40px 20px;
 
         }
 
@@ -222,16 +229,16 @@
         }
 
 
-        .danger {
-
-            background: #333;
+        .delete-button {
 
             margin-top: 12px;
+
+            background: #333;
 
         }
 
 
-        .danger:hover {
+        .delete-button:hover {
 
             background: #555;
 
@@ -282,8 +289,7 @@
 
             display: flex;
 
-            justify-content:
-                space-between;
+            justify-content: space-between;
 
             align-items: center;
 
@@ -321,8 +327,7 @@
 
             border-radius: 6px;
 
-            padding:
-                10px 15px;
+            padding: 10px 15px;
 
             cursor: pointer;
 
@@ -332,6 +337,51 @@
         .edit-button:hover {
 
             background: #333;
+
+        }
+
+
+        .champion-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .champion-label select {
+
+            max-width: 250px;
+
+        }
+
+
+        .rank-preview {
+
+            background: #101010;
+
+            border:
+                1px solid #333;
+
+            border-radius: 8px;
+
+            padding: 20px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .rank-preview-title {
+
+            color: #ffd700;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
 
         }
 
@@ -360,7 +410,7 @@
 
             nav {
 
-                text-align: center;
+                justify-content: center;
 
             }
 
@@ -385,8 +435,7 @@
 
                 flex-direction: column;
 
-                align-items:
-                    flex-start;
+                align-items: flex-start;
 
             }
 
@@ -456,12 +505,12 @@
 
     <p class="subtitle">
 
-        Beheer fighters, records en rankings.
+        Beheer fighters, records, rankings en champions.
 
     </p>
 
 
-    <!-- FIGHTER KIEZEN -->
+    <!-- FIGHTER SELECTEREN -->
 
 
     <div class="card">
@@ -485,7 +534,7 @@
     </div>
 
 
-    <!-- EDITOR -->
+    <!-- FIGHTER BEWERKEN -->
 
 
     <div
@@ -502,6 +551,9 @@
         <div class="grid">
 
 
+            <!-- NAAM -->
+
+
             <div class="field">
 
                 <label>
@@ -516,6 +568,9 @@
             </div>
 
 
+            <!-- GEWICHTSKLASSE -->
+
+
             <div class="field">
 
                 <label>
@@ -524,41 +579,44 @@
 
                 <select id="weightClass">
 
-                    <option>
+                    <option value="Flyweight">
                         Flyweight
                     </option>
 
-                    <option>
+                    <option value="Bantamweight">
                         Bantamweight
                     </option>
 
-                    <option>
+                    <option value="Featherweight">
                         Featherweight
                     </option>
 
-                    <option>
+                    <option value="Lightweight">
                         Lightweight
                     </option>
 
-                    <option>
+                    <option value="Welterweight">
                         Welterweight
                     </option>
 
-                    <option>
+                    <option value="Middleweight">
                         Middleweight
                     </option>
 
-                    <option>
+                    <option value="Light Heavyweight">
                         Light Heavyweight
                     </option>
 
-                    <option>
+                    <option value="Heavyweight">
                         Heavyweight
                     </option>
 
                 </select>
 
             </div>
+
+
+            <!-- WINS -->
 
 
             <div class="field">
@@ -576,6 +634,9 @@
             </div>
 
 
+            <!-- LOSSES -->
+
+
             <div class="field">
 
                 <label>
@@ -589,6 +650,9 @@
                 >
 
             </div>
+
+
+            <!-- DRAWS -->
 
 
             <div class="field">
@@ -606,6 +670,9 @@
             </div>
 
 
+            <!-- RANKING -->
+
+
             <div class="field">
 
                 <label>
@@ -616,10 +683,14 @@
                     id="ranking"
                     type="number"
                     min="1"
+                    max="15"
                     placeholder="Leeg = unranked"
                 >
 
             </div>
+
+
+            <!-- STREAK -->
 
 
             <div class="field">
@@ -637,7 +708,35 @@
             </div>
 
 
+            <!-- CHAMPION -->
+
+
+            <div class="field">
+
+                <label>
+                    Champion
+                </label>
+
+
+                <select id="champion">
+
+                    <option value="false">
+                        Nee
+                    </option>
+
+                    <option value="true">
+                        🏆 Ja
+                    </option>
+
+                </select>
+
+            </div>
+
+
         </div>
+
+
+        <!-- OPSLAAN -->
 
 
         <button
@@ -650,8 +749,11 @@
         </button>
 
 
+        <!-- VERWIJDEREN -->
+
+
         <button
-            class="button danger"
+            class="button delete-button"
             onclick="deleteFighter()"
         >
 
@@ -660,19 +762,43 @@
         </button>
 
 
+        <!-- SUCCES -->
+
+
         <div
             id="success"
             class="success"
         >
 
-            Fighter opgeslagen! 🔥
+            Fighter succesvol opgeslagen! 🔥
+
+        </div>
+
+
+        <!-- RANKING PREVIEW -->
+
+
+        <div class="rank-preview">
+
+            <div class="rank-preview-title">
+
+                🏆 Ranking preview
+
+            </div>
+
+
+            <div id="rankPreview">
+
+                Kies een fighter.
+
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- OVERZICHT -->
+    <!-- ALLE FIGHTERS -->
 
 
     <div class="card">
@@ -713,7 +839,7 @@ let selectedId = null;
 
 /*
 ==================================================
-OPSLAAN
+DATA OPSLAAN
 ==================================================
 */
 
@@ -729,7 +855,7 @@ function saveData() {
 
 /*
 ==================================================
-DROPDOWN LADEN
+DROPDOWN
 ==================================================
 */
 
@@ -816,7 +942,11 @@ function loadFighter() {
         );
 
 
-    if (!fighter) return;
+    if (!fighter) {
+
+        return;
+
+    }
 
 
     selectedId =
@@ -826,31 +956,32 @@ function loadFighter() {
     document.getElementById(
         "name"
     ).value =
-        fighter.name;
+        fighter.name || "";
 
 
     document.getElementById(
         "weightClass"
     ).value =
-        fighter.weightClass;
+        fighter.weightClass ||
+        "Lightweight";
 
 
     document.getElementById(
         "wins"
     ).value =
-        fighter.wins;
+        fighter.wins || 0;
 
 
     document.getElementById(
         "losses"
     ).value =
-        fighter.losses;
+        fighter.losses || 0;
 
 
     document.getElementById(
         "draws"
     ).value =
-        fighter.draws;
+        fighter.draws || 0;
 
 
     document.getElementById(
@@ -865,10 +996,134 @@ function loadFighter() {
         fighter.streak || 0;
 
 
+    document.getElementById(
+        "champion"
+    ).value =
+        fighter.champion === true
+            ? "true"
+            : "false";
+
+
     editor.style.display =
         "block";
 
+
+    updateRankPreview();
+
 }
+
+
+/*
+==================================================
+RANKING PREVIEW
+==================================================
+*/
+
+function updateRankPreview() {
+
+    const ranking =
+        document.getElementById(
+            "ranking"
+        ).value;
+
+
+    const weightClass =
+        document.getElementById(
+            "weightClass"
+        ).value;
+
+
+    const champion =
+        document.getElementById(
+            "champion"
+        ).value;
+
+
+    const preview =
+        document.getElementById(
+            "rankPreview"
+        );
+
+
+    if (champion === "true") {
+
+        preview.innerHTML = `
+
+            🏆 Deze fighter wordt de
+
+            <strong>
+                ${weightClass} Champion
+            </strong>.
+
+        `;
+
+        return;
+
+    }
+
+
+    if (!ranking) {
+
+        preview.innerHTML = `
+
+            Deze fighter is
+
+            <strong>
+                Unranked
+            </strong>
+
+            in ${weightClass}.
+
+        `;
+
+        return;
+
+    }
+
+
+    preview.innerHTML = `
+
+        Deze fighter staat op
+
+        <strong>
+            #${ranking}
+        </strong>
+
+        in ${weightClass}.
+
+    `;
+
+}
+
+
+/*
+==================================================
+EVENT LISTENERS
+==================================================
+*/
+
+document
+    .getElementById("ranking")
+    .addEventListener(
+        "input",
+        updateRankPreview
+    );
+
+
+document
+    .getElementById("weightClass")
+    .addEventListener(
+        "change",
+        updateRankPreview
+    );
+
+
+document
+    .getElementById("champion")
+    .addEventListener(
+        "change",
+        updateRankPreview
+    );
 
 
 /*
@@ -894,13 +1149,18 @@ function saveFighter() {
         );
 
 
-    if (!fighter) return;
+    if (!fighter) {
+
+        return;
+
+    }
 
 
     const name =
-        document.getElementById(
-            "name"
-        ).value.trim();
+        document
+            .getElementById("name")
+            .value
+            .trim();
 
 
     if (!name) {
@@ -913,6 +1173,24 @@ function saveFighter() {
 
     }
 
+
+    const rankingValue =
+        document
+            .getElementById("ranking")
+            .value;
+
+
+    const championValue =
+        document
+            .getElementById("champion")
+            .value;
+
+
+    /*
+    ------------------------------------------
+    GEGEVENS
+    ------------------------------------------
+    */
 
     fighter.name =
         name;
@@ -948,12 +1226,6 @@ function saveFighter() {
         ) || 0;
 
 
-    const rankingValue =
-        document.getElementById(
-            "ranking"
-        ).value;
-
-
     fighter.ranking =
         rankingValue
             ? Number(rankingValue)
@@ -968,19 +1240,62 @@ function saveFighter() {
         ) || 0;
 
 
-    saveData();
-
-
-    loadDropdown();
-
-    loadFighter();
-
-    displayFighters();
+    fighter.champion =
+        championValue === "true";
 
 
     /*
-    Dropdown selectie behouden
+    ------------------------------------------
+    CHAMPION REGEL
+    ------------------------------------------
+
+    Er kan maar één champion
+    per gewichtsklasse zijn.
     */
+
+    if (fighter.champion) {
+
+        fighters.forEach(
+            other => {
+
+                if (
+                    other.id !==
+                    fighter.id
+                    &&
+                    other.weightClass ===
+                    fighter.weightClass
+                ) {
+
+                    other.champion =
+                        false;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+    ------------------------------------------
+    DATA OPSLAAN
+    ------------------------------------------
+    */
+
+    saveData();
+
+
+    /*
+    ------------------------------------------
+    PAGINA VERVERSEN
+    ------------------------------------------
+    */
+
+    loadDropdown();
+
+    displayFighters();
+
 
     document.getElementById(
         "fighterSelect"
@@ -989,7 +1304,9 @@ function saveFighter() {
 
 
     /*
-    Success
+    ------------------------------------------
+    SUCCESS
+    ------------------------------------------
     */
 
     const success =
@@ -1011,6 +1328,9 @@ function saveFighter() {
         },
         2500
     );
+
+
+    updateRankPreview();
 
 }
 
@@ -1038,14 +1358,20 @@ function deleteFighter() {
         );
 
 
-    if (!fighter) return;
+    if (!fighter) {
+
+        return;
+
+    }
 
 
     const confirmed =
         confirm(
+
             "Weet je zeker dat je " +
             fighter.name +
             " wilt verwijderen?"
+
         );
 
 
@@ -1085,7 +1411,7 @@ function deleteFighter() {
 
 /*
 ==================================================
-FIGHTERS OVERZICHT
+FIGHTERS WEERGEVEN
 ==================================================
 */
 
@@ -1120,6 +1446,36 @@ function displayFighters() {
     fighters.forEach(
         fighter => {
 
+
+            let rankingText =
+                "Unranked";
+
+
+            if (
+                fighter.ranking
+            ) {
+
+                rankingText =
+                    "#" +
+                    fighter.ranking;
+
+            }
+
+
+            let championText =
+                "";
+
+
+            if (
+                fighter.champion
+            ) {
+
+                championText =
+                    " 🏆 Champion";
+
+            }
+
+
             list.innerHTML += `
 
                 <div class="fighter-item">
@@ -1128,7 +1484,11 @@ function displayFighters() {
                     <div class="fighter-info">
 
                         <strong>
+
                             ${fighter.name}
+
+                            ${championText}
+
                         </strong>
 
 
@@ -1136,15 +1496,20 @@ function displayFighters() {
 
                             ${fighter.weightClass}
 
-                            • Record:
+                            •
+
+                            Record:
                             ${fighter.wins}-${fighter.losses}-${fighter.draws}
 
-                            • Ranking:
-                            ${
-                                fighter.ranking
-                                    ? "#" + fighter.ranking
-                                    : "Unranked"
-                            }
+                            •
+
+                            Ranking:
+                            ${rankingText}
+
+                            •
+
+                            Streak:
+                            ${fighter.streak || 0}
 
                         </small>
 
@@ -1177,7 +1542,7 @@ function displayFighters() {
 
 /*
 ==================================================
-FIGHTER SELECTEREN UIT LIJST
+FIGHTER SELECTEREN
 ==================================================
 */
 
@@ -1212,7 +1577,6 @@ START
 loadDropdown();
 
 displayFighters();
-
 
 </script>
 
