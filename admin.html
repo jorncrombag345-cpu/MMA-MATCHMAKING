@@ -3,824 +3,768 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin - MMA Matchmaker</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0b0b;
+    color: white;
+}
+
+header {
+    background: #111;
+    border-bottom: 2px solid #e10600;
+    padding: 20px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #e10600;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #e10600;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #888;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #151515;
+    border: 1px solid #292929;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-bottom: 20px;
+}
+
+select,
+input,
+textarea {
+    width: 100%;
+    padding: 13px;
+
+    background: #222;
+    color: white;
+
+    border: 1px solid #444;
+    border-radius: 6px;
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    font-size: 15px;
+}
 
-    <title>Admin - MMA Matchmaker</title>
+textarea {
+    min-height: 150px;
+    resize: vertical;
+    font-family: Arial, sans-serif;
+}
 
+label {
+    display: block;
+    color: #aaa;
+    margin-bottom: 8px;
+}
 
-    <style>
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+.field {
+    margin-bottom: 18px;
+}
 
+.full {
+    grid-column: 1 / -1;
+}
 
-        body {
+.button {
+    width: 100%;
+    padding: 15px;
 
-            font-family: Arial, sans-serif;
+    background: #e10600;
+    color: white;
 
-            background: #0b0b0b;
+    border: none;
+    border-radius: 7px;
 
-            color: white;
+    cursor: pointer;
 
-        }
+    font-size: 16px;
+    font-weight: bold;
+}
 
+.button:hover {
+    background: #ff211a;
+}
 
-        header {
+.delete-button {
+    margin-top: 12px;
+    background: #333;
+}
 
-            background: #111;
+.delete-button:hover {
+    background: #5a1515;
+}
 
-            border-bottom:
-                2px solid #e10600;
+.secondary-button {
+    background: #222;
+    border: 1px solid #444;
+    margin-top: 10px;
+}
 
-            padding: 20px 40px;
+.secondary-button:hover {
+    background: #333;
+}
 
-            display: flex;
+.success {
+    display: none;
 
-            justify-content: space-between;
+    background: #12351f;
+    border: 1px solid #1f7540;
 
-            align-items: center;
+    color: #6ee7a0;
 
-        }
+    padding: 15px;
 
+    border-radius: 8px;
 
-        .logo {
+    margin-top: 20px;
 
-            font-size: 24px;
+    text-align: center;
+}
 
-            font-weight: bold;
+.fighter-list {
+    display: grid;
+    gap: 12px;
+}
 
-        }
+.fighter-item {
+    background: #101010;
 
+    border: 1px solid #333;
 
-        .logo span {
+    border-radius: 8px;
 
-            color: #e10600;
+    padding: 18px;
 
-        }
+    display: flex;
 
+    justify-content: space-between;
 
-        nav {
+    align-items: center;
 
-            display: flex;
+    gap: 15px;
+}
 
-            flex-wrap: wrap;
+.fighter-info strong {
+    font-size: 18px;
+}
 
-            justify-content: flex-end;
+.fighter-info small {
+    display: block;
+    color: #777;
+    margin-top: 5px;
+}
 
-        }
+.edit-button {
+    background: #222;
+    color: white;
 
+    border: 1px solid #444;
 
-        nav a {
+    border-radius: 6px;
 
-            color: white;
+    padding: 10px 15px;
 
-            text-decoration: none;
+    cursor: pointer;
+}
 
-            margin-left: 20px;
+.edit-button:hover {
+    background: #333;
+}
 
-            font-weight: bold;
+.rank-preview {
+    background: #101010;
 
-        }
+    border: 1px solid #333;
 
+    border-radius: 8px;
 
-        nav a:hover {
+    padding: 20px;
 
-            color: #e10600;
+    margin-top: 20px;
+}
 
-        }
+.rank-preview-title {
+    color: #ffd700;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
+.news-list {
+    display: grid;
+    gap: 15px;
+}
 
-        .container {
+.news-item {
+    background: #101010;
 
-            max-width: 1100px;
+    border: 1px solid #333;
 
-            margin: auto;
+    border-radius: 10px;
 
-            padding: 40px 20px;
+    padding: 20px;
+}
 
-        }
+.news-item h3 {
+    margin-bottom: 8px;
+}
 
+.news-date {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
 
-        h1 {
+.news-content {
+    color: #aaa;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
 
-            margin-bottom: 10px;
+.news-featured {
+    display: inline-block;
 
-        }
+    background: #e10600;
 
+    color: white;
 
-        .subtitle {
+    padding: 5px 8px;
 
-            color: #888;
+    border-radius: 5px;
 
-            margin-bottom: 30px;
+    font-size: 11px;
 
-        }
+    font-weight: bold;
 
+    margin-bottom: 10px;
+}
 
-        .card {
+.news-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
 
-            background: #151515;
+.news-actions button {
+    padding: 9px 13px;
 
-            border:
-                1px solid #292929;
+    background: #222;
 
-            border-radius: 10px;
+    color: white;
 
-            padding: 25px;
+    border: 1px solid #444;
 
-            margin-bottom: 25px;
+    border-radius: 6px;
 
-        }
+    cursor: pointer;
+}
 
+.news-actions button:hover {
+    background: #333;
+}
 
-        .card h2 {
+.empty {
+    color: #777;
+    text-align: center;
+    padding: 20px;
+}
 
-            margin-bottom: 20px;
+@media (max-width: 700px) {
 
-        }
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
 
+    nav {
+        justify-content: center;
+    }
 
-        select,
-        input {
+    nav a {
+        display: inline-block;
+        margin: 5px;
+    }
 
-            width: 100%;
+    .grid {
+        grid-template-columns: 1fr;
+    }
 
-            padding: 13px;
+    .full {
+        grid-column: auto;
+    }
 
-            background: #222;
+    .fighter-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-            color: white;
+    .news-actions {
+        flex-direction: column;
+    }
 
-            border:
-                1px solid #444;
+}
 
-            border-radius: 6px;
-
-            font-size: 15px;
-
-        }
-
-
-        label {
-
-            display: block;
-
-            color: #aaa;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 20px;
-
-        }
-
-
-        .field {
-
-            margin-bottom: 18px;
-
-        }
-
-
-        .button {
-
-            width: 100%;
-
-            padding: 15px;
-
-            background: #e10600;
-
-            color: white;
-
-            border: none;
-
-            border-radius: 7px;
-
-            cursor: pointer;
-
-            font-size: 16px;
-
-            font-weight: bold;
-
-        }
-
-
-        .button:hover {
-
-            background: #ff211a;
-
-        }
-
-
-        .delete-button {
-
-            margin-top: 12px;
-
-            background: #333;
-
-        }
-
-
-        .delete-button:hover {
-
-            background: #555;
-
-        }
-
-
-        .success {
-
-            display: none;
-
-            background: #12351f;
-
-            border:
-                1px solid #1f7540;
-
-            color: #6ee7a0;
-
-            padding: 15px;
-
-            border-radius: 8px;
-
-            margin-top: 20px;
-
-            text-align: center;
-
-        }
-
-
-        .fighter-list {
-
-            display: grid;
-
-            gap: 12px;
-
-        }
-
-
-        .fighter-item {
-
-            background: #101010;
-
-            border:
-                1px solid #333;
-
-            border-radius: 8px;
-
-            padding: 18px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 15px;
-
-        }
-
-
-        .fighter-info strong {
-
-            font-size: 18px;
-
-        }
-
-
-        .fighter-info small {
-
-            display: block;
-
-            color: #777;
-
-            margin-top: 5px;
-
-        }
-
-
-        .edit-button {
-
-            background: #222;
-
-            color: white;
-
-            border:
-                1px solid #444;
-
-            border-radius: 6px;
-
-            padding: 10px 15px;
-
-            cursor: pointer;
-
-        }
-
-
-        .edit-button:hover {
-
-            background: #333;
-
-        }
-
-
-        .champion-label {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-        }
-
-
-        .champion-label select {
-
-            max-width: 250px;
-
-        }
-
-
-        .rank-preview {
-
-            background: #101010;
-
-            border:
-                1px solid #333;
-
-            border-radius: 8px;
-
-            padding: 20px;
-
-            margin-top: 20px;
-
-        }
-
-
-        .rank-preview-title {
-
-            color: #ffd700;
-
-            font-weight: bold;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .empty {
-
-            color: #777;
-
-            text-align: center;
-
-            padding: 20px;
-
-        }
-
-
-        @media (max-width: 700px) {
-
-            header {
-
-                flex-direction: column;
-
-                gap: 20px;
-
-            }
-
-
-            nav {
-
-                justify-content: center;
-
-            }
-
-
-            nav a {
-
-                display: inline-block;
-
-                margin: 5px;
-
-            }
-
-
-            .grid {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .fighter-item {
-
-                flex-direction: column;
-
-                align-items: flex-start;
-
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
+<div class="logo">
+MMA <span>MATCHMAKER</span>
+</div>
 
-    <div class="logo">
+<nav>
 
-        MMA
-        <span>MATCHMAKER</span>
+<a href="index.html">Dashboard</a>
 
-    </div>
+<a href="fighters.html">Fighters</a>
 
+<a href="rankings.html">Rankings</a>
 
-    <nav>
+<a href="events.html">Events</a>
 
-        <a href="index.html">
-            Dashboard
-        </a>
+<a href="matchmaker.html">Matchmaker</a>
 
-        <a href="fighters.html">
-            Fighters
-        </a>
+<a href="fighter-profile.html">Profiles</a>
 
-        <a href="rankings.html">
-            Rankings
-        </a>
+<a href="news.html">News</a>
 
-        <a href="events.html">
-            Events
-        </a>
+<a href="admin.html">Admin</a>
 
-        <a href="matchmaker.html">
-            Matchmaker
-        </a>
-
-        <a href="fighter-profile.html">
-            Profiles
-        </a>
-
-        <a href="admin.html">
-            Admin
-        </a>
-
-    </nav>
+</nav>
 
 </header>
 
-
 <div class="container">
 
+<h1>⚙️ Admin Panel</h1>
 
-    <h1>
-        ⚙️ Admin Panel
-    </h1>
+<p class="subtitle">
+Beheer fighters, records, rankings, champions en nieuws.
+</p>
 
 
-    <p class="subtitle">
+<!-- ==================================================
+     FIGHTER SELECTEREN
+================================================== -->
 
-        Beheer fighters, records, rankings en champions.
+<div class="card">
 
-    </p>
+<h2>Fighter selecteren</h2>
 
+<select id="fighterSelect" onchange="loadFighter()">
 
-    <!-- FIGHTER SELECTEREN -->
+<option value="">
+Kies een fighter
+</option>
 
+</select>
 
-    <div class="card">
+</div>
 
-        <h2>
-            Fighter selecteren
-        </h2>
 
+<!-- ==================================================
+     FIGHTER BEWERKEN
+================================================== -->
 
-        <select
-            id="fighterSelect"
-            onchange="loadFighter()"
-        >
+<div
+id="editor"
+class="card"
+style="display:none;"
+>
 
-            <option value="">
-                Kies een fighter
-            </option>
+<h2>Fighter bewerken</h2>
 
-        </select>
+<div class="grid">
 
-    </div>
+<div class="field">
 
+<label>Naam</label>
 
-    <!-- FIGHTER BEWERKEN -->
+<input
+id="name"
+type="text"
+>
 
+</div>
 
-    <div
-        id="editor"
-        class="card"
-        style="display:none;"
-    >
 
-        <h2>
-            Fighter bewerken
-        </h2>
+<div class="field">
 
+<label>Gewichtsklasse</label>
 
-        <div class="grid">
+<select id="weightClass">
 
+<option>Flyweight</option>
+<option>Bantamweight</option>
+<option>Featherweight</option>
+<option>Lightweight</option>
+<option>Welterweight</option>
+<option>Middleweight</option>
+<option>Light Heavyweight</option>
+<option>Heavyweight</option>
 
-            <!-- NAAM -->
+</select>
 
+</div>
 
-            <div class="field">
 
-                <label>
-                    Naam
-                </label>
+<div class="field">
 
-                <input
-                    id="name"
-                    type="text"
-                >
+<label>Wins</label>
 
-            </div>
+<input
+id="wins"
+type="number"
+min="0"
+>
 
+</div>
 
-            <!-- GEWICHTSKLASSE -->
 
+<div class="field">
 
-            <div class="field">
+<label>Losses</label>
 
-                <label>
-                    Gewichtsklasse
-                </label>
+<input
+id="losses"
+type="number"
+min="0"
+>
 
-                <select id="weightClass">
+</div>
 
-                    <option value="Flyweight">
-                        Flyweight
-                    </option>
 
-                    <option value="Bantamweight">
-                        Bantamweight
-                    </option>
+<div class="field">
 
-                    <option value="Featherweight">
-                        Featherweight
-                    </option>
+<label>Draws</label>
 
-                    <option value="Lightweight">
-                        Lightweight
-                    </option>
+<input
+id="draws"
+type="number"
+min="0"
+>
 
-                    <option value="Welterweight">
-                        Welterweight
-                    </option>
+</div>
 
-                    <option value="Middleweight">
-                        Middleweight
-                    </option>
 
-                    <option value="Light Heavyweight">
-                        Light Heavyweight
-                    </option>
+<div class="field">
 
-                    <option value="Heavyweight">
-                        Heavyweight
-                    </option>
+<label>Ranking</label>
 
-                </select>
+<input
+id="ranking"
+type="number"
+min="1"
+max="15"
+placeholder="Leeg = unranked"
+>
 
-            </div>
+</div>
 
 
-            <!-- WINS -->
+<div class="field">
 
+<label>Win streak</label>
 
-            <div class="field">
+<input
+id="streak"
+type="number"
+min="0"
+>
 
-                <label>
-                    Wins
-                </label>
+</div>
 
-                <input
-                    id="wins"
-                    type="number"
-                    min="0"
-                >
 
-            </div>
+<div class="field">
 
+<label>Champion</label>
 
-            <!-- LOSSES -->
+<select id="champion">
 
+<option value="false">
+Nee
+</option>
 
-            <div class="field">
+<option value="true">
+🏆 Ja
+</option>
 
-                <label>
-                    Losses
-                </label>
+</select>
 
-                <input
-                    id="losses"
-                    type="number"
-                    min="0"
-                >
+</div>
 
-            </div>
+</div>
 
 
-            <!-- DRAWS -->
+<button
+class="button"
+onclick="saveFighter()"
+>
 
+💾 Fighter opslaan
 
-            <div class="field">
+</button>
 
-                <label>
-                    Draws
-                </label>
 
-                <input
-                    id="draws"
-                    type="number"
-                    min="0"
-                >
+<button
+class="button delete-button"
+onclick="deleteFighter()"
+>
 
-            </div>
+🗑️ Fighter verwijderen
 
+</button>
 
-            <!-- RANKING -->
 
+<div
+id="success"
+class="success"
+>
 
-            <div class="field">
+Fighter succesvol opgeslagen! 🔥
 
-                <label>
-                    Ranking
-                </label>
+</div>
 
-                <input
-                    id="ranking"
-                    type="number"
-                    min="1"
-                    max="15"
-                    placeholder="Leeg = unranked"
-                >
 
-            </div>
+<div class="rank-preview">
 
+<div class="rank-preview-title">
+🏆 Ranking preview
+</div>
 
-            <!-- STREAK -->
+<div id="rankPreview">
+Kies een fighter.
+</div>
 
+</div>
 
-            <div class="field">
+</div>
 
-                <label>
-                    Win streak
-                </label>
 
-                <input
-                    id="streak"
-                    type="number"
-                    min="0"
-                >
+<!-- ==================================================
+     ALLE FIGHTERS
+================================================== -->
 
-            </div>
+<div class="card">
 
+<h2>Alle fighters</h2>
 
-            <!-- CHAMPION -->
+<div
+id="fighterList"
+class="fighter-list"
+></div>
 
+</div>
 
-            <div class="field">
 
-                <label>
-                    Champion
-                </label>
+<!-- ==================================================
+     NIEUW NIEUWSBERICHT
+================================================== -->
 
+<div class="card">
 
-                <select id="champion">
+<h2>📰 Nieuws beheren</h2>
 
-                    <option value="false">
-                        Nee
-                    </option>
+<div class="grid">
 
-                    <option value="true">
-                        🏆 Ja
-                    </option>
+<div class="field">
 
-                </select>
+<label>
+Titel
+</label>
 
-            </div>
+<input
+id="newsTitle"
+type="text"
+placeholder="Bijv. Nieuwe main event aangekondigd"
+>
 
+</div>
 
-        </div>
 
+<div class="field">
 
-        <!-- OPSLAAN -->
+<label>
+Datum
+</label>
 
+<input
+id="newsDate"
+type="date"
+>
 
-        <button
-            class="button"
-            onclick="saveFighter()"
-        >
+</div>
 
-            💾 Fighter opslaan
 
-        </button>
+<div class="field">
 
+<label>
+Afbeelding / emoji
+</label>
 
-        <!-- VERWIJDEREN -->
+<input
+id="newsImage"
+type="text"
+placeholder="Bijv. 🥊 of een afbeelding-URL"
+>
 
+</div>
 
-        <button
-            class="button delete-button"
-            onclick="deleteFighter()"
-        >
 
-            🗑️ Fighter verwijderen
+<div class="field">
 
-        </button>
+<label>
+Uitgelicht nieuws</label>
 
+<select id="newsFeatured">
 
-        <!-- SUCCES -->
+<option value="false">
+Nee
+</option>
 
+<option value="true">
+⭐ Ja
+</option>
 
-        <div
-            id="success"
-            class="success"
-        >
+</select>
 
-            Fighter succesvol opgeslagen! 🔥
+</div>
 
-        </div>
 
+<div class="field full">
 
-        <!-- RANKING PREVIEW -->
+<label>
+Nieuwsbericht
+</label>
 
+<textarea
+id="newsContent"
+placeholder="Schrijf hier je nieuwsbericht..."
+></textarea>
 
-        <div class="rank-preview">
+</div>
 
-            <div class="rank-preview-title">
+</div>
 
-                🏆 Ranking preview
 
-            </div>
+<button
+class="button"
+onclick="saveNews()"
+>
 
+📰 Nieuws publiceren
 
-            <div id="rankPreview">
+</button>
 
-                Kies een fighter.
 
-            </div>
+<button
+id="cancelNewsButton"
+class="button secondary-button"
+onclick="cancelNewsEdit()"
+style="display:none;"
+>
 
-        </div>
+Annuleren
 
-    </div>
+</button>
 
 
-    <!-- ALLE FIGHTERS -->
+<div
+id="newsSuccess"
+class="success"
+>
 
+Nieuws opgeslagen!
 
-    <div class="card">
+</div>
 
-        <h2>
-            Alle fighters
-        </h2>
+</div>
 
 
-        <div
-            id="fighterList"
-            class="fighter-list"
-        ></div>
+<!-- ==================================================
+     NIEUWSBEHEER
+================================================== -->
 
-    </div>
+<div class="card">
 
+<h2>📋 Gepubliceerde nieuwsberichten</h2>
+
+<div
+id="newsList"
+class="news-list"
+></div>
+
+</div>
 
 </div>
 
 
 <script>
-
 
 /*
 ==================================================
@@ -829,76 +773,92 @@ DATA
 */
 
 let fighters =
-    JSON.parse(
-        localStorage.getItem("fighters")
-    ) || [];
+JSON.parse(
+localStorage.getItem("fighters")
+) || [];
+
+
+let news =
+JSON.parse(
+localStorage.getItem("news")
+) || [];
 
 
 let selectedId = null;
 
+let editingNewsId = null;
+
 
 /*
 ==================================================
-DATA OPSLAAN
+FIGHTER DATA OPSLAAN
 ==================================================
 */
 
 function saveData() {
 
-    localStorage.setItem(
-        "fighters",
-        JSON.stringify(fighters)
-    );
+localStorage.setItem(
+"fighters",
+JSON.stringify(fighters)
+);
 
 }
 
 
 /*
 ==================================================
-DROPDOWN
+NIEUWS OPSLAAN
+==================================================
+*/
+
+function saveNewsData() {
+
+localStorage.setItem(
+"news",
+JSON.stringify(news)
+);
+
+}
+
+
+/*
+==================================================
+FIGHTER DROPDOWN
 ==================================================
 */
 
 function loadDropdown() {
 
-    const select =
-        document.getElementById(
-            "fighterSelect"
-        );
+const select =
+document.getElementById(
+"fighterSelect"
+);
 
+select.innerHTML = `
+<option value="">
+Kies een fighter
+</option>
+`;
 
-    select.innerHTML = `
+fighters.forEach(
+fighter => {
 
-        <option value="">
-            Kies een fighter
-        </option>
+const option =
+document.createElement(
+"option"
+);
 
-    `;
+option.value =
+fighter.id;
 
+option.textContent =
+fighter.name;
 
-    fighters.forEach(
-        fighter => {
+select.appendChild(
+option
+);
 
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                fighter.id;
-
-
-            option.textContent =
-                fighter.name;
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
+});
 
 }
 
@@ -911,104 +871,68 @@ FIGHTER LADEN
 
 function loadFighter() {
 
-    const id =
-        document.getElementById(
-            "fighterSelect"
-        ).value;
+const id =
+document.getElementById(
+"fighterSelect"
+).value;
 
+const editor =
+document.getElementById(
+"editor"
+);
 
-    const editor =
-        document.getElementById(
-            "editor"
-        );
+if (!id) {
 
+editor.style.display =
+"none";
 
-    if (!id) {
+selectedId = null;
 
-        editor.style.display =
-            "none";
+return;
 
-        selectedId = null;
+}
 
-        return;
+const fighter =
+fighters.find(
+fighter =>
+fighter.id == id
+);
 
-    }
+if (!fighter) return;
 
+selectedId =
+fighter.id;
 
-    const fighter =
-        fighters.find(
-            fighter =>
-                fighter.id == id
-        );
+document.getElementById("name").value =
+fighter.name || "";
 
+document.getElementById("weightClass").value =
+fighter.weightClass || "Lightweight";
 
-    if (!fighter) {
+document.getElementById("wins").value =
+fighter.wins || 0;
 
-        return;
+document.getElementById("losses").value =
+fighter.losses || 0;
 
-    }
+document.getElementById("draws").value =
+fighter.draws || 0;
 
+document.getElementById("ranking").value =
+fighter.ranking || "";
 
-    selectedId =
-        fighter.id;
+document.getElementById("streak").value =
+fighter.streak || 0;
 
+document.getElementById("champion").value =
+fighter.champion === true
+? "true"
+: "false";
 
-    document.getElementById(
-        "name"
-    ).value =
-        fighter.name || "";
+editor.style.display =
+"block";
 
-
-    document.getElementById(
-        "weightClass"
-    ).value =
-        fighter.weightClass ||
-        "Lightweight";
-
-
-    document.getElementById(
-        "wins"
-    ).value =
-        fighter.wins || 0;
-
-
-    document.getElementById(
-        "losses"
-    ).value =
-        fighter.losses || 0;
-
-
-    document.getElementById(
-        "draws"
-    ).value =
-        fighter.draws || 0;
-
-
-    document.getElementById(
-        "ranking"
-    ).value =
-        fighter.ranking || "";
-
-
-    document.getElementById(
-        "streak"
-    ).value =
-        fighter.streak || 0;
-
-
-    document.getElementById(
-        "champion"
-    ).value =
-        fighter.champion === true
-            ? "true"
-            : "false";
-
-
-    editor.style.display =
-        "block";
-
-
-    updateRankPreview();
+updateRankPreview();
 
 }
 
@@ -1021,77 +945,54 @@ RANKING PREVIEW
 
 function updateRankPreview() {
 
-    const ranking =
-        document.getElementById(
-            "ranking"
-        ).value;
+const ranking =
+document.getElementById(
+"ranking"
+).value;
 
+const weightClass =
+document.getElementById(
+"weightClass"
+).value;
 
-    const weightClass =
-        document.getElementById(
-            "weightClass"
-        ).value;
+const champion =
+document.getElementById(
+"champion"
+).value;
 
+const preview =
+document.getElementById(
+"rankPreview"
+);
 
-    const champion =
-        document.getElementById(
-            "champion"
-        ).value;
+if (champion === "true") {
 
+preview.innerHTML = `
+🏆 Deze fighter wordt de
+<strong>${weightClass} Champion</strong>.
+`;
 
-    const preview =
-        document.getElementById(
-            "rankPreview"
-        );
+return;
 
+}
 
-    if (champion === "true") {
+if (!ranking) {
 
-        preview.innerHTML = `
+preview.innerHTML = `
+Deze fighter is
+<strong>Unranked</strong>
+in ${weightClass}.
+`;
 
-            🏆 Deze fighter wordt de
+return;
 
-            <strong>
-                ${weightClass} Champion
-            </strong>.
+}
 
-        `;
-
-        return;
-
-    }
-
-
-    if (!ranking) {
-
-        preview.innerHTML = `
-
-            Deze fighter is
-
-            <strong>
-                Unranked
-            </strong>
-
-            in ${weightClass}.
-
-        `;
-
-        return;
-
-    }
-
-
-    preview.innerHTML = `
-
-        Deze fighter staat op
-
-        <strong>
-            #${ranking}
-        </strong>
-
-        in ${weightClass}.
-
-    `;
+preview.innerHTML = `
+Deze fighter staat op
+<strong>#${ranking}</strong>
+in ${weightClass}.
+`;
 
 }
 
@@ -1103,27 +1004,25 @@ EVENT LISTENERS
 */
 
 document
-    .getElementById("ranking")
-    .addEventListener(
-        "input",
-        updateRankPreview
-    );
-
-
-document
-    .getElementById("weightClass")
-    .addEventListener(
-        "change",
-        updateRankPreview
-    );
-
+.getElementById("ranking")
+.addEventListener(
+"input",
+updateRankPreview
+);
 
 document
-    .getElementById("champion")
-    .addEventListener(
-        "change",
-        updateRankPreview
-    );
+.getElementById("weightClass")
+.addEventListener(
+"change",
+updateRankPreview
+);
+
+document
+.getElementById("champion")
+.addEventListener(
+"change",
+updateRankPreview
+);
 
 
 /*
@@ -1134,203 +1033,146 @@ FIGHTER OPSLAAN
 
 function saveFighter() {
 
-    if (!selectedId) {
+if (!selectedId) {
+
+alert("Kies eerst een fighter.");
 
-        return;
+return;
 
-    }
+}
 
+const fighter =
+fighters.find(
+fighter =>
+fighter.id === selectedId
+);
 
-    const fighter =
-        fighters.find(
-            fighter =>
-                fighter.id ===
-                selectedId
-        );
+if (!fighter) return;
 
+const name =
+document
+.getElementById("name")
+.value
+.trim();
 
-    if (!fighter) {
+if (!name) {
 
-        return;
+alert(
+"Vul een naam in."
+);
 
-    }
+return;
 
+}
 
-    const name =
-        document
-            .getElementById("name")
-            .value
-            .trim();
+const rankingValue =
+document
+.getElementById("ranking")
+.value;
 
+const championValue =
+document
+.getElementById("champion")
+.value;
 
-    if (!name) {
+fighter.name =
+name;
 
-        alert(
-            "Vul een naam in."
-        );
+fighter.weightClass =
+document.getElementById(
+"weightClass"
+).value;
 
-        return;
+fighter.wins =
+Number(
+document.getElementById(
+"wins"
+).value
+) || 0;
 
-    }
+fighter.losses =
+Number(
+document.getElementById(
+"losses"
+).value
+) || 0;
 
+fighter.draws =
+Number(
+document.getElementById(
+"draws"
+).value
+) || 0;
 
-    const rankingValue =
-        document
-            .getElementById("ranking")
-            .value;
+fighter.ranking =
+rankingValue
+? Number(rankingValue)
+: null;
 
+fighter.streak =
+Number(
+document.getElementById(
+"streak"
+).value
+) || 0;
 
-    const championValue =
-        document
-            .getElementById("champion")
-            .value;
+fighter.champion =
+championValue === "true";
 
 
-    /*
-    ------------------------------------------
-    GEGEVENS
-    ------------------------------------------
-    */
+/*
+Champion handmatig beheren.
+*/
 
-    fighter.name =
-        name;
+if (fighter.champion) {
 
+fighters.forEach(
+other => {
 
-    fighter.weightClass =
-        document.getElementById(
-            "weightClass"
-        ).value;
+if (
+other.id !== fighter.id &&
+other.weightClass ===
+fighter.weightClass
+) {
 
+other.champion = false;
 
-    fighter.wins =
-        Number(
-            document.getElementById(
-                "wins"
-            ).value
-        ) || 0;
+}
 
+});
 
-    fighter.losses =
-        Number(
-            document.getElementById(
-                "losses"
-            ).value
-        ) || 0;
+}
 
+saveData();
 
-    fighter.draws =
-        Number(
-            document.getElementById(
-                "draws"
-            ).value
-        ) || 0;
+loadDropdown();
 
+displayFighters();
 
-    fighter.ranking =
-        rankingValue
-            ? Number(rankingValue)
-            : null;
+document.getElementById(
+"fighterSelect"
+).value =
+selectedId;
 
+const success =
+document.getElementById(
+"success"
+);
 
-    fighter.streak =
-        Number(
-            document.getElementById(
-                "streak"
-            ).value
-        ) || 0;
+success.style.display =
+"block";
 
+setTimeout(
+() => {
 
-    fighter.champion =
-        championValue === "true";
+success.style.display =
+"none";
 
+},
+2500
+);
 
-    /*
-    ------------------------------------------
-    CHAMPION REGEL
-    ------------------------------------------
-
-    Er kan maar één champion
-    per gewichtsklasse zijn.
-    */
-
-    if (fighter.champion) {
-
-        fighters.forEach(
-            other => {
-
-                if (
-                    other.id !==
-                    fighter.id
-                    &&
-                    other.weightClass ===
-                    fighter.weightClass
-                ) {
-
-                    other.champion =
-                        false;
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /*
-    ------------------------------------------
-    DATA OPSLAAN
-    ------------------------------------------
-    */
-
-    saveData();
-
-
-    /*
-    ------------------------------------------
-    PAGINA VERVERSEN
-    ------------------------------------------
-    */
-
-    loadDropdown();
-
-    displayFighters();
-
-
-    document.getElementById(
-        "fighterSelect"
-    ).value =
-        selectedId;
-
-
-    /*
-    ------------------------------------------
-    SUCCESS
-    ------------------------------------------
-    */
-
-    const success =
-        document.getElementById(
-            "success"
-        );
-
-
-    success.style.display =
-        "block";
-
-
-    setTimeout(
-        () => {
-
-            success.style.display =
-                "none";
-
-        },
-        2500
-    );
-
-
-    updateRankPreview();
+updateRankPreview();
 
 }
 
@@ -1343,68 +1185,46 @@ FIGHTER VERWIJDEREN
 
 function deleteFighter() {
 
-    if (!selectedId) {
+if (!selectedId) return;
 
-        return;
+const fighter =
+fighters.find(
+fighter =>
+fighter.id === selectedId
+);
 
-    }
+if (!fighter) return;
 
+if (
+!confirm(
+"Weet je zeker dat je " +
+fighter.name +
+" wilt verwijderen?"
+)
+) {
 
-    const fighter =
-        fighters.find(
-            fighter =>
-                fighter.id ===
-                selectedId
-        );
+return;
 
+}
 
-    if (!fighter) {
+fighters =
+fighters.filter(
+fighter =>
+fighter.id !== selectedId
+);
 
-        return;
+saveData();
 
-    }
+selectedId = null;
 
+document.getElementById(
+"editor"
+).style.display =
+"none";
 
-    const confirmed =
-        confirm(
+loadDropdown();
 
-            "Weet je zeker dat je " +
-            fighter.name +
-            " wilt verwijderen?"
-
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    fighters =
-        fighters.filter(
-            fighter =>
-                fighter.id !==
-                selectedId
-        );
-
-
-    saveData();
-
-
-    selectedId = null;
-
-
-    document.getElementById(
-        "editor"
-    ).style.display =
-        "none";
-
-
-    loadDropdown();
-
-    displayFighters();
+displayFighters();
 
 }
 
@@ -1417,125 +1237,91 @@ FIGHTERS WEERGEVEN
 
 function displayFighters() {
 
-    const list =
-        document.getElementById(
-            "fighterList"
-        );
+const list =
+document.getElementById(
+"fighterList"
+);
 
+list.innerHTML = "";
 
-    list.innerHTML = "";
+if (fighters.length === 0) {
 
+list.innerHTML = `
+<div class="empty">
+Geen fighters gevonden.
+</div>
+`;
 
-    if (fighters.length === 0) {
+return;
 
-        list.innerHTML = `
+}
 
-            <div class="empty">
+fighters.forEach(
+fighter => {
 
-                Geen fighters gevonden.
+const ranking =
+fighter.ranking
+? "#" + fighter.ranking
+: "Unranked";
 
-            </div>
+const champion =
+fighter.champion
+? " 🏆 Champion"
+: "";
 
-        `;
+list.innerHTML += `
 
-        return;
+<div class="fighter-item">
 
-    }
+<div class="fighter-info">
 
+<strong>
+${escapeHtml(fighter.name)}
+${champion}
+</strong>
 
-    fighters.forEach(
-        fighter => {
+<small>
 
+${escapeHtml(
+fighter.weightClass ||
+"Onbekend"
+)}
 
-            let rankingText =
-                "Unranked";
+•
 
+Record:
+${fighter.wins || 0}-
+${fighter.losses || 0}-
+${fighter.draws || 0}
 
-            if (
-                fighter.ranking
-            ) {
+•
 
-                rankingText =
-                    "#" +
-                    fighter.ranking;
+Ranking:
+${ranking}
 
-            }
+•
 
+Streak:
+${fighter.streak || 0}
 
-            let championText =
-                "";
+</small>
 
+</div>
 
-            if (
-                fighter.champion
-            ) {
+<button
+class="edit-button"
+onclick="selectFighter(${fighter.id})"
+>
 
-                championText =
-                    " 🏆 Champion";
+✏️ Bewerken
 
-            }
+</button>
 
+</div>
 
-            list.innerHTML += `
+`;
 
-                <div class="fighter-item">
-
-
-                    <div class="fighter-info">
-
-                        <strong>
-
-                            ${fighter.name}
-
-                            ${championText}
-
-                        </strong>
-
-
-                        <small>
-
-                            ${fighter.weightClass}
-
-                            •
-
-                            Record:
-                            ${fighter.wins}-${fighter.losses}-${fighter.draws}
-
-                            •
-
-                            Ranking:
-                            ${rankingText}
-
-                            •
-
-                            Streak:
-                            ${fighter.streak || 0}
-
-                        </small>
-
-                    </div>
-
-
-                    <button
-                        class="edit-button"
-                        onclick="
-                            selectFighter(
-                                ${fighter.id}
-                            )
-                        "
-                    >
-
-                        ✏️ Bewerken
-
-                    </button>
-
-
-                </div>
-
-            `;
-
-        }
-    );
+});
 
 }
 
@@ -1548,22 +1334,510 @@ FIGHTER SELECTEREN
 
 function selectFighter(id) {
 
-    document.getElementById(
-        "fighterSelect"
-    ).value =
-        id;
+document.getElementById(
+"fighterSelect"
+).value =
+id;
+
+loadFighter();
+
+window.scrollTo({
+top: 0,
+behavior: "smooth"
+});
+
+}
 
 
-    loadFighter();
+/*
+==================================================
+NIEUWS OPSLAAN / BEWERKEN
+==================================================
+*/
+
+function saveNews() {
+
+const title =
+document
+.getElementById("newsTitle")
+.value
+.trim();
+
+const date =
+document
+.getElementById("newsDate")
+.value;
+
+const image =
+document
+.getElementById("newsImage")
+.value
+.trim();
+
+const content =
+document
+.getElementById("newsContent")
+.value
+.trim();
+
+const featured =
+document
+.getElementById("newsFeatured")
+.value === "true";
 
 
-    window.scrollTo({
+if (!title) {
 
-        top: 0,
+alert("Vul een titel in.");
 
-        behavior: "smooth"
+return;
 
-    });
+}
+
+if (!content) {
+
+alert("Vul een nieuwsbericht in.");
+
+return;
+
+}
+
+
+/*
+Bestaand nieuwsbericht aanpassen.
+*/
+
+if (editingNewsId !== null) {
+
+const article =
+news.find(
+item =>
+item.id === editingNewsId
+);
+
+if (article) {
+
+article.title =
+title;
+
+article.date =
+date ||
+new Date().toISOString()
+.slice(0,10);
+
+article.image =
+image;
+
+article.content =
+content;
+
+article.featured =
+featured;
+
+}
+
+editingNewsId = null;
+
+document.getElementById(
+"cancelNewsButton"
+).style.display =
+"none";
+
+}
+
+else {
+
+/*
+Nieuw nieuwsbericht.
+*/
+
+news.unshift({
+
+id:
+Date.now(),
+
+title:
+title,
+
+date:
+date ||
+new Date().toISOString()
+.slice(0,10),
+
+image:
+image,
+
+content:
+content,
+
+featured:
+featured,
+
+createdAt:
+new Date().toISOString()
+
+});
+
+}
+
+saveNewsData();
+
+clearNewsForm();
+
+displayNews();
+
+const success =
+document.getElementById(
+"newsSuccess"
+);
+
+success.textContent =
+"Nieuws succesvol opgeslagen! 📰";
+
+success.style.display =
+"block";
+
+setTimeout(
+() => {
+
+success.style.display =
+"none";
+
+},
+2500
+);
+
+}
+
+
+/*
+==================================================
+NIEUWS FORMULIER WISSEN
+==================================================
+*/
+
+function clearNewsForm() {
+
+document.getElementById(
+"newsTitle"
+).value = "";
+
+document.getElementById(
+"newsDate"
+).value = "";
+
+document.getElementById(
+"newsImage"
+).value = "";
+
+document.getElementById(
+"newsContent"
+).value = "";
+
+document.getElementById(
+"newsFeatured"
+).value = "false";
+
+}
+
+
+/*
+==================================================
+NIEUWS BEWERKEN
+==================================================
+*/
+
+function editNews(id) {
+
+const article =
+news.find(
+item =>
+item.id === id
+);
+
+if (!article) return;
+
+editingNewsId =
+id;
+
+document.getElementById(
+"newsTitle"
+).value =
+article.title || "";
+
+document.getElementById(
+"newsDate"
+).value =
+article.date || "";
+
+document.getElementById(
+"newsImage"
+).value =
+article.image || "";
+
+document.getElementById(
+"newsContent"
+).value =
+article.content || "";
+
+document.getElementById(
+"newsFeatured"
+).value =
+article.featured
+? "true"
+: "false";
+
+document.getElementById(
+"cancelNewsButton"
+).style.display =
+"block";
+
+window.scrollTo({
+top: document
+.getElementById("newsTitle")
+.getBoundingClientRect()
+.top +
+window.scrollY -
+150,
+
+behavior: "smooth"
+
+});
+
+}
+
+
+/*
+==================================================
+NIEUWS BEWERKEN ANNULEREN
+==================================================
+*/
+
+function cancelNewsEdit() {
+
+editingNewsId = null;
+
+clearNewsForm();
+
+document.getElementById(
+"cancelNewsButton"
+).style.display =
+"none";
+
+}
+
+
+/*
+==================================================
+NIEUWS VERWIJDEREN
+==================================================
+*/
+
+function deleteNews(id) {
+
+const article =
+news.find(
+item =>
+item.id === id
+);
+
+if (!article) return;
+
+if (
+!confirm(
+"Weet je zeker dat je \"" +
+article.title +
+"\" wilt verwijderen?"
+)
+) {
+
+return;
+
+}
+
+news =
+news.filter(
+item =>
+item.id !== id
+);
+
+saveNewsData();
+
+displayNews();
+
+}
+
+
+/*
+==================================================
+DATUM
+==================================================
+*/
+
+function formatNewsDate(date) {
+
+if (!date) return "";
+
+const d =
+new Date(
+date + "T00:00:00"
+);
+
+if (Number.isNaN(d.getTime())) {
+return date;
+}
+
+return d.toLocaleDateString(
+"nl-NL",
+{
+day: "numeric",
+month: "long",
+year: "numeric"
+}
+);
+
+}
+
+
+/*
+==================================================
+NIEUWS WEERGEVEN IN ADMIN
+==================================================
+*/
+
+function displayNews() {
+
+const list =
+document.getElementById(
+"newsList"
+);
+
+list.innerHTML = "";
+
+if (news.length === 0) {
+
+list.innerHTML = `
+<div class="empty">
+Er zijn nog geen nieuwsberichten.
+</div>
+`;
+
+return;
+
+}
+
+news.forEach(
+article => {
+
+list.innerHTML += `
+
+<div class="news-item">
+
+${
+article.featured
+? `
+<div class="news-featured">
+⭐ UITGELICHT
+</div>
+`
+: ""
+}
+
+<h3>
+
+${article.image
+? escapeHtml(article.image) + " "
+: ""}
+
+${escapeHtml(article.title)}
+
+</h3>
+
+<div class="news-date">
+
+📅
+${formatNewsDate(article.date)}
+
+</div>
+
+<div class="news-content">
+
+${escapeHtml(article.content)}
+
+</div>
+
+<div class="news-actions">
+
+<button
+onclick="editNews(${article.id})"
+>
+
+✏️ Bewerken
+
+</button>
+
+<button
+onclick="deleteNews(${article.id})"
+>
+
+🗑️ Verwijderen
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/*
+==================================================
+VEILIGE HTML
+==================================================
+*/
+
+function escapeHtml(text) {
+
+if (
+text === null ||
+text === undefined
+) {
+
+return "";
+
+}
+
+return String(text)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
@@ -1578,8 +1852,9 @@ loadDropdown();
 
 displayFighters();
 
-</script>
+displayNews();
 
+</script>
 
 </body>
 
