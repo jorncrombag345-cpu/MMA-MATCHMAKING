@@ -3,724 +3,581 @@
 
 <head>
 
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>MMA Matchmaker</title>
-
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-
-        body {
-
-            font-family: Arial, sans-serif;
-
-            background: #090909;
-
-            color: white;
-
-        }
-
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        header {
-
-            background: #111;
-
-            border-bottom:
-                2px solid #e10600;
-
-            padding: 18px 35px;
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items: center;
-
-        }
-
-
-        .logo {
-
-            font-size: 24px;
-
-            font-weight: 900;
-
-            white-space: nowrap;
-
-        }
-
-
-        .logo span {
-
-            color: #e10600;
-
-        }
-
-
-        nav {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            justify-content: flex-end;
-
-        }
-
-
-        nav a {
-
-            color: #aaa;
-
-            text-decoration: none;
-
-            margin-left: 18px;
-
-            font-size: 14px;
-
-            font-weight: bold;
-
-        }
-
-
-        nav a:hover {
-
-            color: white;
-
-        }
-
-
-        /* =========================
-           CONTAINER
-        ========================= */
-
-        .container {
-
-            width: 100%;
-
-            max-width: 1200px;
-
-            margin: auto;
-
-            padding: 35px 20px 60px;
-
-        }
-
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-
-            min-height: 330px;
-
-            border-radius: 15px;
-
-            padding: 50px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            margin-bottom: 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #1b1b1b,
-                    #0d0d0d
-                );
-
-            border:
-                1px solid #303030;
-
-        }
-
-
-        .hero-tag {
-
-            color: #e10600;
-
-            font-size: 13px;
-
-            font-weight: bold;
-
-            letter-spacing: 2px;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        .hero h1 {
-
-            font-size: 48px;
-
-            line-height: 1;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .hero h1 span {
-
-            color: #e10600;
-
-        }
-
-
-        .hero p {
-
-            max-width: 650px;
-
-            color: #888;
-
-            font-size: 17px;
-
-            line-height: 1.6;
-
-        }
-
-
-        .hero-buttons {
-
-            display: flex;
-
-            gap: 12px;
-
-            margin-top: 25px;
-
-            flex-wrap: wrap;
-
-        }
-
-
-        .button {
-
-            display: inline-block;
-
-            padding: 13px 20px;
-
-            border-radius: 7px;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-        }
-
-
-        .button-red {
-
-            background: #e10600;
-
-            color: white;
-
-        }
-
-
-        .button-red:hover {
-
-            background: #ff211a;
-
-        }
-
-
-        .button-dark {
-
-            background: #222;
-
-            color: white;
-
-            border:
-                1px solid #444;
-
-        }
-
-
-        .button-dark:hover {
-
-            background: #333;
-
-        }
-
-
-        /* =========================
-           STATS
-        ========================= */
-
-        .stats {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 15px;
-
-            margin-bottom: 25px;
-
-        }
-
-
-        .stat {
-
-            background: #151515;
-
-            border:
-                1px solid #292929;
-
-            border-radius: 10px;
-
-            padding: 22px;
-
-        }
-
-
-        .stat-number {
-
-            font-size: 30px;
-
-            font-weight: bold;
-
-            color: #e10600;
-
-        }
-
-
-        .stat-title {
-
-            color: #777;
-
-            font-size: 13px;
-
-            margin-top: 5px;
-
-        }
-
-
-        /* =========================
-           GRID
-        ========================= */
-
-        .grid {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 20px;
-
-        }
-
-
-        .card {
-
-            background: #151515;
-
-            border:
-                1px solid #292929;
-
-            border-radius: 10px;
-
-            padding: 24px;
-
-        }
-
-
-        .card h2 {
-
-            font-size: 20px;
-
-            margin-bottom: 18px;
-
-        }
-
-
-        /* =========================
-           CHAMPIONS
-        ========================= */
-
-        .champion {
-
-            background: #101010;
-
-            border:
-                1px solid #383838;
-
-            border-radius: 8px;
-
-            padding: 16px;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .champion:last-child {
-
-            margin-bottom: 0;
-
-        }
-
-
-        .champion-division {
-
-            color: #ffd700;
-
-            font-size: 12px;
-
-            font-weight: bold;
-
-            text-transform: uppercase;
-
-            margin-bottom: 5px;
-
-        }
-
-
-        .champion-name {
-
-            font-size: 19px;
-
-            font-weight: bold;
-
-        }
-
-
-        .champion-record {
-
-            color: #777;
-
-            font-size: 13px;
-
-            margin-top: 5px;
-
-        }
-
-
-        /* =========================
-           EVENTS
-        ========================= */
-
-        .event {
-
-            display: block;
-
-            background: #101010;
-
-            border:
-                1px solid #333;
-
-            border-radius: 8px;
-
-            padding: 16px;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .event:last-child {
-
-            margin-bottom: 0;
-
-        }
-
-
-        .event-name {
-
-            font-weight: bold;
-
-            font-size: 18px;
-
-        }
-
-
-        .event-date {
-
-            color: #e10600;
-
-            font-size: 13px;
-
-            margin-top: 6px;
-
-        }
-
-
-        .event-fights {
-
-            color: #777;
-
-            font-size: 13px;
-
-            margin-top: 4px;
-
-        }
-
-
-        /* =========================
-           RANKINGS
-        ========================= */
-
-        .rank {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 15px;
-
-            padding: 13px;
-
-            background: #101010;
-
-            border:
-                1px solid #333;
-
-            border-radius: 8px;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .rank:last-child {
-
-            margin-bottom: 0;
-
-        }
-
-
-        .rank-position {
-
-            width: 40px;
-
-            color: #777;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-        }
-
-
-        .rank-name {
-
-            font-weight: bold;
-
-        }
-
-
-        .rank-info {
-
-            color: #777;
-
-            font-size: 12px;
-
-            margin-top: 4px;
-
-        }
-
-
-        /* =========================
-           RESULTS
-        ========================= */
-
-        .result {
-
-            background: #101010;
-
-            border:
-                1px solid #333;
-
-            border-radius: 8px;
-
-            padding: 15px;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .result:last-child {
-
-            margin-bottom: 0;
-
-        }
-
-
-        .result-fighters {
-
-            font-size: 17px;
-
-            font-weight: bold;
-
-        }
-
-
-        .result-fighters span {
-
-            color: #e10600;
-
-            margin: 0 6px;
-
-        }
-
-
-        .result-detail {
-
-            color: #777;
-
-            font-size: 13px;
-
-            margin-top: 6px;
-
-        }
-
-
-        /* =========================
-           EMPTY
-        ========================= */
-
-        .empty {
-
-            color: #666;
-
-            text-align: center;
-
-            padding: 20px 5px;
-
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-
-            text-align: center;
-
-            color: #555;
-
-            font-size: 12px;
-
-            padding: 30px;
-
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 800px) {
-
-            header {
-
-                flex-direction: column;
-
-                gap: 18px;
-
-            }
-
-
-            nav {
-
-                justify-content: center;
-
-            }
-
-
-            nav a {
-
-                margin: 5px 7px;
-
-            }
-
-
-            .hero {
-
-                padding: 35px 25px;
-
-            }
-
-
-            .hero h1 {
-
-                font-size: 36px;
-
-            }
-
-
-            .stats {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-            }
-
-
-            .grid {
-
-                grid-template-columns: 1fr;
-
-            }
-
-        }
-
-
-        @media (max-width: 500px) {
-
-            .stats {
-
-                grid-template-columns: 1fr 1fr;
-
-            }
-
-
-            .stat {
-
-                padding: 17px;
-
-            }
-
-
-            .stat-number {
-
-                font-size: 25px;
-
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>MMA Matchmaker - Dashboard</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at top right,
+            #261010 0,
+            #0b0b0b 40%,
+            #070707 100%
+        );
+    color: white;
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: rgba(15,15,15,.96);
+    border-bottom: 2px solid #e10600;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #e10600;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+nav a {
+    color: #aaa;
+    text-decoration: none;
+    padding: 9px 11px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+nav a:hover,
+nav a.active {
+    color: white;
+    background: #e10600;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+    padding: 40px 20px 70px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(225,6,0,.20),
+            rgba(20,20,20,.96) 55%
+        );
+    border: 1px solid #3b2020;
+    border-radius: 18px;
+    padding: 45px;
+    margin-bottom: 25px;
+}
+
+.hero::after {
+    content: "MMA";
+    position: absolute;
+    right: -20px;
+    bottom: -55px;
+    font-size: 170px;
+    font-weight: 900;
+    color: rgba(255,255,255,.025);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-label {
+    color: #e10600;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.hero h1 span {
+    color: #e10600;
+}
+
+.hero p {
+    color: #999;
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.hero-button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 13px 20px;
+    border-radius: 7px;
+    font-weight: bold;
+    background: #e10600;
+    color: white;
+    transition: .2s;
+}
+
+.hero-button:hover {
+    background: #ff211a;
+    transform: translateY(-2px);
+}
+
+.hero-button.secondary {
+    background: #222;
+    border: 1px solid #444;
+}
+
+.hero-button.secondary:hover {
+    background: #333;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: #141414;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #e10600;
+}
+
+.stat-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.stat-label {
+    color: #777;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.main-grid {
+    display: grid;
+    grid-template-columns:
+        1.4fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: #141414;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 23px;
+    margin-bottom: 20px;
+}
+
+.card:last-child {
+    margin-bottom: 0;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-link {
+    color: #e10600;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.card-link:hover {
+    color: #ff4a44;
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+.event {
+    background: #0e0e0e;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    padding: 17px;
+    margin-bottom: 10px;
+    transition: .2s;
+}
+
+.event:hover {
+    border-color: #555;
+    transform: translateX(3px);
+}
+
+.event:last-child {
+    margin-bottom: 0;
+}
+
+.event-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.event-name {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.event-date {
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.event-location {
+    color: #999;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.status {
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status.upcoming {
+    background: #12351f;
+    color: #6ee7a0;
+}
+
+.status.past {
+    background: #292929;
+    color: #888;
+}
+
+/* =========================
+   FIGHTERS
+========================= */
+
+.fighter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #0e0e0e;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    padding: 14px;
+    margin-bottom: 10px;
+}
+
+.fighter:last-child {
+    margin-bottom: 0;
+}
+
+.fighter-rank {
+    min-width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #222;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #aaa;
+}
+
+.fighter-rank.top {
+    background: #5c4b00;
+    color: #ffd700;
+}
+
+.fighter-info {
+    flex: 1;
+}
+
+.fighter-name {
+    font-weight: bold;
+}
+
+.fighter-meta {
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.fighter-record {
+    color: #aaa;
+    font-size: 13px;
+}
+
+/* =========================
+   CHAMPIONS
+========================= */
+
+.champion {
+    background:
+        linear-gradient(
+            135deg,
+            #211b05,
+            #111
+        );
+    border: 1px solid #68560c;
+    border-radius: 9px;
+    padding: 17px;
+    margin-bottom: 10px;
+}
+
+.champion:last-child {
+    margin-bottom: 0;
+}
+
+.champion-division {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.champion-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.champion-record {
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.actions {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+    gap: 10px;
+}
+
+.action {
+    display: block;
+    text-decoration: none;
+    background: #101010;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    padding: 18px;
+    color: white;
+    transition: .2s;
+}
+
+.action:hover {
+    border-color: #e10600;
+    background: #181010;
+    transform: translateY(-2px);
+}
+
+.action-icon {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.action-title {
+    font-weight: bold;
+}
+
+.action-text {
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+    text-align: center;
+    color: #666;
+    padding: 25px 10px;
+    background: #0e0e0e;
+    border-radius: 8px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    border-top: 1px solid #222;
+    margin-top: 35px;
+    padding-top: 25px;
+    text-align: center;
+    color: #555;
+    font-size: 12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 16px 15px;
+    }
+
+    nav a {
+        font-size: 12px;
+        padding: 7px;
+    }
+
+    .container {
+        padding: 25px 12px 50px;
+    }
+
+    .hero {
+        padding: 28px 22px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat {
+        padding: 16px;
+    }
+
+    .stat-number {
+        font-size: 24px;
+    }
+
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
 
 </head>
-
 
 <body>
 
@@ -729,22 +586,16 @@
      HEADER
 ========================= -->
 
-
 <header>
 
-
     <div class="logo">
-
-        MMA
-        <span>MATCHMAKER</span>
-
+        MMA <span>MATCHMAKER</span>
     </div>
-
 
     <nav>
 
-        <a href="index.html">
-            Home
+        <a href="index.html" class="active">
+            Dashboard
         </a>
 
         <a href="fighters.html">
@@ -767,6 +618,10 @@
             Profiles
         </a>
 
+        <a href="nieuws.html">
+            Nieuws
+        </a>
+
         <a href="admin.html">
             Admin
         </a>
@@ -776,407 +631,516 @@
 </header>
 
 
-
-<!-- =========================
-     MAIN
-========================= -->
-
-
 <main class="container">
 
 
-    <!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
+<section class="hero">
 
-    <section class="hero">
+    <div class="hero-content">
 
-
-        <div class="hero-tag">
-
-            MMA ORGANIZATION
-
+        <div class="hero-label">
+            MMA MANAGEMENT SYSTEM
         </div>
 
-
         <h1>
-
-            BUILD YOUR
-
-            <span>
-                FIGHTS.
-            </span>
-
+            Welcome to
+            <span>MMA Matchmaker</span>
         </h1>
 
-
         <p>
-
-            Maak je eigen MMA-organisatie.
-            Beheer fighters, rankings,
-            champions, events en
-            wedstrijduitslagen.
-
+            Beheer fighters, rankings, events en
+            spectaculaire matchups vanuit één
+            centraal dashboard.
         </p>
-
 
         <div class="hero-buttons">
 
+            <a
+                href="matchmaker.html"
+                class="hero-button"
+            >
+                🥊 Matchmaker openen
+            </a>
+
+            <a
+                href="events.html"
+                class="hero-button secondary"
+            >
+                📅 Events bekijken
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            👊
+        </div>
+
+        <div
+            id="fighterCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+        <div class="stat-label">
+            Fighters
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            📅
+        </div>
+
+        <div
+            id="eventCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+        <div class="stat-label">
+            Events
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🏆
+        </div>
+
+        <div
+            id="championCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+        <div class="stat-label">
+            Champions
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🥊
+        </div>
+
+        <div
+            id="fightCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+        <div class="stat-label">
+            Geplande fights
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN GRID
+========================= -->
+
+<div class="main-grid">
+
+
+<!-- =========================
+     LEFT
+========================= -->
+
+<div>
+
+
+    <!-- EVENTS -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                📅 Events
+            </div>
+
+            <a
+                href="events.html"
+                class="card-link"
+            >
+                Alle events →
+            </a>
+
+        </div>
+
+        <div id="eventsBox"></div>
+
+    </div>
+
+
+    <!-- TOP RANKINGS -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                🏆 Top Fighters
+            </div>
+
+            <a
+                href="rankings.html"
+                class="card-link"
+            >
+                Rankings →
+            </a>
+
+        </div>
+
+        <div id="fightersBox"></div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     RIGHT
+========================= -->
+
+<div>
+
+
+    <!-- CHAMPIONS -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                👑 Champions
+            </div>
+
+            <a
+                href="rankings.html"
+                class="card-link"
+            >
+                Rankings →
+            </a>
+
+        </div>
+
+        <div id="championsBox"></div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                ⚡ Quick Actions
+            </div>
+
+        </div>
+
+        <div class="actions">
 
             <a
                 href="matchmaker.html"
-                class="button button-red"
+                class="action"
             >
 
-                🥊 Maak een Fight
+                <div class="action-icon">
+                    🥊
+                </div>
+
+                <div class="action-title">
+                    Matchmaker
+                </div>
+
+                <div class="action-text">
+                    Maak een nieuwe fight
+                </div>
+
+            </a>
+
+
+            <a
+                href="fighters.html"
+                class="action"
+            >
+
+                <div class="action-icon">
+                    👊
+                </div>
+
+                <div class="action-title">
+                    Fighters
+                </div>
+
+                <div class="action-text">
+                    Bekijk alle fighters
+                </div>
 
             </a>
 
 
             <a
                 href="events.html"
-                class="button button-dark"
+                class="action"
             >
 
-                📅 Bekijk Events
+                <div class="action-icon">
+                    📅
+                </div>
+
+                <div class="action-title">
+                    Nieuw Event
+                </div>
+
+                <div class="action-text">
+                    Maak een event
+                </div>
 
             </a>
 
 
             <a
-                href="rankings.html"
-                class="button button-dark"
+                href="admin.html"
+                class="action"
             >
 
-                🏆 Rankings
+                <div class="action-icon">
+                    ⚙️
+                </div>
+
+                <div class="action-title">
+                    Admin
+                </div>
+
+                <div class="action-text">
+                    Beheer je database
+                </div>
 
             </a>
 
 
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =========================
-         STATS
-    ========================= -->
-
-
-    <section class="stats">
-
-
-        <div class="stat">
-
-            <div
-                id="fighterCount"
-                class="stat-number"
+            <a
+                href="nieuws.html"
+                class="action"
             >
 
-                0
+                <div class="action-icon">
+                    📰
+                </div>
 
-            </div>
+                <div class="action-title">
+                    Nieuws
+                </div>
+
+                <div class="action-text">
+                    Bekijk MMA-nieuws
+                </div>
+
+            </a>
 
 
-            <div class="stat-title">
-
-                Fighters
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div
-                id="eventCount"
-                class="stat-number"
+            <a
+                href="fighter-profile.html"
+                class="action"
             >
 
-                0
+                <div class="action-icon">
+                    👤
+                </div>
 
-            </div>
+                <div class="action-title">
+                    Profiles
+                </div>
 
+                <div class="action-text">
+                    Fighter profiles
+                </div>
 
-            <div class="stat-title">
-
-                Events
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div
-                id="fightCount"
-                class="stat-number"
-            >
-
-                0
-
-            </div>
-
-
-            <div class="stat-title">
-
-                Fights
-
-            </div>
+            </a>
 
         </div>
 
+    </div>
 
-        <div class="stat">
 
-            <div
-                id="resultCount"
-                class="stat-number"
-            >
+</div>
 
-                0
-
-            </div>
-
-
-            <div class="stat-title">
-
-                Results
-
-            </div>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =========================
-         CONTENT
-    ========================= -->
-
-
-    <section class="grid">
-
-
-        <!-- CHAMPIONS -->
-
-
-        <div class="card">
-
-            <h2>
-
-                🏆 Champions
-
-            </h2>
-
-
-            <div
-                id="champions"
-            ></div>
-
-        </div>
-
-
-
-        <!-- EVENTS -->
-
-
-        <div class="card">
-
-            <h2>
-
-                📅 Upcoming Events
-
-            </h2>
-
-
-            <div
-                id="events"
-            ></div>
-
-        </div>
-
-
-
-        <!-- RANKINGS -->
-
-
-        <div class="card">
-
-            <h2>
-
-                🥇 Top Rankings
-
-            </h2>
-
-
-            <div
-                id="rankings"
-            ></div>
-
-        </div>
-
-
-
-        <!-- RESULTS -->
-
-
-        <div class="card">
-
-            <h2>
-
-                📝 Latest Results
-
-            </h2>
-
-
-            <div
-                id="results"
-            ></div>
-
-        </div>
-
-
-    </section>
-
-
-</main>
-
+</div>
 
 
 <footer>
 
     MMA Matchmaker
-
     •
-
-    Your organization, your rules.
+    Eigen MMA management database
 
 </footer>
 
+</main>
 
 
 <script>
 
-
-/*
-==================================================
-DATA LADEN
-==================================================
-*/
-
+/* ==================================================
+   DATA
+================================================== */
 
 let fighters =
     JSON.parse(
-        localStorage.getItem(
-            "fighters"
-        )
+        localStorage.getItem("fighters")
     ) || [];
 
 
 let events =
     JSON.parse(
-        localStorage.getItem(
-            "events"
-        )
+        localStorage.getItem("events")
     ) || [];
 
 
+/* ==================================================
+   HELPERS
+================================================== */
 
-/*
-==================================================
-FIGHTER OPZOEKEN
-==================================================
-*/
+function escapeHtml(text) {
 
+    if (
+        text === null ||
+        text === undefined
+    ) {
+        return "";
+    }
 
-function getFighter(id) {
+    return String(text)
 
-    return fighters.find(
-        fighter =>
-            fighter.id == id
-    );
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
+function formatDate(date) {
 
-/*
-==================================================
-ALLE FIGHTS VERZAMELEN
-==================================================
-*/
+    if (!date) {
+        return "Geen datum";
+    }
 
+    const d =
+        new Date(
+            date + "T00:00:00"
+        );
 
-function getAllFights() {
+    if (
+        Number.isNaN(
+            d.getTime()
+        )
+    ) {
+        return date;
+    }
 
-    const fights = [];
-
-
-    events.forEach(
-        event => {
-
-            if (
-                !Array.isArray(
-                    event.fights
-                )
-            ) {
-
-                return;
-
-            }
-
-
-            event.fights.forEach(
-                fight => {
-
-                    fights.push({
-
-                        event: event,
-
-                        fight: fight
-
-                    });
-
-                }
-            );
-
+    return d.toLocaleDateString(
+        "nl-NL",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
         }
     );
 
+}
 
-    return fights;
+
+function isUpcoming(date) {
+
+    if (!date) {
+        return false;
+    }
+
+    const today =
+        new Date();
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+    const eventDate =
+        new Date(
+            date + "T00:00:00"
+        );
+
+    return eventDate >= today;
 
 }
 
 
+/* ==================================================
+   STATISTIEKEN
+================================================== */
 
-/*
-==================================================
-STATISTIEKEN
-==================================================
-*/
-
-
-function loadStats() {
-
-
-    const allFights =
-        getAllFights();
-
-
-    const results =
-        allFights.filter(
-            item =>
-                item.fight &&
-                item.fight.result
-        );
-
+function displayStats() {
 
     document.getElementById(
         "fighterCount"
@@ -1190,37 +1154,6 @@ function loadStats() {
         events.length;
 
 
-    document.getElementById(
-        "fightCount"
-    ).textContent =
-        allFights.length;
-
-
-    document.getElementById(
-        "resultCount"
-    ).textContent =
-        results.length;
-
-}
-
-
-
-/*
-==================================================
-CHAMPIONS
-==================================================
-*/
-
-
-function loadChampions() {
-
-
-    const box =
-        document.getElementById(
-            "champions"
-        );
-
-
     const champions =
         fighters.filter(
             fighter =>
@@ -1228,7 +1161,376 @@ function loadChampions() {
         );
 
 
+    document.getElementById(
+        "championCount"
+    ).textContent =
+        champions.length;
+
+
+    let fights = 0;
+
+
+    events.forEach(
+        event => {
+
+            if (
+                Array.isArray(
+                    event.fights
+                )
+            ) {
+
+                fights +=
+                    event.fights.length;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "fightCount"
+    ).textContent =
+        fights;
+
+}
+
+
+/* ==================================================
+   EVENTS
+================================================== */
+
+function displayEvents() {
+
+    const box =
+        document.getElementById(
+            "eventsBox"
+        );
+
+
     box.innerHTML = "";
+
+
+    if (
+        events.length === 0
+    ) {
+
+        box.innerHTML = `
+
+            <div class="empty">
+
+                📅 Nog geen events aangemaakt.
+
+                <br><br>
+
+                <a
+                    href="events.html"
+                    class="card-link"
+                >
+                    Maak je eerste event →
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const sorted =
+        [...events].sort(
+            (a, b) => {
+
+                if (!a.date) {
+                    return 1;
+                }
+
+                if (!b.date) {
+                    return -1;
+                }
+
+                return new Date(a.date)
+                    - new Date(b.date);
+
+            }
+        );
+
+
+    /*
+       Eerst komende events.
+       Daarna maximaal 5 events.
+    */
+
+    const upcoming =
+        sorted.filter(
+            event =>
+                isUpcoming(
+                    event.date
+                )
+        );
+
+
+    const list =
+        upcoming.length > 0
+            ? upcoming.slice(0, 4)
+            : sorted.slice(0, 4);
+
+
+    list.forEach(
+        event => {
+
+            const fights =
+                Array.isArray(
+                    event.fights
+                )
+                    ? event.fights.length
+                    : 0;
+
+
+            const upcomingStatus =
+                isUpcoming(
+                    event.date
+                );
+
+
+            box.innerHTML += `
+
+                <div class="event">
+
+                    <div class="event-top">
+
+                        <div>
+
+                            <div class="event-name">
+
+                                ${escapeHtml(
+                                    event.name
+                                )}
+
+                            </div>
+
+                            <div class="event-date">
+
+                                📅
+                                ${formatDate(
+                                    event.date
+                                )}
+
+                            </div>
+
+                            ${
+                                event.location
+                                    ? `
+                                        <div
+                                            class="event-location"
+                                        >
+
+                                            📍
+                                            ${escapeHtml(
+                                                event.location
+                                            )}
+
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        <span
+                            class="
+                                status
+                                ${
+                                    upcomingStatus
+                                        ? "upcoming"
+                                        : "past"
+                                }
+                            "
+                        >
+
+                            ${
+                                upcomingStatus
+                                    ? "Upcoming"
+                                    : "Past"
+                            }
+
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="event-location"
+                        style="margin-top:10px;"
+                    >
+
+                        🥊
+                        ${fights}
+                        fight${fights === 1 ? "" : "s"}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   TOP FIGHTERS
+================================================== */
+
+function displayTopFighters() {
+
+    const box =
+        document.getElementById(
+            "fightersBox"
+        );
+
+
+    box.innerHTML = "";
+
+
+    const ranked =
+        fighters
+
+            .filter(
+                fighter =>
+                    fighter.ranking
+            )
+
+            .sort(
+                (a, b) =>
+                    Number(a.ranking)
+                    -
+                    Number(b.ranking)
+            )
+
+            .slice(0, 5);
+
+
+    if (
+        ranked.length === 0
+    ) {
+
+        box.innerHTML = `
+
+            <div class="empty">
+
+                Nog geen gerankte fighters.
+
+                <br><br>
+
+                Beheer rankings via Admin.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    ranked.forEach(
+        fighter => {
+
+            const rank =
+                Number(
+                    fighter.ranking
+                );
+
+
+            box.innerHTML += `
+
+                <div class="fighter">
+
+                    <div
+                        class="
+                            fighter-rank
+                            ${rank <= 3 ? "top" : ""}
+                        "
+                    >
+
+                        #${rank}
+
+                    </div>
+
+
+                    <div class="fighter-info">
+
+                        <div class="fighter-name">
+
+                            ${escapeHtml(
+                                fighter.name
+                            )}
+
+                            ${
+                                fighter.champion
+                                    ? " 🏆"
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        <div class="fighter-meta">
+
+                            ${escapeHtml(
+                                fighter.weightClass ||
+                                "Onbekend"
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="fighter-record">
+
+                        ${fighter.wins || 0}-
+                        ${fighter.losses || 0}-
+                        ${fighter.draws || 0}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   CHAMPIONS
+================================================== */
+
+function displayChampions() {
+
+    const box =
+        document.getElementById(
+            "championsBox"
+        );
+
+
+    box.innerHTML = "";
+
+
+    const champions =
+        fighters.filter(
+            fighter =>
+                fighter.champion === true
+        );
 
 
     if (
@@ -1239,12 +1541,12 @@ function loadChampions() {
 
             <div class="empty">
 
-                Nog geen champions.
+                👑 Nog geen champions ingesteld.
 
                 <br><br>
 
-                Ga naar Admin om een
-                champion in te stellen.
+                Ga naar Admin om champions
+                te beheren.
 
             </div>
 
@@ -1258,22 +1560,26 @@ function loadChampions() {
     champions.forEach(
         fighter => {
 
-
             box.innerHTML += `
 
                 <div class="champion">
 
                     <div class="champion-division">
 
-                        🏆
-                        ${fighter.weightClass}
+                        ${escapeHtml(
+                            fighter.weightClass ||
+                            "Onbekende divisie"
+                        )}
 
                     </div>
 
 
                     <div class="champion-name">
 
-                        ${fighter.name}
+                        🏆
+                        ${escapeHtml(
+                            fighter.name
+                        )}
 
                     </div>
 
@@ -1297,542 +1603,17 @@ function loadChampions() {
 }
 
 
+/* ==================================================
+   START
+================================================== */
 
-/*
-==================================================
-EVENT DATUM
-==================================================
-*/
+displayStats();
 
+displayEvents();
 
-function getEventDate(
-    event
-) {
+displayTopFighters();
 
-    if (!event.date) {
-
-        return "Datum onbekend";
-
-    }
-
-
-    return event.date;
-
-}
-
-
-
-/*
-==================================================
-EVENTS
-==================================================
-*/
-
-
-function loadEvents() {
-
-
-    const box =
-        document.getElementById(
-            "events"
-        );
-
-
-    box.innerHTML = "";
-
-
-    if (
-        events.length === 0
-    ) {
-
-        box.innerHTML = `
-
-            <div class="empty">
-
-                Nog geen events.
-
-                <br><br>
-
-                Maak je eerste event.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    const sorted =
-        [...events].sort(
-            (a, b) => {
-
-                if (
-                    !a.date ||
-                    !b.date
-                ) {
-
-                    return 0;
-
-                }
-
-
-                return (
-                    new Date(a.date) -
-                    new Date(b.date)
-                );
-
-            }
-        );
-
-
-    sorted
-        .slice(0, 5)
-        .forEach(
-            event => {
-
-
-                const fightCount =
-                    Array.isArray(
-                        event.fights
-                    )
-                        ? event.fights.length
-                        : 0;
-
-
-                box.innerHTML += `
-
-                    <div class="event">
-
-                        <div class="event-name">
-
-                            ${event.name || "Unnamed Event"}
-
-                        </div>
-
-
-                        <div class="event-date">
-
-                            ${getEventDate(event)}
-
-                        </div>
-
-
-                        <div class="event-fights">
-
-                            ${fightCount}
-                            fight(s)
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-}
-
-
-
-/*
-==================================================
-RANKINGS
-==================================================
-*/
-
-
-function loadRankings() {
-
-
-    const box =
-        document.getElementById(
-            "rankings"
-        );
-
-
-    box.innerHTML = "";
-
-
-    const ranked =
-        fighters
-            .filter(
-                fighter =>
-                    fighter.ranking
-            )
-            .sort(
-                (a, b) =>
-                    Number(
-                        a.ranking
-                    ) -
-                    Number(
-                        b.ranking
-                    )
-            );
-
-
-    if (
-        ranked.length === 0
-    ) {
-
-        box.innerHTML = `
-
-            <div class="empty">
-
-                Nog geen ranked fighters.
-
-                <br><br>
-
-                Stel rankings in via Admin.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    ranked
-        .slice(0, 5)
-        .forEach(
-            fighter => {
-
-
-                box.innerHTML += `
-
-                    <div class="rank">
-
-                        <div class="rank-position">
-
-                            #${fighter.ranking}
-
-                        </div>
-
-
-                        <div>
-
-                            <div class="rank-name">
-
-                                ${fighter.name}
-
-                            </div>
-
-
-                            <div class="rank-info">
-
-                                ${fighter.weightClass}
-
-                                •
-
-                                ${fighter.wins || 0}-
-                                ${fighter.losses || 0}-
-                                ${fighter.draws || 0}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-}
-
-
-
-/*
-==================================================
-RESULTAAT TEKST
-==================================================
-*/
-
-
-function getResultDetails(
-    fight
-) {
-
-
-    const result =
-        fight.result;
-
-
-    if (!result) {
-
-        return "";
-
-    }
-
-
-    let method =
-        result.method ||
-        "Unknown";
-
-
-    let round =
-        result.round ||
-        "-";
-
-
-    let time =
-        result.time ||
-        "-";
-
-
-    return `
-
-        ${method}
-
-        •
-
-        Ronde ${round}
-
-        •
-
-        ${time}
-
-    `;
-
-}
-
-
-
-/*
-==================================================
-RESULTAAT WINNAAR
-==================================================
-*/
-
-
-function getWinnerName(
-    fight
-) {
-
-
-    const result =
-        fight.result;
-
-
-    if (!result) {
-
-        return "Geen resultaat";
-
-    }
-
-
-    const fighterA =
-        getFighter(
-            fight.fighterA
-        );
-
-
-    const fighterB =
-        getFighter(
-            fight.fighterB
-        );
-
-
-    if (
-        result.winner === "A"
-    ) {
-
-        return fighterA
-            ? fighterA.name +
-              " wint"
-            : "Fighter A wint";
-
-    }
-
-
-    if (
-        result.winner === "B"
-    ) {
-
-        return fighterB
-            ? fighterB.name +
-              " wint"
-            : "Fighter B wint";
-
-    }
-
-
-    if (
-        result.winner === "DRAW"
-    ) {
-
-        return "Draw";
-
-    }
-
-
-    if (
-        result.winner === "NC"
-    ) {
-
-        return "No Contest";
-
-    }
-
-
-    return "Onbekend";
-
-}
-
-
-
-/*
-==================================================
-LAATSTE RESULTATEN
-==================================================
-*/
-
-
-function loadResults() {
-
-
-    const box =
-        document.getElementById(
-            "results"
-        );
-
-
-    box.innerHTML = "";
-
-
-    const allFights =
-        getAllFights();
-
-
-    const results =
-        allFights.filter(
-            item =>
-                item.fight &&
-                item.fight.result
-        );
-
-
-    if (
-        results.length === 0
-    ) {
-
-        box.innerHTML = `
-
-            <div class="empty">
-
-                Nog geen resultaten.
-
-                <br><br>
-
-                Je kunt later via
-                Events de uitslagen bepalen.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    results
-        .reverse()
-        .slice(0, 5)
-        .forEach(
-            item => {
-
-
-                const fight =
-                    item.fight;
-
-
-                const fighterA =
-                    getFighter(
-                        fight.fighterA
-                    );
-
-
-                const fighterB =
-                    getFighter(
-                        fight.fighterB
-                    );
-
-
-                const nameA =
-                    fighterA
-                        ? fighterA.name
-                        : "Fighter A";
-
-
-                const nameB =
-                    fighterB
-                        ? fighterB.name
-                        : "Fighter B";
-
-
-                box.innerHTML += `
-
-                    <div class="result">
-
-
-                        <div class="result-fighters">
-
-                            ${nameA}
-
-                            <span>
-                                VS
-                            </span>
-
-                            ${nameB}
-
-                        </div>
-
-
-                        <div class="result-detail">
-
-                            ${getWinnerName(fight)}
-
-                            •
-
-                            ${getResultDetails(fight)}
-
-                        </div>
-
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-}
-
-
-
-/*
-==================================================
-START DASHBOARD
-==================================================
-*/
-
-
-loadStats();
-
-loadChampions();
-
-loadEvents();
-
-loadRankings();
-
-loadResults();
-
+displayChampions();
 
 </script>
 
