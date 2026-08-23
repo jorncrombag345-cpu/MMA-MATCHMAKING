@@ -26,30 +26,45 @@
 
             font-family: Arial, sans-serif;
 
-            background: #0b0b0b;
+            background:
+                radial-gradient(
+                    circle at top,
+                    #1a1a1a 0%,
+                    #090909 45%,
+                    #050505 100%
+                );
 
             color: white;
+
+            min-height: 100vh;
 
         }
 
 
         header {
 
-            background: #111;
+            background: rgba(17,17,17,.96);
 
             border-bottom:
                 2px solid #e10600;
 
-            padding:
-                20px 40px;
+            padding: 18px 35px;
 
             display: flex;
 
             justify-content:
                 space-between;
 
-            align-items:
-                center;
+            align-items: center;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            backdrop-filter:
+                blur(10px);
 
         }
 
@@ -58,7 +73,9 @@
 
             font-size: 24px;
 
-            font-weight: bold;
+            font-weight: 900;
+
+            letter-spacing: .5px;
 
         }
 
@@ -70,20 +87,44 @@
         }
 
 
-        nav a {
+        nav {
 
-            color: white;
+            display: flex;
 
-            text-decoration: none;
+            flex-wrap: wrap;
 
-            margin-left: 20px;
+            justify-content:
+                flex-end;
 
-            font-weight: bold;
+            gap: 18px;
 
         }
 
 
-        nav a:hover {
+        nav a {
+
+            color: #aaa;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition: .2s;
+
+        }
+
+
+        nav a:hover,
+        nav a.active {
+
+            color: white;
+
+        }
+
+
+        nav a.active {
 
             color: #e10600;
 
@@ -92,17 +133,40 @@
 
         .container {
 
-            max-width: 1000px;
+            max-width: 1100px;
 
             margin: auto;
 
-            padding:
-                40px 20px;
+            padding: 45px 20px 70px;
+
+        }
+
+
+        .hero {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .eyebrow {
+
+            color: #e10600;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 10px;
 
         }
 
 
         h1 {
+
+            font-size: 38px;
 
             margin-bottom: 10px;
 
@@ -111,55 +175,105 @@
 
         .subtitle {
 
-            color: #888;
+            color: #777;
+
+            line-height: 1.6;
+
+        }
+
+
+        .card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #171717,
+                    #101010
+                );
+
+            border:
+                1px solid #292929;
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.25);
+
+        }
+
+
+        .card-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .card h2 {
+
+            font-size: 21px;
+
+        }
+
+
+        .division {
 
             margin-bottom: 30px;
 
         }
 
 
-        .selector {
+        .division:last-child {
 
-            background: #151515;
+            margin-bottom: 0;
 
-            border:
+        }
+
+
+        .division-title {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 12px;
+
+            padding-bottom: 12px;
+
+            border-bottom:
                 1px solid #292929;
 
-            border-radius: 10px;
+        }
 
-            padding: 20px;
 
-            margin-bottom: 25px;
+        .division-title h3 {
+
+            font-size: 20px;
 
         }
 
 
-        select {
+        .division-title span {
 
-            width: 100%;
+            color: #777;
 
-            padding: 13px;
-
-            margin-top: 10px;
-
-            background: #222;
-
-            color: white;
-
-            border:
-                1px solid #444;
-
-            border-radius: 6px;
-
-        }
-
-
-        select:focus {
-
-            outline: none;
-
-            border-color:
-                #e10600;
+            font-size: 13px;
 
         }
 
@@ -169,149 +283,172 @@
             background:
                 linear-gradient(
                     135deg,
-                    #211b05,
+                    #241f08,
                     #111
                 );
 
             border:
-                1px solid #8d7210;
+                1px solid #6b5900;
 
-            border-radius: 12px;
+            border-radius: 10px;
 
-            padding: 30px;
+            padding: 18px;
 
-            text-align: center;
-
-            margin-bottom: 25px;
-
-        }
-
-
-        .champion-label {
-
-            color: #ffd700;
-
-            font-size: 14px;
-
-            font-weight: bold;
-
-            letter-spacing: 2px;
-
-        }
-
-
-        .champion-name {
-
-            font-size: 32px;
-
-            font-weight: bold;
-
-            margin-top: 10px;
-
-        }
-
-
-        .champion-record {
-
-            color: #aaa;
-
-            margin-top: 8px;
-
-        }
-
-
-        .rankings {
+            margin-bottom: 12px;
 
             display: flex;
 
-            flex-direction: column;
+            align-items: center;
 
-            gap: 10px;
+            gap: 18px;
 
         }
 
 
-        .rank {
+        .champion-rank {
+
+            width: 55px;
+
+            height: 55px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: #ffd700;
+
+            color: #111;
+
+            font-size: 20px;
+
+            font-weight: 900;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .champion-info {
+
+            flex: 1;
+
+        }
+
+
+        .champion-info strong {
+
+            display: block;
+
+            font-size: 20px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .champion-info small {
+
+            color: #aaa;
+
+        }
+
+
+        .champion-badge {
+
+            color: #ffd700;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .ranking-list {
 
             display: grid;
 
-            grid-template-columns:
-                70px 1fr 140px 140px;
+            gap: 8px;
+
+        }
+
+
+        .ranking-item {
+
+            background: #101010;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 9px;
+
+            padding: 15px;
+
+            display: flex;
 
             align-items: center;
 
             gap: 15px;
 
-            background: #151515;
-
-            border:
-                1px solid #292929;
-
-            border-radius: 8px;
-
-            padding: 18px;
+            transition: .2s;
 
         }
 
 
-        .rank:hover {
+        .ranking-item:hover {
 
-            border-color:
-                #e10600;
+            border-color: #444;
+
+            transform:
+                translateY(-1px);
 
         }
 
 
-        .position {
+        .rank-number {
 
-            font-size: 24px;
-
-            font-weight: bold;
+            width: 45px;
 
             text-align: center;
 
-            color: #777;
-
-        }
-
-
-        .position.top1 {
-
-            color: #ffd700;
-
-        }
-
-
-        .position.top2 {
-
-            color: #c0c0c0;
-
-        }
-
-
-        .position.top3 {
-
-            color: #cd7f32;
-
-        }
-
-
-        .fighter-name {
-
             font-size: 18px;
 
-            font-weight: bold;
+            font-weight: 900;
+
+            color: #e10600;
+
+            flex-shrink: 0;
 
         }
 
 
-        .fighter-division {
+        .fighter-info {
+
+            flex: 1;
+
+        }
+
+
+        .fighter-info strong {
+
+            display: block;
+
+            font-size: 17px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .fighter-info small {
 
             color: #777;
-
-            font-size: 12px;
-
-            margin-top: 5px;
 
         }
 
@@ -320,129 +457,165 @@
 
             color: #aaa;
 
-        }
-
-
-        .score {
+            font-size: 13px;
 
             text-align: right;
-
-            font-weight: bold;
-
-        }
-
-
-        .score-number {
-
-            color: #e10600;
-
-            font-size: 18px;
-
-        }
-
-
-        .score-label {
-
-            color: #666;
-
-            font-size: 11px;
-
-            margin-top: 4px;
 
         }
 
 
         .streak {
 
-            color: #35d07f;
+            color: #6ee7a0;
 
-            text-align: right;
+            font-weight: bold;
+
+            font-size: 12px;
+
+            margin-top: 4px;
+
+        }
+
+
+        .unranked-section {
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid #333;
+
+        }
+
+
+        .unranked-title {
+
+            color: #777;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .unranked-item {
+
+            opacity: .75;
+
+            background: #0d0d0d;
+
+            border:
+                1px solid #222;
+
+        }
+
+
+        .unranked-rank {
+
+            color: #555;
 
         }
 
 
         .empty {
 
-            background: #151515;
-
-            color: #777;
-
-            padding: 30px;
+            color: #666;
 
             text-align: center;
 
-            border-radius: 10px;
+            padding: 25px;
 
         }
 
 
-        .info {
+        .search {
 
-            background: #151515;
+            width: 100%;
 
-            border:
-                1px solid #292929;
+            padding: 14px 16px;
 
-            border-radius: 10px;
-
-            padding: 18px;
-
-            margin-bottom: 25px;
-
-            color: #999;
-
-            line-height: 1.5;
-
-        }
-
-
-        .info strong {
+            background: #0d0d0d;
 
             color: white;
 
+            border:
+                1px solid #333;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            margin-bottom: 25px;
+
         }
 
 
-        @media (max-width: 800px) {
+        .search:focus {
+
+            outline: none;
+
+            border-color: #e10600;
+
+        }
+
+
+        @media (max-width: 750px) {
 
             header {
 
                 flex-direction: column;
 
-                gap: 20px;
+                gap: 18px;
 
             }
 
 
             nav {
 
-                text-align: center;
+                justify-content: center;
+
+                gap: 10px;
 
             }
 
 
-            nav a {
+            h1 {
 
-                display: inline-block;
-
-                margin: 5px;
+                font-size: 30px;
 
             }
 
 
-            .rank {
+            .card {
 
-                grid-template-columns:
-                    55px 1fr;
+                padding: 18px;
 
             }
 
 
-            .record,
-            .score,
-            .streak {
+            .ranking-item {
 
-                text-align: left;
+                gap: 10px;
+
+            }
+
+
+            .record {
+
+                display: none;
+
+            }
+
+
+            .champion {
+
+                padding: 14px;
 
             }
 
@@ -458,7 +631,6 @@
 
 <header>
 
-
     <div class="logo">
 
         MMA
@@ -470,14 +642,17 @@
     <nav>
 
         <a href="index.html">
-            Dashboard
+            Home
         </a>
 
         <a href="fighters.html">
             Fighters
         </a>
 
-        <a href="rankings.html">
+        <a
+            href="rankings.html"
+            class="active"
+        >
             Rankings
         </a>
 
@@ -487,10 +662,6 @@
 
         <a href="matchmaker.html">
             Matchmaker
-        </a>
-
-        <a href="fight-result.html">
-            Results
         </a>
 
         <a href="fighter-profile.html">
@@ -509,104 +680,43 @@
 <div class="container">
 
 
-    <h1>
-        🏆 Rankings
-    </h1>
+    <div class="hero">
 
+        <div class="eyebrow">
+            MMA MATCHMAKER
+        </div>
 
-    <p class="subtitle">
+        <h1>
+            🏆 Rankings
+        </h1>
 
-        Bekijk de rankings per gewichtsklasse.
+        <p class="subtitle">
 
-    </p>
+            Bekijk de actuele rankings per
+            gewichtsklasse.
 
+            Unranked fighters staan altijd
+            onder de laagst gerankte fighter.
 
-    <!-- INFO -->
-
-
-    <div class="info">
-
-        <strong>
-            Ranking systeem:
-        </strong>
-
-        Fighters worden automatisch gerangschikt
-        op basis van hun ranking-score.
-
-        Een overwinning verhoogt de score,
-        een nederlaag verlaagt de score.
+        </p>
 
     </div>
 
 
-    <!-- GEWICHTSKLASSE -->
+    <div class="card">
 
-
-    <div class="selector">
-
-        <strong>
-            Gewichtsklasse
-        </strong>
-
-
-        <select
-            id="weightClass"
-            onchange="displayRankings()"
+        <input
+            id="search"
+            class="search"
+            type="text"
+            placeholder="🔎 Zoek een fighter..."
+            oninput="renderRankings()"
         >
 
-            <option value="Flyweight">
-                Flyweight
-            </option>
 
-            <option value="Bantamweight">
-                Bantamweight
-            </option>
-
-            <option value="Featherweight">
-                Featherweight
-            </option>
-
-            <option value="Lightweight">
-                Lightweight
-            </option>
-
-            <option value="Welterweight">
-                Welterweight
-            </option>
-
-            <option value="Middleweight">
-                Middleweight
-            </option>
-
-            <option value="Light Heavyweight">
-                Light Heavyweight
-            </option>
-
-            <option value="Heavyweight">
-                Heavyweight
-            </option>
-
-        </select>
+        <div id="rankings"></div>
 
     </div>
-
-
-    <!-- CHAMPION -->
-
-
-    <div
-        id="champion"
-        class="champion"
-    ></div>
-
-
-    <!-- RANKINGS -->
-
-
-    <div
-        id="rankings"
-        class="rankings"
-    ></div>
 
 
 </div>
@@ -623,21 +733,25 @@ DATA
 
 let fighters =
     JSON.parse(
-        localStorage.getItem("fighters")
+        localStorage.getItem(
+            "fighters"
+        )
     ) || [];
 
 
 /*
 ==================================================
-DATA OPNIEUW INLADEN
+DATA VERNIEUWEN
 ==================================================
 */
 
-function reloadFighters() {
+function loadData() {
 
     fighters =
         JSON.parse(
-            localStorage.getItem("fighters")
+            localStorage.getItem(
+                "fighters"
+            )
         ) || [];
 
 }
@@ -645,7 +759,166 @@ function reloadFighters() {
 
 /*
 ==================================================
-RECORD OPHALEN
+RANKING WAARDE
+==================================================
+
+Belangrijk:
+
+#1 = hoogste
+
+#15 = laagste
+
+Unranked = Infinity
+
+Daardoor komt Unranked ALTIJD
+onder alle gerankte fighters.
+*/
+
+function getRankingValue(
+    fighter
+) {
+
+    const value =
+        Number(
+            fighter.ranking
+        );
+
+
+    if (
+        fighter.ranking === null ||
+        fighter.ranking === undefined ||
+        fighter.ranking === "" ||
+        !Number.isFinite(value) ||
+        value < 1
+    ) {
+
+        return Infinity;
+
+    }
+
+
+    return value;
+
+}
+
+
+/*
+==================================================
+RANKING SORTEREN
+==================================================
+*/
+
+function sortRankings(
+    list
+) {
+
+    return [...list].sort(
+        (a, b) => {
+
+            const rankA =
+                getRankingValue(a);
+
+            const rankB =
+                getRankingValue(b);
+
+
+            /*
+            --------------------------------------
+            Beide gerankt
+            --------------------------------------
+            */
+
+            if (
+                rankA !== Infinity &&
+                rankB !== Infinity
+            ) {
+
+                return rankA - rankB;
+
+            }
+
+
+            /*
+            --------------------------------------
+            A gerankt, B unranked
+            --------------------------------------
+            */
+
+            if (
+                rankA !== Infinity &&
+                rankB === Infinity
+            ) {
+
+                return -1;
+
+            }
+
+
+            /*
+            --------------------------------------
+            A unranked, B gerankt
+            --------------------------------------
+            */
+
+            if (
+                rankA === Infinity &&
+                rankB !== Infinity
+            ) {
+
+                return 1;
+
+            }
+
+
+            /*
+            --------------------------------------
+            Beide unranked
+            --------------------------------------
+            */
+
+            return (
+                String(a.name || "")
+                    .localeCompare(
+                        String(b.name || "")
+                    )
+            );
+
+        }
+    );
+
+}
+
+
+/*
+==================================================
+GEWICHTSKLASSEN
+==================================================
+*/
+
+const weightClasses = [
+
+    "Flyweight",
+
+    "Bantamweight",
+
+    "Featherweight",
+
+    "Lightweight",
+
+    "Welterweight",
+
+    "Middleweight",
+
+    "Light Heavyweight",
+
+    "Heavyweight"
+
+];
+
+
+/*
+==================================================
+FIGHTER RECORD
 ==================================================
 */
 
@@ -653,135 +926,22 @@ function getRecord(
     fighter
 ) {
 
-    /*
-    Nieuw systeem
-    */
+    const wins =
+        Number(fighter.wins) || 0;
 
-    if (
-        fighter.record
-    ) {
+    const losses =
+        Number(fighter.losses) || 0;
 
-        return {
-
-            wins:
-                Number(
-                    fighter.record.wins || 0
-                ),
-
-            losses:
-                Number(
-                    fighter.record.losses || 0
-                ),
-
-            draws:
-                Number(
-                    fighter.record.draws || 0
-                ),
-
-            noContests:
-                Number(
-                    fighter.record.noContests || 0
-                )
-
-        };
-
-    }
+    const draws =
+        Number(fighter.draws) || 0;
 
 
-    /*
-    Oud systeem
-    */
-
-    return {
-
-        wins:
-            Number(
-                fighter.wins || 0
-            ),
-
-        losses:
-            Number(
-                fighter.losses || 0
-            ),
-
-        draws:
-            Number(
-                fighter.draws || 0
-            ),
-
-        noContests:
-            Number(
-                fighter.noContests || 0
-            )
-
-    };
-
-}
-
-
-/*
-==================================================
-RANKING SCORE
-==================================================
-*/
-
-function getRankingScore(
-    fighter
-) {
-
-    /*
-    Nieuw ranking systeem.
-    */
-
-    if (
-        fighter.ranking !== undefined &&
-        fighter.ranking !== null &&
-        fighter.ranking !== ""
-    ) {
-
-        const value =
-            Number(
-                fighter.ranking
-            );
-
-
-        if (
-            !Number.isNaN(value)
-        ) {
-
-            return value;
-
-        }
-
-    }
-
-
-    /*
-    Als er nog geen score is:
-    standaard 1000.
-    */
-
-    fighter.ranking = 1000;
-
-
-    return 1000;
-
-}
-
-
-/*
-==================================================
-CHAMPION
-==================================================
-*/
-
-function getChampion(
-    division
-) {
-
-    return division.find(
-        fighter =>
-            fighter.champion === true
+    return (
+        wins +
+        "-" +
+        losses +
+        "-" +
+        draws
     );
 
 }
@@ -789,405 +949,518 @@ function getChampion(
 
 /*
 ==================================================
-RANKINGS WEERGEVEN
+RENDER
 ==================================================
 */
 
-function displayRankings() {
+function renderRankings() {
 
-    reloadFighters();
-
-
-    const weightClass =
-        document.getElementById(
-            "weightClass"
-        ).value;
+    loadData();
 
 
-    const championBox =
-        document.getElementById(
-            "champion"
-        );
-
-
-    const rankingsBox =
+    const container =
         document.getElementById(
             "rankings"
         );
 
 
-    /*
-    ------------------------------------------
-    DIVISIE FILTER
-    ------------------------------------------
-    */
-
-    const division =
-        fighters.filter(
-            fighter =>
-
-                fighter.weightClass ===
-                weightClass
-
-        );
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .trim()
+        .toLowerCase();
 
 
-    /*
-    ------------------------------------------
-    CHAMPION
-    ------------------------------------------
-    */
-
-    const champion =
-        getChampion(
-            division
-        );
+    container.innerHTML = "";
 
 
-    if (champion) {
-
-        const record =
-            getRecord(
-                champion
-            );
+    let foundAnything =
+        false;
 
 
-        championBox.innerHTML = `
-
-            <div class="champion-label">
-
-                🏆 CHAMPION
-
-            </div>
+    weightClasses.forEach(
+        weightClass => {
 
 
-            <div class="champion-name">
+            /*
+            --------------------------------------
+            Fighters uit deze divisie
+            --------------------------------------
+            */
 
-                ${escapeHtml(
-                    champion.name
-                )}
-
-            </div>
-
-
-            <div class="champion-record">
-
-                Record:
-                ${record.wins}
-                -
-                ${record.losses}
-                -
-                ${record.draws}
-
-            </div>
-
-        `;
-
-    }
-
-    else {
-
-        championBox.innerHTML = `
-
-            <div class="champion-label">
-
-                🏆 CHAMPION
-
-            </div>
+            let division =
+                fighters.filter(
+                    fighter =>
+                        fighter.weightClass ===
+                        weightClass
+                );
 
 
-            <div class="champion-name">
+            /*
+            --------------------------------------
+            Zoekfilter
+            --------------------------------------
+            */
 
-                Vacant
+            if (search) {
 
-            </div>
-
-
-            <div class="champion-record">
-
-                Nog geen kampioen
-
-            </div>
-
-        `;
-
-    }
-
-
-    /*
-    ------------------------------------------
-    RANKED FIGHTERS
-    ------------------------------------------
-    */
-
-    const ranked =
-        division
-            .map(
-                fighter => {
-
-                    return {
-
-                        fighter:
-                            fighter,
-
-                        score:
-                            getRankingScore(
-                                fighter
+                division =
+                    division.filter(
+                        fighter =>
+                            String(
+                                fighter.name || ""
                             )
-
-                    };
-
-                }
-            )
-            .sort(
-                (a, b) => {
-
-                    /*
-                    Hoogste score eerst.
-                    */
-
-                    if (
-                        b.score !==
-                        a.score
-                    ) {
-
-                        return (
-                            b.score -
-                            a.score
-                        );
-
-                    }
-
-
-                    /*
-                    Bij gelijke score:
-                    meer wins eerst.
-                    */
-
-                    const recordA =
-                        getRecord(
-                            a.fighter
-                        );
-
-
-                    const recordB =
-                        getRecord(
-                            b.fighter
-                        );
-
-
-                    return (
-                        recordB.wins -
-                        recordA.wins
+                            .toLowerCase()
+                            .includes(
+                                search
+                            )
                     );
 
-                }
-            );
+            }
 
 
-    rankingsBox.innerHTML = "";
+            /*
+            --------------------------------------
+            Geen fighters
+            --------------------------------------
+            */
+
+            if (
+                division.length === 0
+            ) {
+
+                return;
+
+            }
 
 
-    if (
-        ranked.length === 0
-    ) {
-
-        rankingsBox.innerHTML = `
-
-            <div class="empty">
-
-                Nog geen fighters
-                in deze divisie.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
+            foundAnything =
+                true;
 
 
-    /*
-    ------------------------------------------
-    MAX 15
-    ------------------------------------------
-    */
+            /*
+            --------------------------------------
+            Sorteren
+            --------------------------------------
+            */
 
-    ranked
-        .slice(0, 15)
-        .forEach(
-            (
-                item,
-                index
-            ) => {
+            division =
+                sortRankings(
+                    division
+                );
 
 
-                const fighter =
-                    item.fighter;
+            /*
+            --------------------------------------
+            Champion zoeken
+            --------------------------------------
+            */
+
+            const champion =
+                division.find(
+                    fighter =>
+                        fighter.champion === true
+                );
 
 
-                const position =
-                    index + 1;
+            /*
+            --------------------------------------
+            Gerankte fighters
+            --------------------------------------
+            */
+
+            const ranked =
+                division.filter(
+                    fighter =>
+                        getRankingValue(
+                            fighter
+                        ) !== Infinity &&
+                        fighter.champion !== true
+                );
 
 
-                const record =
-                    getRecord(
-                        fighter
-                    );
+            /*
+            --------------------------------------
+            Unranked
+            --------------------------------------
+            */
+
+            const unranked =
+                division.filter(
+                    fighter =>
+                        getRankingValue(
+                            fighter
+                        ) === Infinity &&
+                        fighter.champion !== true
+                );
 
 
-                const streak =
-                    Number(
-                        fighter.streak || 0
-                    );
+            /*
+            --------------------------------------
+            DIVISION HTML
+            --------------------------------------
+            */
+
+            const section =
+                document.createElement(
+                    "div"
+                );
 
 
-                let positionClass =
-                    "";
+            section.className =
+                "division";
 
 
-                if (
-                    position === 1
-                ) {
+            let html = `
 
-                    positionClass =
-                        "top1";
+                <div class="division-title">
 
-                }
+                    <h3>
+                        ${weightClass}
+                    </h3>
 
-                else if (
-                    position === 2
-                ) {
+                    <span>
+                        ${division.length} fighters
+                    </span>
 
-                    positionClass =
-                        "top2";
+                </div>
 
-                }
-
-                else if (
-                    position === 3
-                ) {
-
-                    positionClass =
-                        "top3";
-
-                }
+            `;
 
 
-                rankingsBox.innerHTML += `
+            /*
+            --------------------------------------
+            CHAMPION
+            --------------------------------------
+            */
 
-                    <div class="rank">
+            if (champion) {
 
+                html += `
 
-                        <div
-                            class="
-                                position
-                                ${positionClass}
-                            "
-                        >
+                    <div class="champion">
 
-                            #${position}
-
+                        <div class="champion-rank">
+                            🏆
                         </div>
 
 
-                        <div>
+                        <div class="champion-info">
 
-                            <div
-                                class="fighter-name"
-                            >
+                            <strong>
+                                ${escapeHTML(
+                                    champion.name
+                                )}
+                            </strong>
 
-                                ${escapeHtml(
-                                    fighter.name
+                            <small>
+
+                                Record:
+                                ${getRecord(
+                                    champion
                                 )}
 
-                            </div>
-
-
-                            <div
-                                class="fighter-division"
-                            >
-
-                                ${escapeHtml(
-                                    weightClass
-                                )}
-
-                            </div>
+                            </small>
 
                         </div>
 
 
-                        <div class="record">
+                        <div class="champion-badge">
 
-                            ${record.wins}
-                            -
-                            ${record.losses}
-                            -
-                            ${record.draws}
-
-                            ${
-                                record.noContests > 0
-                                ? ` • ${record.noContests} NC`
-                                : ""
-                            }
+                            CHAMPION
 
                         </div>
-
-
-                        <div class="score">
-
-                            <div
-                                class="score-number"
-                            >
-
-                                ${item.score}
-
-                            </div>
-
-
-                            <div
-                                class="score-label"
-                            >
-
-                                RANKING SCORE
-
-                            </div>
-
-
-                            <div
-                                class="streak"
-                                style="margin-top:5px;"
-                            >
-
-                                🔥
-                                ${streak}
-
-                            </div>
-
-                        </div>
-
 
                     </div>
 
                 `;
 
             }
-        );
+
+
+            /*
+            --------------------------------------
+            RANKED LIST
+            --------------------------------------
+            */
+
+            if (
+                ranked.length > 0
+            ) {
+
+                html += `
+
+                    <div class="ranking-list">
+
+                `;
+
+
+                ranked.forEach(
+                    fighter => {
+
+                        html +=
+                            createRankingHTML(
+                                fighter
+                            );
+
+                    }
+                );
+
+
+                html += `
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /*
+            --------------------------------------
+            UNRANKED
+            --------------------------------------
+            */
+
+            if (
+                unranked.length > 0
+            ) {
+
+                html += `
+
+                    <div class="unranked-section">
+
+                        <div class="unranked-title">
+
+                            UNRANKED
+
+                        </div>
+
+
+                        <div class="ranking-list">
+
+                `;
+
+
+                unranked.forEach(
+                    fighter => {
+
+                        html += `
+
+                            <div
+                                class="
+                                    ranking-item
+                                    unranked-item
+                                "
+                            >
+
+                                <div
+                                    class="
+                                        rank-number
+                                        unranked-rank
+                                    "
+                                >
+
+                                    —
+
+                                </div>
+
+
+                                <div
+                                    class="fighter-info"
+                                >
+
+                                    <strong>
+
+                                        ${escapeHTML(
+                                            fighter.name
+                                        )}
+
+                                    </strong>
+
+
+                                    <small>
+
+                                        ${weightClass}
+
+                                    </small>
+
+                                </div>
+
+
+                                <div
+                                    class="record"
+                                >
+
+                                    Record:
+
+                                    ${getRecord(
+                                        fighter
+                                    )}
+
+
+                                    ${
+                                        Number(
+                                            fighter.streak
+                                        ) > 0
+                                            ? `
+                                                <div class="streak">
+
+                                                    🔥
+                                                    ${Number(
+                                                        fighter.streak
+                                                    )}
+                                                    win streak
+
+                                                </div>
+                                            `
+                                            : ""
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+
+                html += `
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            section.innerHTML =
+                html;
+
+
+            container.appendChild(
+                section
+            );
+
+        }
+    );
 
 
     /*
-    ------------------------------------------
-    OPSLAAN
-    ------------------------------------------
+    --------------------------------------
+    GEEN RESULTATEN
+    --------------------------------------
     */
 
-    localStorage.setItem(
-        "fighters",
-        JSON.stringify(
-            fighters
-        )
-    );
+    if (!foundAnything) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Geen fighters gevonden.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/*
+==================================================
+RANKED FIGHTER HTML
+==================================================
+*/
+
+function createRankingHTML(
+    fighter
+) {
+
+    const ranking =
+        Number(
+            fighter.ranking
+        );
+
+
+    const record =
+        getRecord(
+            fighter
+        );
+
+
+    const streak =
+        Number(
+            fighter.streak
+        ) || 0;
+
+
+    return `
+
+        <div class="ranking-item">
+
+
+            <div class="rank-number">
+
+                #${ranking}
+
+            </div>
+
+
+            <div class="fighter-info">
+
+                <strong>
+
+                    ${escapeHTML(
+                        fighter.name
+                    )}
+
+                </strong>
+
+
+                <small>
+
+                    ${fighter.weightClass}
+
+                </small>
+
+            </div>
+
+
+            <div class="record">
+
+                Record:
+                ${record}
+
+
+                ${
+                    streak > 0
+                        ? `
+                            <div class="streak">
+
+                                🔥
+                                ${streak}
+                                win streak
+
+                            </div>
+                        `
+                        : ""
+                }
+
+            </div>
+
+
+        </div>
+
+    `;
 
 }
 
@@ -1198,71 +1471,35 @@ HTML VEILIG MAKEN
 ==================================================
 */
 
-function escapeHtml(
-    text
+function escapeHTML(
+    value
 ) {
 
-    if (
-        text === null ||
-        text === undefined
-    ) {
-
-        return "";
-
-    }
-
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
-
-
-/*
-==================================================
-AUTOMATISCH VERNIEUWEN
-==================================================
-*/
-
-window.addEventListener(
-    "storage",
-    function(event) {
-
-        if (
-            event.key ===
-            "fighters"
-        ) {
-
-            displayRankings();
-
-        }
-
-    }
-);
 
 
 /*
@@ -1271,7 +1508,28 @@ START
 ==================================================
 */
 
-displayRankings();
+renderRankings();
+
+
+/*
+==================================================
+AUTOMATISCH VERNIEUWEN
+==================================================
+
+Als je vanuit Admin een fighter
+aanpast en daarna teruggaat naar
+deze pagina, worden de gegevens
+opnieuw ingelezen.
+*/
+
+window.addEventListener(
+    "storage",
+    function() {
+
+        renderRankings();
+
+    }
+);
 
 
 </script>
