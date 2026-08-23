@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>News - MMA Matchmaker</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0b0b;
+    color: white;
+}
+
+header {
+    background: #111;
+    border-bottom: 2px solid #e10600;
+
+    padding: 20px 40px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #e10600;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #e10600;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px 60px;
+}
+
+h1 {
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.news-list {
+    display: grid;
+    gap: 20px;
+}
+
+.news-card {
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+
+    padding: 25px;
+}
+
+.news-card.featured {
+    border-color: #e10600;
+}
+
+.featured-label {
+    display: inline-block;
+
+    background: #e10600;
+
+    color: white;
+
+    padding: 6px 10px;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.news-image {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.news-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.news-date {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.news-content {
+    color: #aaa;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.empty {
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    color: #777;
+}
+
+@media (max-width: 700px) {
+
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+MMA <span>MATCHMAKER</span>
+
+</div>
+
+<nav>
+
+<a href="index.html">
+Dashboard
+</a>
+
+<a href="fighters.html">
+Fighters
+</a>
+
+<a href="rankings.html">
+Rankings
+</a>
+
+<a href="events.html">
+Events
+</a>
+
+<a href="matchmaker.html">
+Matchmaker
+</a>
+
+<a href="fighter-profile.html">
+Profiles
+</a>
+
+<a href="news.html">
+News
+</a>
+
+<a href="admin.html">
+Admin
+</a>
+
+</nav>
+
+</header>
+
+
+<main class="container">
+
+<h1>
+📰 Nieuws
+</h1>
+
+<p class="subtitle">
+Het laatste nieuws uit jouw MMA-organisatie.
+</p>
+
+
+<div
+id="newsList"
+class="news-list"
+></div>
+
+</main>
+
+
+<script>
+
+/*
+==================================================
+NIEUWS UIT LOCALSTORAGE
+==================================================
+*/
+
+let news =
+JSON.parse(
+localStorage.getItem("news")
+) || [];
+
+
+/*
+==================================================
+DATUM
+==================================================
+*/
+
+function formatDate(date) {
+
+if (!date) {
+return "";
+}
+
+const d =
+new Date(
+date + "T00:00:00"
+);
+
+if (
+Number.isNaN(
+d.getTime()
+)
+) {
+
+return date;
+
+}
+
+return d.toLocaleDateString(
+"nl-NL",
+{
+day: "numeric",
+month: "long",
+year: "numeric"
+}
+);
+
+}
+
+
+/*
+==================================================
+VEILIGE HTML
+==================================================
+*/
+
+function escapeHtml(text) {
+
+if (
+text === null ||
+text === undefined
+) {
+
+return "";
+
+}
+
+return String(text)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+/*
+==================================================
+NIEUWS WEERGEVEN
+==================================================
+*/
+
+function displayNews() {
+
+const list =
+document.getElementById(
+"newsList"
+);
+
+list.innerHTML = "";
+
+if (news.length === 0) {
+
+list.innerHTML = `
+
+<div class="empty">
+
+📰
+
+<br><br>
+
+Er is nog geen nieuws gepubliceerd.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+/*
+Nieuwste berichten eerst.
+Uitgelichte berichten eerst.
+*/
+
+const sorted =
+[...news].sort(
+(a, b) => {
+
+if (
+a.featured &&
+!b.featured
+) {
+
+return -1;
+
+}
+
+if (
+!a.featured &&
+b.featured
+) {
+
+return 1;
+
+}
+
+return (
+new Date(
+b.date || 0
+) -
+new Date(
+a.date || 0
+)
+);
+
+});
+
+
+sorted.forEach(
+article => {
+
+list.innerHTML += `
+
+<article
+class="
+news-card
+${article.featured ? "featured" : ""}
+"
+>
+
+${
+article.featured
+? `
+<div class="featured-label">
+⭐ UITGELICHT
+</div>
+`
+: ""
+}
+
+
+${
+article.image
+? `
+<div class="news-image">
+${escapeHtml(article.image)}
+</div>
+`
+: ""
+}
+
+
+<div class="news-title">
+
+${escapeHtml(
+article.title
+)}
+
+</div>
+
+
+<div class="news-date">
+
+📅
+${formatDate(
+article.date
+)}
+
+</div>
+
+
+<div class="news-content">
+
+${escapeHtml(
+article.content
+)}
+
+</div>
+
+</article>
+
+`;
+
+});
+
+}
+
+
+/*
+==================================================
+START
+==================================================
+*/
+
+displayNews();
+
+</script>
+
+</body>
+
+</html>
